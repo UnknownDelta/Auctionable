@@ -16,10 +16,10 @@ const getSoldItems = async(req, res) =>{
     res.status(200).json(soldItems)
 }
 const createItem = async(req, res) =>{
-    const {item_id, name, price, description, condition, years_used, category, new_used, images, seller, sold} = req.body
+    const {name, price, description, condition, years_used, category, new_used, images, seller, sold, qty} = req.body
 
     try {
-        const item_list = await Items.create({item_id, name, price, description, condition, years_used, category, new_used, images, seller, sold})
+        const item_list = await Items.create({name, price, description, condition, years_used, category, new_used, images, seller, sold, qty})
         res.status(200).json(item_list)
     } catch (error) {
         res.status(400).json({error: error.message})
