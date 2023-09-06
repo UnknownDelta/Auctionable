@@ -4,9 +4,13 @@ Functionality:
 1. Getting the list for both sold and all
 2. updating the entry
 3. Adding the entry
+4. Modular Code.
 
 Bugs:
 1. For some reason, getting sold while there isnt a sold option, just results in a blank page
 
 Future Functionality:
 1. Sort by person looking it up (Short)
+
+Potential Issues:
+1. Images has to be stored in binary, changing from images to binary and back is going to be pain.
