@@ -1,0 +1,12 @@
+This currently is Version 1 of the items list code, currently no functioning react.js
+
+Functionality:
+1. Getting the list for both sold and all
+2. updating the entry
+3. Adding the entry
+
+Bugs:
+1. For some reason, getting sold while there isnt a sold option, just results in a blank page
+
+Future Functionality:
+1. Sort by person looking it up (Short)
