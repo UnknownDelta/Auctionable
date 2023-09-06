@@ -1,4 +1,4 @@
-This currently is Version 1 of the items list code, currently no functioning react.js
+This currently is Version 1.1 of the items list code, currently no functioning react.js
 
 Functionality:
 1. Getting the list for both sold and all
