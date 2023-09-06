@@ -29,7 +29,7 @@ const ProfileScreen = () => {
             textAlign: 'center',
             color: 'grey'
           }}>
-          React Native Bottom Navigations
+          React Native Bottom Navigation
         </Text>
         <Text
           style={{
