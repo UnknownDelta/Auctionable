@@ -44,7 +44,7 @@ export default function LoadingPage() {
                 <Image source={logoImage} style={styles.logo} />
             </View>
             <View style={styles.loadingContent}>
-                <Text style={styles.loadingText}>Getting ready to drive deals {'\n'} your way, please wait</Text>
+                <Text style={styles.loadingText}>Getting ready to drive deals {'\n'} your way, please wait...</Text>
             </View>
 
         </ImageBackground>
