@@ -3,10 +3,6 @@ const mongoose = require('mongoose')
 const Schema= mongoose.Schema
 
 const itemSchema = new Schema({
-    item_id: {
-        type: Number,
-        required: true
-    },
     name: {
         type: String,
         required: true
@@ -38,7 +34,7 @@ const itemSchema = new Schema({
         required: true
     },
     images:{
-        type: Buffer,
+        type: String,
         required: true
     },
     seller:{
@@ -49,6 +45,10 @@ const itemSchema = new Schema({
         type: Boolean,
         required: true
     },
+    qty:{
+        type: Number,
+        required: true
+    }
 }, { timestamps: true })
 
 module.exports = mongoose.model('Items', itemSchema)
