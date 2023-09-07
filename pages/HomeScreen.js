@@ -1,6 +1,7 @@
 // React Native Bottom Navigation
 // https://aboutreact.com/react-native-bottom-navigation/
 import * as React from 'react';
+import {useState} from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
@@ -9,17 +10,30 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
-  Button
+  Button,
+  ImageBackground
 } from 'react-native';
+import * as Font from "expo-font";
+import Apploading from "expo-app-loading";
 
+const getFonts = () =>
+  Font.loadAsync({
+    roboto: require("../assets/fonts/Roboto-Regular.ttf"),
+    comic: require("../assets/fonts/Dudu_Calligraphy.ttf"),
+  })
 const HomeScreen = ({ navigation }) => {
+  const [fontsloaded, setFontsLoaded] = useState(false);
+  if (fontsloaded) {
   return (
-    <SafeAreaView style={{ flex: 2 }}>
+    <SafeAreaView style={{ flex: 1 }}><ImageBackground source = {require('./lockscreen.jpg')} style={styles.image}>
+      <View>
       <Text style={{
             padding:20,
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            fontFamily: 'roboto',
+            color: 'white',
           }}>Categories</Text>
-      <ScrollView  horizontal={true} contentContainerStyle={styles.contentContainer} style={{flexgrow:0, paddingVertical:0}}>  
+      <ScrollView  horizontal contentContainerStyle={styles.contentContainer} style={{flexgrow:0, paddingVertical:0}}>  
           
           <TouchableOpacity>
       <Image
@@ -74,6 +88,7 @@ const HomeScreen = ({ navigation }) => {
               />  
           </View>  
       </ScrollView>
+      </View>
       <View style={{ flex: 1, padding: 16 }}>
         <View
           style={{
@@ -107,8 +122,19 @@ const HomeScreen = ({ navigation }) => {
         </View>
         
       </View>
+      </ImageBackground>
     </SafeAreaView>
-  );
+  );} else {
+    return (
+      <Apploading
+        startAsync={getFonts}
+        onFinish={() => {
+          setFontsLoaded(true);
+        }}
+        onError={console.warn}
+      />
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -140,6 +166,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 16,
     width: 50,
     alignSelf: "center",
+    backgroundColor: "white",
   },
   infoContainer: {
     padding: 16,
@@ -156,6 +183,11 @@ const styles = StyleSheet.create({
   
     contentContainer: {
       paddingVertical: 20
+    },
+    image: {
+      flex: 1,
+      resizeMode: 'cover',
+      justifyContent: 'center',
     },
 });
 export default HomeScreen;
