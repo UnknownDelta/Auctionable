@@ -104,9 +104,7 @@ const styles = StyleSheet.create({
         flex: 1, // Adjust the flex value to make the middle column longer
         marginLeft: 10,
     },
-    /*rightColumn: {
-        justifyContent: 'flex-end', // Align items to the right
-    },*/
+
     productColumn: {
         width: 70,
         justifyContent: 'center',
