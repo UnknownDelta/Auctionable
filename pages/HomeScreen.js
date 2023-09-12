@@ -15,24 +15,37 @@ import {
 } from 'react-native';
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
+import { LinearGradient } from 'expo-linear-gradient';
 
 const getFonts = () =>
   Font.loadAsync({
     roboto: require("../assets/fonts/Roboto-Regular.ttf"),
     comic: require("../assets/fonts/Dudu_Calligraphy.ttf"),
   })
+
+  
 const HomeScreen = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
   if (fontsloaded) {
   return (
-    <SafeAreaView style={{ flex: 1 }}><ImageBackground source = {require('./lockscreen.jpg')} style={styles.image}>
+    <SafeAreaView style={{ flex: 1 }}><LinearGradient
+    // Background Linear Gradient
+    colors={["#00A859","#0077B5"]}
+    style={{flex:1, backgroundColor:"#0077B5"}}
+  >
       <View>
       <Text style={{
-            padding:20,
+            paddingLeft: 20,
             fontWeight: 'bold',
             fontFamily: 'roboto',
+            fontSize: 20,
             color: 'white',
           }}>Categories</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40}}>
+  <View style={{flex: 1, height: 5, backgroundColor: 'white'}} />
+
+  
+</View>
       <ScrollView  horizontal contentContainerStyle={styles.contentContainer} style={{flexgrow:0, paddingVertical:0}}>  
           
           <TouchableOpacity>
@@ -58,8 +71,8 @@ const HomeScreen = ({ navigation }) => {
       style={styles.thumb}
       source= {require('./car3.png')} />
       <View style={styles.infoContainer}>
-        <Text style={styles.name}>Tesla</Text>
-        
+      <Text style={styles.name}>Tesla</Text>
+        <Text style={styles.name}>$20</Text>
       </View>
     </TouchableOpacity>
      
@@ -89,6 +102,18 @@ const HomeScreen = ({ navigation }) => {
           </View>  
       </ScrollView>
       </View>
+      
+      <Text style={{
+            paddingLeft: 20,
+            fontWeight: 'bold',
+            fontFamily: 'roboto',
+            fontSize: 20,
+            color: 'white',
+          }}>Hot Deals</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40}}>
+  <View style={{flex: 1, height: 5, backgroundColor: 'white'}} />
+  </View>
+  
       <View style={{ flex: 1, padding: 16 }}>
         <View
           style={{
@@ -122,7 +147,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
         
       </View>
-      </ImageBackground>
+      </LinearGradient>
     </SafeAreaView>
   );} else {
     return (
