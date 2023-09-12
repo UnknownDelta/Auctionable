@@ -1,18 +1,27 @@
-This currently is Version 1.1 of the items list code, currently no functioning react.js
+This currently is Version 1.2 of the items list code, with functioning react.js but only 1 page 
+The .env file is hidden, i think it can be downloaded, if unable, i dump it the base text into a text file
 
 Functionality:
 1. Getting the list for both sold and all
 2. updating the entry
 3. Adding the entry
 4. Modular Code
+5. now react.js exist
 
 Bugs:
-1. For some reason, getting sold while there isnt a sold option, just results in a blank page
+1. For some reason, getting sold while there isnt a sold option, just results in a blank page (Ignored - not actually a problem)
 
 Future Functionality:
 1. Sort by person looking it up (Short)
-2. Temp React App (Medium)
+2. Temp React App (Short) (completed)
+3. Full Temp React App (Medium)
 
 Potential Issues:
-1. Images has to be stored in binary, changing from images to binary and back is going to be pain
+1. Images has to be stored in binary, changing from images to binary and back is going to be pain (Solution from external API)
 
+libraries used:
+1. node.js
+2. dotenv
+3. express.js
+4. mongodb
+5. mongoose
