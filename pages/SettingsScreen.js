@@ -28,12 +28,15 @@ const HomeScreen = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
   if (fontsloaded) {
   return (
-    <SafeAreaView style={{ flex: 1 }}><LinearGradient
+<LinearGradient
     // Background Linear Gradient
     colors={["#00A859","#0077B5"]}
     style={{flex:1, backgroundColor:"#0077B5"}}>
+    <SafeAreaView style={{ flex: 1 }}>
             <ScrollView style={styles.scrollView}>
-            <TouchableOpacity style={styles.productpage}>
+            <TouchableOpacity style={styles.productpage}   onPress={
+    () => navigation.navigate('Details')
+  }>
             <View style={styles.container}>
         <View style={styles.avatarContainer}>
           <Image source={require('./car.png')} style={styles.avatar}/>
@@ -41,13 +44,13 @@ const HomeScreen = ({ navigation }) => {
         
         <View style={styles.sidecontentcontainer}>
           <View>
-            <Text>Joe</Text>
-            <Text style={{paddingTop:5, color: 'grey'}}>ssdsd</Text>
+            <Text>Car</Text>
+            <Text style={{paddingTop:5, color: 'grey'}}>Owner</Text>
           </View>
         </View>
         <TouchableOpacity       style={{
         flexDirection: "row",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
       }}>
       
      
@@ -73,8 +76,9 @@ const HomeScreen = ({ navigation }) => {
     </TouchableOpacity>  
     </TouchableOpacity>
       </ScrollView>
-      </LinearGradient>
+      
     </SafeAreaView>
+    </LinearGradient>
   );} else {
     return (
       <Apploading
@@ -160,7 +164,8 @@ const styles = StyleSheet.create({
     },
     sidecontentcontainer:{
       paddingLeft:100,
-      marginTop: -43,
+      marginTop: -50,
+      paddingBottom:10,
     },
     overlapContainer: {
       flexDirection: 'row-reverse',
@@ -179,7 +184,8 @@ const styles = StyleSheet.create({
       marginLeft: 15,
       borderStyle: 'solid',
       borderWidth: 3,
-      borderColor: 'white'
+      borderColor: 'white',
+      marginTop:-10,
     },
     avatar: {
       borderRadius: 30,

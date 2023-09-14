@@ -60,6 +60,7 @@ function App() {
           headerTitleStyle: { fontWeight: 'bold' },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             if (route.name === 'HomeStack') {

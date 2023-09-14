@@ -11,8 +11,10 @@ import {
   ScrollView,
   Image,
   Button,
-  ImageBackground
+  ImageBackground,
+  Pressable
 } from 'react-native';
+import { SearchBar } from 'react-native-elements';
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -27,12 +29,15 @@ const getFonts = () =>
 const HomeScreen = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
   if (fontsloaded) {
+    
   return (
-    <SafeAreaView style={{ flex: 1 }}><LinearGradient
+    <LinearGradient
     // Background Linear Gradient
     colors={["#00A859","#0077B5"]}
     style={{flex:1, backgroundColor:"#0077B5"}}
   >
+    <SafeAreaView style={{ flex: 1,}}>
+
       <View>
       <Text style={{
             paddingLeft: 20,
@@ -57,7 +62,7 @@ const HomeScreen = ({ navigation }) => {
       </View>
     </TouchableOpacity>
     
-    <TouchableOpacity>
+    <TouchableOpacity style={styles.individ}>
       <Image
       style={styles.thumb}
       source= {require('./car.png')} />
@@ -66,55 +71,113 @@ const HomeScreen = ({ navigation }) => {
         
       </View>
     </TouchableOpacity>
-          <TouchableOpacity>
+    <TouchableOpacity style={styles.individ}>
       <Image
       style={styles.thumb}
       source= {require('./car3.png')} />
       <View style={styles.infoContainer}>
       <Text style={styles.name}>Tesla</Text>
-        <Text style={styles.name}>$20</Text>
+        
       </View>
     </TouchableOpacity>
-     
-          <Text style={{fontSize:22, padding: 10}}>React Native ScrollView Example</Text>  
-          <View style={[{ width: 220,height: 70,padding: 10 }]}>  
-              <Button  
-                  onPress={this.onPressButton}  
-                  title="Button 3"  
-                  color="#FFFF3D"  
-              />  
-          </View>  
-          <Text style={{fontSize:22, padding: 10}}>If you like</Text>  
-          <View style={[{ width: 220,height: 70,padding: 10 }]}>  
-              <Button  
-                  onPress={this.onPressButton}  
-                  title="Button 4"  
-                  color="#FF3DFF"  
-              />  
-          </View>  
-          <Text style={{fontSize:22, padding: 10}}>Scrolling horizontal</Text>  
-          <View style={[{ width: 220,height: 70,padding: 10 }]}>  
-              <Button  
-                  onPress={this.onPressButton}  
-                  title="Button 5"  
-                  color="#3DFF00"  
-              />  
-          </View>  
+    <TouchableOpacity style={styles.individ}>
+      <Image
+      style={styles.thumb}
+      source= {require('./car4.png')} />
+      <View style={styles.infoContainer}>
+      <Text style={styles.name}>Bently</Text>
+        
+      </View>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.individ}>
+      <Image
+      style={styles.thumb}
+      source= {require('./car3.png')} />
+      <View style={styles.infoContainer}>
+      <Text style={styles.name}>Hyudai</Text>
+        
+      </View>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.individ}>
+      <Image
+      style={styles.thumb}
+      source= {require('./car3.png')} />
+      <View style={styles.infoContainer}>
+      <Text style={styles.name}>BMW</Text>
+        
+      </View>
+    </TouchableOpacity>
       </ScrollView>
       </View>
-      
+      <View style={{flexDirection: 'row', flex:1,}}>
       <Text style={{
+        
             paddingLeft: 20,
             fontWeight: 'bold',
             fontFamily: 'roboto',
             fontSize: 20,
             color: 'white',
-          }}>Hot Deals</Text>
-          <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40}}>
-  <View style={{flex: 1, height: 5, backgroundColor: 'white'}} />
+            
+          }}>Ending Dash Deals</Text>
+</View>
+          <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40, marginTop:-100,}}>
+
+  <View style={{flex: 1, height: 5, backgroundColor: 'white'}} /><Pressable title="See More"  color="#f194ff" style={styles.button}        onPress={
+              () => navigation.navigate(
+                'SettingsStack', { screen: 'Settings' }
+              )
+            }><Text style={styles.text}>See More</Text></Pressable>
   </View>
-  
-      <View style={{ flex: 1, padding: 16 }}>
+  <ScrollView>
+      <View style={{ flex: 1, padding: 16}}>
+        <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
+        <TouchableOpacity style={styles.productList}             onPress={
+              () => navigation.navigate('Details')
+            }>
+      <Image
+      style={styles.image}
+      source= {require('./Kia.jpeg')} />
+      <Text>Tesla Model X</Text>
+      <View style={{flexDirection:'row'}}>
+      <Text>23 Bids</Text>
+      <Text style={{flex:1, alignItems: 'flex-end', flexDirection:'row'}}>             $5000</Text>
+      </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.productList}>
+      <Image
+      style={styles.image}
+      source= {require('./carmod.jpeg')} />
+            <Text>Ferrari</Text>
+      <View style={{flexDirection:'row'}}>
+      <Text>66 Bids</Text>
+      <Text style={{flex:1, alignItems: 'flex-end', flexDirection:'row'}}>             $1000</Text>
+      </View>
+      </TouchableOpacity>
+      </View>
+      <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
+        <TouchableOpacity style={styles.productList}             onPress={
+              () => navigation.navigate('Details')
+            }>
+      <Image
+      style={styles.image}
+      source= {require('./carmod2.jpeg')} />
+      <Text>Bently</Text>
+      <View style={{flexDirection:'row'}}>
+      <Text>2 Bids</Text>
+      <Text style={{flex:1, alignItems: 'flex-end', flexDirection:'row'}}>             $8000</Text>
+      </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.productList}>
+      <Image
+      style={styles.image}
+      source= {require('./carmod3.webp')} />
+            <Text>Ford</Text>
+      <View style={{flexDirection:'row'}}>
+      <Text>55 Bids</Text>
+      <Text style={{flex:1, alignItems: 'flex-end', flexDirection:'row'}}>             $9000</Text>
+      </View>
+      </TouchableOpacity>
+      </View>
         <View
           style={{
             flex: 1,
@@ -147,8 +210,10 @@ const HomeScreen = ({ navigation }) => {
         </View>
         
       </View>
-      </LinearGradient>
+      </ScrollView>
+      
     </SafeAreaView>
+    </LinearGradient>
   );} else {
     return (
       <Apploading
@@ -165,10 +230,16 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    width: 300,
-    marginTop: 16,
+    justifyContent: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    borderRadius: 10,
+
+   
+  },
+  individ:{
+    paddingLeft:5,
+    paddingRight:5,
   },
   card: {
     backgroundColor: 'white',
@@ -184,6 +255,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   thumb: {
+
     height: 50,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
@@ -205,7 +277,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 8,
   },
-  
+  productList:{
+    height:150,
+    backgroundColor: 'white',
+    padding: 10,
+    margin: 10,
+    borderRadius: 20,
+  },
     contentContainer: {
       paddingVertical: 20
     },
@@ -213,6 +291,18 @@ const styles = StyleSheet.create({
       flex: 1,
       resizeMode: 'cover',
       justifyContent: 'center',
+      width: 150,
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      borderBottomLeftRadius: 16,
+      borderBottomRightRadius: 16,
+    },
+    text: {
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
     },
 });
 export default HomeScreen;

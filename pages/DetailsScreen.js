@@ -23,14 +23,14 @@ const DetailsScreen = () => {
       source= {require('./Kia.jpeg')} />
       <View style={styles.infoContainer}>
         <Text style={styles.name}>Tesla</Text>
-        <Text style={styles.name}>$20</Text>
+        <Text style={styles.price}>$20</Text>
         <TouchableOpacity       style={{
         flexDirection: "row",
         justifyContent: "flex-end",
         
       }}>
       
-      <Text style={{color: 'grey', flexDirection: 'row',alignItems: 'flex-end'}}>Kia Soul</Text>
+      <Text style={{color: 'grey', flexDirection: 'row',alignItems: 'flex-end', paddingRight: 40, marginTop: -20,}}>used/9 months</Text>
      
     </TouchableOpacity>
       </View>
@@ -41,8 +41,8 @@ const DetailsScreen = () => {
         </View>
         <View style={styles.sidecontentcontainer}>
           <View>
-            <Text>Align image and</Text>
-            <Text style={{paddingTop:5, color: 'grey'}}>ssdsd</Text>
+            <Text>Car</Text>
+            <Text style={{paddingTop:5, color: 'grey'}}>Owner</Text>
           </View>
         </View>
         <TouchableOpacity       style={{
@@ -50,7 +50,7 @@ const DetailsScreen = () => {
         justifyContent: "flex-end"
       }}>
       
-      <Text style={{color: 'grey'}}>Kia Soul</Text>
+      <Text style={{color: 'grey', flexDirection: 'row',alignItems: 'flex-end',marginTop: -16, marginRight:-90,}}>Add to wishlist</Text>
      
     </TouchableOpacity>
     
@@ -125,9 +125,10 @@ const styles = StyleSheet.create({
     fontFamily: 'roboto',
   },
   price: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
+    fontSize: 40,
+    fontWeight: 'bold',
+    fontFamily: 'roboto',
+    color: 'grey',
   },
   container: {
     display: 'flex',
@@ -136,10 +137,11 @@ const styles = StyleSheet.create({
   
   side: {
     flex: 1,
-    padding: 10,
+    padding: 20,
   },
   sidecontentcontainer:{
     paddingLeft:100,
+    marginTop:-10,
     
   },
     contentContainer: {
