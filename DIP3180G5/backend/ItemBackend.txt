@@ -1,4 +1,4 @@
-This is Version 1.3 of the items list code, with functioning react.js but only 1 page 
+This is Version 1.4 of the items list code, with functioning react.js but only 1 page 
 The .env file is hidden, i think it can be downloaded, if unable, i dump it the base text into a text file
 
 Functionality:
@@ -8,9 +8,10 @@ Functionality:
 4. Modular Code
 5. now react.js exist
 6. User Table now exist
+7. Displaying Images working
 
 Current Workings:
-1. Images
+1. submitting Images
 2. User Specific lists
 
 libraries used:

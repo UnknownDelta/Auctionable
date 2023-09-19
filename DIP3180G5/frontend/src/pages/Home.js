@@ -4,7 +4,6 @@ import ItemsDetail from '../components/ItemsDetails'
 
 const Home = () => {
     const [items, setItems] = useState(null)
-
     useEffect(() => {
         const fetchItems = async () => {
             const response = await fetch('/list')
@@ -16,13 +15,14 @@ const Home = () => {
         }
 
         fetchItems()
-    }, [])
+    },[])
 
     return (
         <div className="home">
             <div className="items">
                 {items && items.map((items) => (
-                    <ItemsDetail key={items._id} items = {items} />
+                    <ItemsDetail key={items._id} items = {items} pic = {items.images} />
+                    
                 ))}
             </div>
         </div>
