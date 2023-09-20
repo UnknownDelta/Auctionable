@@ -18,6 +18,9 @@ import { SearchBar } from 'react-native-elements';
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
 import { LinearGradient } from 'expo-linear-gradient';
+import
+ MaterialCommunityIcons
+from 'react-native-vector-icons/AntDesign';
 
 const getFonts = () =>
   Font.loadAsync({
@@ -37,10 +40,19 @@ const HomeScreen = ({ navigation }) => {
     style={{flex:1, backgroundColor:"#0077B5"}}
   >
     <SafeAreaView style={{ flex: 1,}}>
-
+    <View style={{flexDirection: 'row', justifyContent: 'flex-end',}}>
+      <TouchableOpacity>
+    <MaterialCommunityIcons
+                name={'hearto'}
+                size={30}
+                color={'white'}
+                style={{ paddingRight: 40}}
+              />
+              </TouchableOpacity>
+</View>
       <View>
       <Text style={{
-            paddingLeft: 20,
+            paddingLeft: 40,
             fontWeight: 'bold',
             fontFamily: 'roboto',
             fontSize: 20,
@@ -51,21 +63,21 @@ const HomeScreen = ({ navigation }) => {
 
   
 </View>
-      <ScrollView  horizontal contentContainerStyle={styles.contentContainer} style={{flexgrow:0, paddingVertical:0}}>  
+      <ScrollView  horizontal contentContainerStyle={styles.contentContainer} style={{flexgrow:0, paddingVertical:0, paddingLeft: 20}}>  
           
           <TouchableOpacity>
       <Image
       style={styles.thumb}
-      source= {require('./car2.jpeg')} />
+      source= {require('./kia.png')} />
       <View style={styles.infoContainer}>
-      <Text style={styles.name}>Kia Soul</Text>
+      <Text style={styles.name}>Kia</Text>
       </View>
     </TouchableOpacity>
     
     <TouchableOpacity style={styles.individ}>
       <Image
       style={styles.thumb}
-      source= {require('./car.png')} />
+      source= {require('./mitsubishi.png')} />
       <View style={styles.infoContainer}>
         <Text style={styles.name}>Mitsubishi</Text>
         
@@ -74,7 +86,7 @@ const HomeScreen = ({ navigation }) => {
     <TouchableOpacity style={styles.individ}>
       <Image
       style={styles.thumb}
-      source= {require('./car3.png')} />
+      source= {require('./Tesla.png')} />
       <View style={styles.infoContainer}>
       <Text style={styles.name}>Tesla</Text>
         
@@ -83,7 +95,7 @@ const HomeScreen = ({ navigation }) => {
     <TouchableOpacity style={styles.individ}>
       <Image
       style={styles.thumb}
-      source= {require('./car4.png')} />
+      source= {require('./bentley.png')} />
       <View style={styles.infoContainer}>
       <Text style={styles.name}>Bently</Text>
         
@@ -92,7 +104,7 @@ const HomeScreen = ({ navigation }) => {
     <TouchableOpacity style={styles.individ}>
       <Image
       style={styles.thumb}
-      source= {require('./car3.png')} />
+      source= {require('./hyundai.png')} />
       <View style={styles.infoContainer}>
       <Text style={styles.name}>Hyudai</Text>
         
@@ -101,7 +113,7 @@ const HomeScreen = ({ navigation }) => {
     <TouchableOpacity style={styles.individ}>
       <Image
       style={styles.thumb}
-      source= {require('./car3.png')} />
+      source= {require('./bmw.png')} />
       <View style={styles.infoContainer}>
       <Text style={styles.name}>BMW</Text>
         
@@ -109,10 +121,10 @@ const HomeScreen = ({ navigation }) => {
     </TouchableOpacity>
       </ScrollView>
       </View>
-      <View style={{flexDirection: 'row', flex:1,}}>
+      <View style={{flexDirection: 'row', flex:1, paddingBottom:20,}}>
       <Text style={{
         
-            paddingLeft: 20,
+            paddingLeft: 40,
             fontWeight: 'bold',
             fontFamily: 'roboto',
             fontSize: 20,
@@ -120,7 +132,7 @@ const HomeScreen = ({ navigation }) => {
             
           }}>Ending Dash Deals</Text>
 </View>
-          <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40, marginTop:-100,}}>
+          <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40, marginTop:-50,}}>
 
   <View style={{flex: 1, height: 5, backgroundColor: 'white'}} /><Pressable title="See More"  color="#f194ff" style={styles.button}        onPress={
               () => navigation.navigate(
@@ -136,7 +148,7 @@ const HomeScreen = ({ navigation }) => {
             }>
       <Image
       style={styles.image}
-      source= {require('./Kia.jpeg')} />
+      source= {require('./teslacar.jpeg')} />
       <Text>Tesla Model X</Text>
       <View style={{flexDirection:'row'}}>
       <Text>23 Bids</Text>
@@ -146,7 +158,7 @@ const HomeScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.productList}>
       <Image
       style={styles.image}
-      source= {require('./carmod.jpeg')} />
+      source= {require('./ferraricar.jpg')} />
             <Text>Ferrari</Text>
       <View style={{flexDirection:'row'}}>
       <Text>66 Bids</Text>
@@ -160,7 +172,7 @@ const HomeScreen = ({ navigation }) => {
             }>
       <Image
       style={styles.image}
-      source= {require('./carmod2.jpeg')} />
+      source= {require('./bentleycar.jpg')} />
       <Text>Bently</Text>
       <View style={{flexDirection:'row'}}>
       <Text>2 Bids</Text>
@@ -170,7 +182,7 @@ const HomeScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.productList}>
       <Image
       style={styles.image}
-      source= {require('./carmod3.webp')} />
+      source= {require('./fordcar.jpg')} />
             <Text>Ford</Text>
       <View style={{flexDirection:'row'}}>
       <Text>55 Bids</Text>
@@ -257,11 +269,12 @@ const styles = StyleSheet.create({
   thumb: {
 
     height: 50,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    borderBottomLeftRadius: 16,
-    borderBottomRightRadius: 16,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
     width: 50,
+    margin:10,
     alignSelf: "center",
     backgroundColor: "white",
   },

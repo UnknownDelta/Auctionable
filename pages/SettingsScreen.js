@@ -59,11 +59,53 @@ const HomeScreen = ({ navigation }) => {
     
       </View>
       <View style={{paddingTop: 10,}}>
-        <Image source={require('./Kia.jpeg')} style={{height: 180,}}></Image>
+        <Image source={require('./teslacar.jpeg')} style={{height: 180, width: 350,}}></Image>
       </View>
       <View style={styles.productList}>
-            <Text style={styles.name}>Tesla</Text>
-            <Text style={{paddingTop:5, color: 'grey'}}>$20</Text>
+            <Text style={styles.name}>Tesla X</Text>
+            <Text style={{paddingTop:5, color: 'grey'}}>$20000</Text>
+          </View>
+          <TouchableOpacity       style={{
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        
+      }}>
+      
+      <Text style={{color: 'grey', flexDirection: 'row',alignItems: 'flex-end', marginTop: -20, paddingRight: 20,}}>used/9 months</Text>
+     
+    </TouchableOpacity>  
+    </TouchableOpacity>
+
+    <TouchableOpacity style={styles.productpage}   onPress={
+    () => navigation.navigate('Details')
+  }>
+            <View style={styles.container}>
+        <View style={styles.avatarContainer}>
+          <Image source={require('./car.png')} style={styles.avatar}/>
+        </View>
+        
+        <View style={styles.sidecontentcontainer}>
+          <View>
+            <Text>Car</Text>
+            <Text style={{paddingTop:5, color: 'grey'}}>Owner</Text>
+          </View>
+        </View>
+        <TouchableOpacity       style={{
+        flexDirection: "row",
+        justifyContent: "flex-end",
+      }}>
+      
+     
+     
+    </TouchableOpacity>
+    
+      </View>
+      <View style={{paddingTop: 10,}}>
+        <Image source={require('./fordcar.jpg')} style={{height: 180, width: 350,}}></Image>
+      </View>
+      <View style={styles.productList}>
+            <Text style={styles.name}>Ford X</Text>
+            <Text style={{paddingTop:5, color: 'grey'}}>$20000</Text>
           </View>
           <TouchableOpacity       style={{
         flexDirection: "row",
@@ -138,6 +180,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   productpage: {
+    margin:20,
     paddingTop:20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

@@ -20,10 +20,10 @@ const DetailsScreen = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <Image
       style={styles.image}
-      source= {require('./Kia.jpeg')} />
+      source= {require('./teslacar.jpeg')} />
       <View style={styles.infoContainer}>
-        <Text style={styles.name}>Tesla</Text>
-        <Text style={styles.price}>$20</Text>
+        <Text style={styles.name}>Tesla X</Text>
+        <Text style={styles.price}>$2000</Text>
         <TouchableOpacity       style={{
         flexDirection: "row",
         justifyContent: "flex-end",
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     },
     image: {
       flex: 1,
+      width: 500,
       resizeMode: 'cover',
       justifyContent: 'center',
     },
