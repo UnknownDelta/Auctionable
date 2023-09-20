@@ -10,6 +10,8 @@ body {
   background: #f1f1f1;
   margin: 0;
   font-family: "Poppins";
+  margin: 0;
+  overflow-x: hidden;
 }
 header {
   background: #fff;
@@ -27,9 +29,10 @@ header a {
   text-decoration: none;
 }
 .pages{
-  max-width: 1400px;
+  max-width: 900px;
   padding: 20px;
   margin: 0 auto;
+  margin-left: 10px;
 }
 
 /* homepage */
@@ -89,9 +92,9 @@ header a {
 }
 
 .item-image {
-  width: 100%; /* Stretch the image to the width of its container */
-  height: 250px; /* Stretch the image to the height of its container */
-  object-fit: cover; /* Crop the image to fit the container, maintaining aspect ratio */
+  width: 320px;
+  height: 210px; /* Stretch the image to the height of its container */
+  object-fit: contain; /* Crop the image to fit the container, maintaining aspect ratio */
 }
 /* new item form */
 label, input {
@@ -125,4 +128,25 @@ div.error {
 }
 input.error {
   border: 1px solid var(--error)
+}
+
+/* homepage */
+.home {
+  width: 1000px; /* Set the maximum width of the container */
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.items-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  gap: 20px; /* Add some gap between items */
 }

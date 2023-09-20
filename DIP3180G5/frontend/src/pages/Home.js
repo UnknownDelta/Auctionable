@@ -37,18 +37,17 @@ const Home = () => {
 
   return (
     <div className="home">
-      <Search handleSearch={handleSearch} /> {/* Render the Search component */}
-      <div className="items">
-        {filteredItems && filteredItems.map((item) => (
-          <ItemDetails item={item} key={item._id} />
-        ))}
-        {/* <div className="items">
-          {items && items.map(item => (
-            <ItemDetails item={item} key={item._id} />
-          ))}
-        </div> */}
+      <div className="search-container">
+        <Search handleSearch={handleSearch} /> {/* Render the Search component */}
       </div>
-      <ItemForm />
+      <div className="items-container">
+        {filteredItems && filteredItems.map((item) => (
+          <ItemDetails key={item._id} item={item} />
+        ))}
+      </div>
+      <div className="form-container">
+        <ItemForm />
+      </div>
     </div>
   )
 }
