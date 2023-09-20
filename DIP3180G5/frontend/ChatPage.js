@@ -2,12 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList, ImageBackground, Image } from 'react-native';
 import React, { useEffect, useState, useCallback } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Ionicons } from '@expo/vector-icons';
 import ChatList from '../frontend/ChatList';
-
-import Avatar from '../assets/avatar.jpg'
+import ListingScreen from '../frontend/listing-screen';
+import HomeScreen from '../frontend/HomeScreen';
+import ProfileScreen from '../frontend/ProfileScreen';
+import WishlistScreen from '../frontend/WishlistPage';
 
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
@@ -30,20 +32,10 @@ function BuyerScreen({ navigation }) {
     );
 }
 
-//For Testing Pages
-function HomeScreen() {
+function AuctionScreen() {
     return (
         <View style={styles.container}>
-            <Text>Home Screen</Text>
-            <StatusBar style="auto" />
-        </View>
-    );
-}
-
-function CartScreen() {
-    return (
-        <View style={styles.container}>
-            <Text>Cart Screen</Text>
+            <Text>Auction Screen</Text>
             <StatusBar style="auto" />
         </View>
     );
@@ -57,24 +49,6 @@ function ChatScreen() {
                 <TopTab.Screen name="Buyer" component={BuyerScreen} />
             </TopTab.Navigator>
             {/* Rest of your ChatScreen content */}
-        </View>
-    );
-}
-
-function ListingScreen() {
-    return (
-        <View style={styles.container}>
-            <Text>My Listing Screen</Text>
-            <StatusBar style="auto" />
-        </View>
-    );
-}
-
-function ProfileScreen() {
-    return (
-        <View style={styles.container}>
-            <Text>Profile Screen</Text>
-            <StatusBar style="auto" />
         </View>
     );
 }
@@ -99,8 +73,8 @@ export default function Chat() {
 
                     if (route.name === 'Home') {
                         iconName = 'ios-home';
-                    } else if (route.name === 'Cart') {
-                        iconName = 'ios-cart';
+                    } else if (route.name === 'Wishlist') {
+                        iconName = 'ios-heart-outline';
                     } else if (route.name === 'Listing') {
                         iconName = 'ios-list';
                     } else if (route.name === 'Chat') {
@@ -111,21 +85,30 @@ export default function Chat() {
 
                     // Customize the icon color here based on the route name
                     let tabColor = 'white'; // Default color
-                    return <Ionicons name={iconName} color={tabColor} size={size} />;
+                    return <Ionicons name={iconName} color={color} size={size} />;
                 },
                 tabBarActiveTintColor: '#84EFDB', // Set active tab color
                 tabBarInactiveTintColor: 'white',  // Set inactive tab color
                 tabBarStyle: {
                     backgroundColor: '#0077B5', // Set background color of the entire bottom tab navigator
                 },
-                headerStyle: {
-                    backgroundColor: '#BFE1E39', // Set the background color of the header
-                },
-                headerShown: route.name == 'Chat' //show only header for chat screen
+                /*headerStyle: {
+                    backgroundColor: 'black', // Set the background color of the header #BFE1E39
+                },*/
+                // Customize header style for the "Chat" screen
+                headerBackground: () => (
+                    <ImageBackground
+                        source={require('../assets/header.png')}
+                        style={{ flex: 1 }}
+                        resizeMode="cover"
+                    />
+                ),
+                headerShown: route.name == 'Chat' || route.name == 'Wishlist', //show only header for chat screen
+                //headerShown: route.name == 'Wishlist',
             })}
         >
             <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Cart" component={CartScreen} />
+            <Tab.Screen name="Wishlist" component={WishlistScreen} />
             <Tab.Screen name="Listing" component={ListingScreen} />
             <Tab.Screen name="Chat" component={ChatScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />

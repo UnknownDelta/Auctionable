@@ -18,27 +18,30 @@ const ChatScreen = () => {
         Asset.fromModule(require('../assets/default_pfp.png')).downloadAsync();
     }, []);
 
-    //const senderName = route.params?.senderName || 'Default Title'; // Use sender's name as title
+    const senderName = route.params?.senderName || 'Default Title'; // Use sender's name as title
+    const lastMsg = route.params?.lastMessage || '';
+    const senderAvatar = route.params?.profilePic || null;
+
     useEffect(() => {
         setMessages([
             {
                 _id: 1,
-                text: 'Hello developer',
+                text: "I will think about it",
                 createdAt: new Date(),
                 user: {
                     _id: 2,
-                    name: 'React Native',
-                    avatar: 'https://placeimg.com/140/140/any',
+                    name: "Seller",
+                    avatar: senderAvatar,
                 },
             },
             {
                 _id: 2,
-                text: 'Hello world',
+                text: lastMsg,
                 createdAt: new Date(),
                 user: {
                     _id: 1,
-                    name: 'React Native',
-                    avatar: 'https://placeimg.com/140/140/any',
+                    name: "Buyer",
+                    avatar: require('../assets/default_pfp.png'),
                 },
             },
         ]);
