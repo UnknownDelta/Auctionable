@@ -150,3 +150,61 @@ input.error {
   grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
   gap: 20px; /* Add some gap between items */
 }
+
+/* Dropdown List Styles */
+.dropdown-list {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 200px; /* Set a max height for the dropdown list to enable scrolling if it exceeds this height */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+  width: 60%;
+  z-index: 1000; /* Increase the z-index value to ensure it appears above other elements */
+  top: 35%; /* Position the dropdown list below the search bar */
+  left: 20px; /* Align the left edge of the dropdown list with the search bar */
+}
+
+.dropdown-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-list li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: "Poppins";
+  font-size: smaller;
+}
+
+.dropdown-list li:hover {
+  background-color: #f2f2f2;
+}
+
+/* Remove bullet points from the list */
+.dropdown-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Rectangleish appearance */
+.dropdown-list li {
+  border-bottom: 1px solid #ccc;
+}
+
+/* Adjust spacing between items */
+.dropdown-list li:last-child {
+  border-bottom: none;
+}
+
+.show-more-button {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}

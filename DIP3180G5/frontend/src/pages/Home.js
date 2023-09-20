@@ -1,7 +1,7 @@
 // import { useEffect, useState } from "react"
 import { useEffect, useState } from "react"
 import { useItemsContext } from "../hooks/useItemsContext"
-
+import React, { useRef } from 'react'; // added this for Show More button
 // components
 import ItemDetails from "../components/ItemDetails"
 import ItemForm from "../components/ItemForm"
@@ -10,6 +10,7 @@ import Search from "../components/Search"; // Import the Search component
 const Home = () => {
   const { items, dispatch } = useItemsContext()
   const [filteredItems, setFilteredItems] = useState([]);
+  const [noItems, setNoItems] = useState(4);
   useEffect(() => {
     const fetchItems = async () => {
       const response = await fetch('/api/items')
@@ -27,6 +28,7 @@ const Home = () => {
   // Handle the search function
   const handleSearch = (searchTerm) => {
     const filtered = items.filter((item) => {
+      console.log("item: ", item);
       return (
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -35,15 +37,36 @@ const Home = () => {
     setFilteredItems(filtered);
   };
 
+  const dropdownRef = useRef(null);
+
+  const toggleShowMore = () => {
+    //dropdownRef.current.classList.toggle('show-more');
+    const current = noItems;
+    setNoItems(current+4);
+  };
+
   return (
     <div className="home">
       <div className="search-container">
         <Search handleSearch={handleSearch} /> {/* Render the Search component */}
       </div>
+      {filteredItems && filteredItems.length > 0 && (
+        <div className="dropdown-list">
+          <ul>
+            {filteredItems.slice(0, noItems).map((item) => ( // Slice to only get the first 4 items
+              <li key={item._id}>{item.name}</li>
+            ))}
+          </ul>
+          { filteredItems.length<noItems?null:
+          <li className="show-more-button"><button onClick={toggleShowMore}>Show More</button></li>
+          }
+        </div>
+      )}
       <div className="items-container">
-        {filteredItems && filteredItems.map((item) => (
-          <ItemDetails key={item._id} item={item} />
-        ))}
+        {filteredItems && filteredItems.map((item) => {
+          console.log("filtered items: ", filteredItems); // Moved outside JSX
+          return <ItemDetails key={item._id} item={item} />;
+        })}
       </div>
       <div className="form-container">
         <ItemForm />
