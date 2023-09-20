@@ -1,4 +1,4 @@
-This is Version 1.4 of the items list code, with functioning react.js but only 1 page 
+This is Version 1.45 of the items list database and user database, with functioning react.js but only 1 page 
 The .env file is hidden, i think it can be downloaded, if unable, i dump it the base text into a text file
 
 Functionality:
@@ -9,10 +9,10 @@ Functionality:
 5. now react.js exist
 6. User Table now exist
 7. Displaying Images working
+8. Sending Images(not tested)
 
 Current Workings:
-1. submitting Images
-2. User Specific lists
+1. User Specific lists
 
 libraries used:
 1. node.js
