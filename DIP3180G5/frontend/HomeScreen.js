@@ -198,7 +198,7 @@ const HomeScreen = ({ navigation }) => {
                     () => navigation.navigate(
                       'SettingsPage', { screen: 'Settings' }
                     )}>
-                  <Text>Go to settng Tab</Text>
+                  <Text>Go to setting Tab</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.button}
