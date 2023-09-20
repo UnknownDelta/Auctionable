@@ -2,9 +2,10 @@ import React , {useState} from 'react'
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, ImageBackground } from 'react-native'
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 const backgroundImage = require("./assets/background.jpg");  
+
 
 const getFonts = () =>
     Font.loadAsync({
@@ -12,8 +13,9 @@ const getFonts = () =>
         robotobold: require("./assets/Roboto-Bold.ttf"),
     });
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = () => {
     const [fontsloaded, setFontsLoaded] = useState(false);
+    const navigation = useNavigation();
 
     if (fontsloaded) {
         return (
@@ -33,7 +35,7 @@ const LoginScreen = ({navigation}) => {
                             </TouchableOpacity>
                         </View>
 
-                        <TouchableOpacity onPress={() => { }} style={{ backgroundColor: '#00A859', padding: 13, borderRadius: 10, marginBottom: 30 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('ListingScreen')} style={{ backgroundColor: '#00A859', padding: 13, borderRadius: 10, marginBottom: 30 }}>
                             <Text style={{ fontFamily: 'roboto', textAlign: 'center', fontWeight: '700', fontSize: 16, color: '#fff' }}>Login</Text>
                         </TouchableOpacity>
 
@@ -65,15 +67,13 @@ const LoginScreen = ({navigation}) => {
                                 <Text style={{ fontFamily: 'roboto', color: '#ffffff', fontWeight: '500', alignSelf: 'center' }}>Continue with Apple</Text>
                             </TouchableOpacity>
                         </View>
-
-                        <NavigationContainer>
-                            <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 30 }}>
-                                <Text style={{ color: '#fff', fontWeight: '500' }}>Don't have an account?</Text>
-                                <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
-                                    <Text style={{ fontFamily: 'robotobold', color: '#fff', fontWeight: '500' }}>      Register</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </NavigationContainer>
+                        
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 30 }}>
+                            <Text style={{ color: '#fff', fontWeight: '500' }}>Don't have an account?</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate("RegistrationScreen")}>
+                                <Text style={{ fontFamily: 'robotobold', color: '#fff', fontWeight: '500' }}>      Register</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </SafeAreaView>
             </ImageBackground>
