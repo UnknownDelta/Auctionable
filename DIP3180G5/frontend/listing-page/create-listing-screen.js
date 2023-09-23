@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native';
 import * as Font from 'expo-font';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Modal from "react-native-modal";
 
 const backgroundImage = require('./assets/background2.png');
 
@@ -31,6 +32,7 @@ const DropdownComponent = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [condition, setCondition] = useState("")
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
 
@@ -47,6 +49,10 @@ const DropdownComponent = () => {
 
   const conditions = ['Used', 'New']
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
     if (fontsloaded) {
 
         const renderLabel = () => {
@@ -61,7 +67,7 @@ const DropdownComponent = () => {
         };
 
         const renderItem = ({ item }) => (
-            <TouchableOpacity onPress = {() => {}}>
+            <TouchableOpacity onPress = {() => toggleModal()}>
                 <View style={styles.iconContainer}>
                     <Icon name={item.name} size={30} color={item.color} />
                 </View>
@@ -139,9 +145,37 @@ const DropdownComponent = () => {
                         numberOfLines={4} // Set the number of lines (adjust as needed)
                     />
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate("ListingScreen")} style={{ backgroundColor: '#BFDEE9', padding: 13, borderRadius: 10, marginTop: 20 }}>
+                <TouchableOpacity onPress={() => navigation.navigate("ListingScreen")} style={{ backgroundColor: '#BFDEE9', padding: 13, borderRadius: 8, marginTop: 20 }}>
                     <Text style={{ fontFamily: 'roboto', textAlign: 'center', fontWeight: '700', fontSize: 16, color: '#000' }}>List it!</Text>
                 </TouchableOpacity>
+                <Modal
+                  onBackdropPress={() => setModalVisible(false)}
+                  onBackButtonPress={() => setModalVisible(false)}
+                  isVisible={isModalVisible}
+                  swipeDirection="down"
+                  onSwipeComplete={toggleModal}
+                  animationIn="bounceInUp"
+                  animationOut="bounceOutDown"
+                  animationInTiming={900}
+                  animationOutTiming={500}
+                  backdropTransitionInTiming={1000}
+                  backdropTransitionOutTiming={500}
+                  style={styles.modal}
+                >
+                  <View style={styles.modalContent}>
+                    <View style={styles.center}>
+                      <View style={styles.barIcon} />
+                    </View>
+                    <View style={styles.buttonContainer}>
+                      <TouchableOpacity style={styles.button} onPress={{}}>
+                        <Text style={styles.buttonText}>Take a photo</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.button} onPress={{}}>
+                        <Text style={styles.buttonText}>Choose a photo</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </Modal>
             </View>
 
 
@@ -244,6 +278,66 @@ const styles = StyleSheet.create({
   },
   selectedOuter: {
     borderColor: 'blue', // Customize the selected outline color
+  },
+  flexView: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  modal: {
+    justifyContent: "flex-end",
+    margin: 0,
+  },
+  modalContent: {
+    backgroundColor: "#161616",
+    paddingTop: 12,
+    paddingHorizontal: 12,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    minHeight: 200,
+    paddingBottom: 20,
+  },
+  center: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  barIcon: {
+    width: 60,
+    height: 5,
+    backgroundColor: "#bbb",
+    borderRadius: 3,
+  },
+  text: {
+    color: "#bbb",
+    fontSize: 24,
+    marginTop: 100,
+  },
+  btnContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 500,
+  },
+  buttonContainer: {    
+    justifyContent: 'center', // Center the buttons horizontally
+    marginTop: 20,            // Add some spacing above the buttons
+  },
+  button: {
+    backgroundColor: 'white',    // Background color for the button
+    paddingVertical: 10,        // Vertical padding
+    paddingHorizontal: 20,      // Horizontal padding
+    borderRadius: 8,            // Rounded corners
+    marginVertical: 15,       // Add spacing between buttons
+    height: 50,
+    display: 'flex',           // Enable flex layout
+    justifyContent: 'center',  // Center text vertically
+    alignItems: 'center',      // Center text horizontally
+  },
+  buttonText: {
+    color: 'black',             // Text color
+    fontSize: 16,               // Font size
+    fontWeight: 'bold',        // Font weight
+    textAlign: 'center',       // Center text horizontally
   },
 });
 
