@@ -167,7 +167,7 @@ const DropdownComponent = () => {
                       <View style={styles.barIcon} />
                     </View>
                     <View style={styles.buttonContainer}>
-                      <TouchableOpacity style={styles.button} onPress={{}}>
+                      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("CameraScreen")}>
                         <Text style={styles.buttonText}>Take a photo</Text>
                       </TouchableOpacity>
                       <TouchableOpacity style={styles.button} onPress={{}}>
