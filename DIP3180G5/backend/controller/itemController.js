@@ -7,14 +7,15 @@ const upload = multer({storage: storage})
 
 
 const getItems = async(req, res) =>{
-    const itemList = await Items.find({}).sort({createdAt:-1})
+    const {seller} = req.params
+    const itemList = await Items.find({seller : seller}).sort({createdAt:-1})
 
     res.status(200).json(itemList)
 }
 
-//works partially, the case where there is 0 past items is glitchy
 const getSoldItems = async(req, res) =>{
-    const soldItems = await Items.find({sold: true}).sort({createdAt:-1})
+    const {seller} = req.params
+    const soldItems = await Items.find({seller: seller, sold: true}).sort({createdAt:-1})
 
     if (!soldItems) {
         return res.status(400).json({error: 'No previous items'})
