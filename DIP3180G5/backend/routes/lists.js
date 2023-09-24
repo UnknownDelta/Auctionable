@@ -14,13 +14,9 @@ const {
 
 const listing = express.Router()
 
-listing.get('/list', getItems)
+listing.get('/:seller/list', getItems)
 
-listing.get('/pastlist', getSoldItems)
-
-listing.get('/updatelist', (req, res) =>{
-    res.json({mssg: 'placeholder page for updating list'})
-})
+listing.get('/:seller/pastlist', getSoldItems)
 
 listing.post('/createlist', createItem)
 
