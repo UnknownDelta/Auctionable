@@ -1,5 +1,4 @@
-This is Version 1.45 of the items list database and user database, with functioning react.js but only 1 page 
-The .env file is hidden, i think it can be downloaded, if unable, i dump it the base text into a text file
+This is Version 1.5 of the items list database and user database, with functioning react.js but only 1 page 
 
 Functionality:
 1. Getting the list for both sold and all
@@ -10,9 +9,10 @@ Functionality:
 6. User Table now exist
 7. Displaying Images working
 8. Sending Images(not tested)
+9. User Specific lists
 
 Current Workings:
-1. User Specific lists
+1. functional test suite (version 1.6)
 
 libraries used:
 1. node.js
