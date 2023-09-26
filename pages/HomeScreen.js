@@ -34,32 +34,31 @@ const HomeScreen = ({ navigation }) => {
   if (fontsloaded) {
     
   return (
-    <LinearGradient
-    // Background Linear Gradient
-    colors={["#00A859","#0077B5"]}
-    style={{flex:1, backgroundColor:"#0077B5"}}
-  >
+
     <SafeAreaView style={{ flex: 1,}}>
     <View style={{flexDirection: 'row', justifyContent: 'flex-end',}}>
       <TouchableOpacity>
     <MaterialCommunityIcons
                 name={'hearto'}
                 size={30}
-                color={'white'}
+                color={'#0077B5'}
                 style={{ paddingRight: 40}}
               />
               </TouchableOpacity>
 </View>
-      <View>
+<View style={{ marginBottom:10, backgroundColor: 'white', marginTop:10,}}>
+<LinearGradient style={[{shadowOffset: {width: 20,height: -20,},},]} colors={['#f00', '#0f0']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}/>
+      
+        
       <Text style={{
             paddingLeft: 40,
             fontWeight: 'bold',
             fontFamily: 'roboto',
             fontSize: 20,
-            color: 'white',
+            color: '#0077B5',
           }}>Categories</Text>
           <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40}}>
-  <View style={{flex: 1, height: 5, backgroundColor: 'white'}} />
+  <View style={{flex: 1, height: 5, backgroundColor: '#0077B5'}} />
 
   
 </View>
@@ -120,75 +119,92 @@ const HomeScreen = ({ navigation }) => {
       </View>
     </TouchableOpacity>
       </ScrollView>
-      </View>
-      <View style={{flexDirection: 'row', flex:1, paddingBottom:20,}}>
+      <LinearGradient style={styles.shadowProp} colors={['#f00', '#0f0']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}/>
+      
+    
+
+      
       <Text style={{
         
             paddingLeft: 40,
             fontWeight: 'bold',
             fontFamily: 'roboto',
             fontSize: 20,
-            color: 'white',
+            color: '#0077B5',
             
           }}>Ending Dash Deals</Text>
-</View>
-          <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40, marginTop:-50,}}>
 
-  <View style={{flex: 1, height: 5, backgroundColor: 'white'}} /><Pressable title="See More"  color="#f194ff" style={styles.button}        onPress={
+          <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40, marginTop:-50, paddingTop:37,}}>
+            <View style={{flex: 1, height: 5, backgroundColor: '#0077B5'}} />
+            <Pressable title="See More"  color="#0077B5" style={styles.button}        onPress={
               () => navigation.navigate(
                 'SettingsStack', { screen: 'Settings' }
               )
-            }><Text style={styles.text}>See More</Text></Pressable>
-  </View>
-  <ScrollView>
+            }><Text style={styles.text}>See More</Text>
+            </Pressable>
+            </View>
+
+
       <View style={{ flex: 1, padding: 16}}>
-        <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
+        <View>
         <TouchableOpacity style={styles.productList}             onPress={
               () => navigation.navigate('Details')
             }>
+              
       <Image
       style={styles.image}
-      source= {require('./teslacar.jpeg')} />
-      <Text>Tesla Model X</Text>
+      source= {require('./teslacar.jpeg')} /><View style={{position:'absolute'}}>
+      
       <View style={{flexDirection:'row'}}>
-      <Text>23 Bids</Text>
-      <Text style={{flex:1, alignItems: 'flex-end', flexDirection:'row'}}>             $5000</Text>
+      <Text style={{marginTop:120, paddingLeft:10, fontSize:20, fontWeight:'bold', color: 'white',}}>Tesla Model X</Text>
+      <View style={{marginTop:100, paddingLeft:180, fontSize:20, color:'white', justifyContent:'flex-end'}}>
+      <Text style={{color:'white',}}>23 Bids</Text>
+      <Text style={{color:'white'}}>$5000</Text>
+      </View>
+      </View>
       </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.productList}>
-      <Image
-      style={styles.image}
-      source= {require('./ferraricar.jpg')} />
-            <Text>Ferrari</Text>
-      <View style={{flexDirection:'row'}}>
-      <Text>66 Bids</Text>
-      <Text style={{flex:1, alignItems: 'flex-end', flexDirection:'row'}}>             $1000</Text>
+
       </View>
-      </TouchableOpacity>
-      </View>
-      <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
+      <View style={{paddingTop:10,}}>
+      <Text style={{
+        
+        paddingLeft: 40,
+        fontWeight: 'bold',
+        fontFamily: 'roboto',
+        fontSize: 20,
+        color: '#0077B5',
+        
+      }}>Popular</Text>
+
+      <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight:40, marginTop:-50, paddingTop:37,}}>
+        <View style={{flex: 1, height: 5, backgroundColor: '#0077B5'}} />
+        <Pressable title="See More"  color="#0077B5" style={styles.button}        onPress={
+          () => navigation.navigate(
+            'SettingsStack', { screen: 'Settings' }
+          )
+        }><Text style={styles.text}>See More</Text>
+        </Pressable>
+        </View>
+        
         <TouchableOpacity style={styles.productList}             onPress={
               () => navigation.navigate('Details')
             }>
+              
       <Image
       style={styles.image}
-      source= {require('./bentleycar.jpg')} />
-      <Text>Bently</Text>
+      source= {require('./bentleycar.jpg')} /><View style={{position:'absolute'}}>
+      
       <View style={{flexDirection:'row'}}>
-      <Text>2 Bids</Text>
-      <Text style={{flex:1, alignItems: 'flex-end', flexDirection:'row'}}>             $8000</Text>
+      <Text style={{marginTop:120, paddingLeft:10, fontSize:20, fontWeight:'bold', color: 'white',}}>Bently</Text>
+      <View style={{marginTop:100, paddingLeft:180, fontSize:20, color:'white', justifyContent:'flex-end'}}>
+      <Text style={{color:'white',}}>23 Bids</Text>
+      <Text style={{color:'white'}}>$5000</Text>
+      </View>
+      </View>
       </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.productList}>
-      <Image
-      style={styles.image}
-      source= {require('./fordcar.jpg')} />
-            <Text>Ford</Text>
-      <View style={{flexDirection:'row'}}>
-      <Text>55 Bids</Text>
-      <Text style={{flex:1, alignItems: 'flex-end', flexDirection:'row'}}>             $9000</Text>
       </View>
-      </TouchableOpacity>
       </View>
         <View
           style={{
@@ -222,10 +238,10 @@ const HomeScreen = ({ navigation }) => {
         </View>
         
       </View>
-      </ScrollView>
+     
       
     </SafeAreaView>
-    </LinearGradient>
+   
   );} else {
     return (
       <Apploading
@@ -252,6 +268,7 @@ const styles = StyleSheet.create({
   individ:{
     paddingLeft:5,
     paddingRight:5,
+    
   },
   card: {
     backgroundColor: 'white',
@@ -267,16 +284,13 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   thumb: {
-
-    height: 50,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8,
-    width: 50,
+    
+    width: 70,
+    height: 70,
+    borderRadius: 70/2,
     margin:10,
     alignSelf: "center",
-    backgroundColor: "white",
+    backgroundColor: "#eeeeee",
   },
   infoContainer: {
     padding: 16,
@@ -284,6 +298,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 11,
     fontWeight: 'bold',
+    color: "#0077B5",
   },
   price: {
     fontSize: 16,
@@ -292,8 +307,8 @@ const styles = StyleSheet.create({
   },
   productList:{
     height:150,
-    backgroundColor: 'white',
-    padding: 10,
+    
+    
     margin: 10,
     borderRadius: 20,
   },
@@ -304,18 +319,32 @@ const styles = StyleSheet.create({
       flex: 1,
       resizeMode: 'cover',
       justifyContent: 'center',
-      width: 150,
+      backgroundColor: 'rgba(0,0,0, 0.60)',
       borderTopLeftRadius: 16,
       borderTopRightRadius: 16,
       borderBottomLeftRadius: 16,
       borderBottomRightRadius: 16,
+      width: '100%',
+      
     },
     text: {
       fontSize: 16,
       lineHeight: 21,
       fontWeight: 'bold',
       letterSpacing: 0.25,
-      color: 'white',
+      color: '#0077B5',
+    },
+    shadowProp: {
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 3,
+      },
+      shadowOpacity: 0.29,
+      shadowRadius: 4.65,
+      height:10,
+      elevation: 7,
+      backgroundColor:'white',
     },
 });
 export default HomeScreen;
