@@ -6,7 +6,7 @@ const ItemsDetails = ({items}) =>{
             <p>condition: {items.condition}</p>
             <p>years used: {items.years_used}</p>
             <p>category:{items.category}</p>
-            <p>images:</p> <p>test</p>
+            <p>images:</p>
             <img src={`data:image/png;base64,${items.images}`} alt="pic"/>
             <p>{items.createdAt}</p>
         </div>
