@@ -27,6 +27,14 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
+<<<<<<< HEAD
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="ChatPage">
+        <Stack.Screen name="ChatPage" component={ChatPage} options={{ headerShown: false }} />
+        <Stack.Screen name="ChatConversation" component={ChatConversation} />
+      </Stack.Navigator>
+    </NavigationContainer>
+=======
 
     <WishlistProvider>
       <NavigationContainer>
@@ -50,6 +58,7 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </WishlistProvider>
+>>>>>>> main
   );
 }
 
@@ -61,3 +70,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+//for old app.js for loadingpage and login page will integrate tgt soon
+/*<NavigationContainer>
+      <Stack.Navigator initialRouteName="LoadingPage">
+        <Stack.Screen name="LoadingPage" component={LoadingPage} options={{ headerShown: false }} />
+        <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>*/
