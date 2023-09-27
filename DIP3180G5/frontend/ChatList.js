@@ -1,30 +1,9 @@
-import React , { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions, Image, ImageBackground } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
-import io from "socket.io-client";
+
 const { width } = Dimensions.get('window'); // Get the screen width
-const ENDPOINT = "http://localhost:5010";
-
-var socket;
-
-const MessageList = () => {
-
-    const [messageList, setMessageList] = useState([]); 
-
-    useEffect(() => {
-        socket = io(ENDPOINT);
-        setMessageList(messages); 
-        socket.on('receive_message', (newMessage) => {
-        console.log('New Message', newMessage);
-        setMessageList((prevMessage) => [...prevMessage, newMessage]);
-        });
-        return () => {
-            socket.off('receive_message');
-        };
-    }, []);
-    
-
 
 // Dummy values for messages
 const messages = [
@@ -55,6 +34,7 @@ const messages = [
     // Add more message objects as needed
 ];
 
+const MessageList = () => {
     const renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => handleItemClick(item)}>
             <View style={styles.messageContainer}>
@@ -72,7 +52,6 @@ const messages = [
                 </View>
             </View>
         </TouchableOpacity >
-        
     );
 
     const navigation = useNavigation(); //Get the navigation object
@@ -86,7 +65,7 @@ const messages = [
     return (
         <View style={styles.container}>
             <FlatList
-                data={messageList}
+                data={messages}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
             />

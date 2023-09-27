@@ -5,10 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useRoute, useNavigation } from '@react-navigation/native'; // Import useRoute from react-navigation/native
 import { Asset } from 'expo-asset'; // Import Asset from Expo
-// import socket from './socket';
-import io from "socket.io-client";
-const ENDPOINT = "http://localhost:5010";
-var socket ; 
+
 
 const ChatScreen = () => {
 
@@ -21,61 +18,39 @@ const ChatScreen = () => {
         Asset.fromModule(require('../assets/default_pfp.png')).downloadAsync();
     }, []);
 
-    const userId = route.params?.userId || 'id_1'; // Get the user ID from route params or set a default
-    const recipientId = 'id_2';
+    const senderName = route.params?.senderName || 'Default Title'; // Use sender's name as title
+    const lastMsg = route.params?.lastMessage || '';
+    const senderAvatar = route.params?.profilePic || null;
+
     useEffect(() => {
-        socket = io(ENDPOINT);
-    
-        socket.on('connect', () => {
-            console.log('Connected to the server');
-            socket.emit('identify_user', userId);
-        });
-    
-        socket.on('connect_error', (error) => {
-            console.log('Connection Error', error);
-        });
-    
-        socket.on('receive_message', (newMessage) => {
-            console.log('New Message', newMessage);
-            if (newMessage.user._id === recipientId || newMessage.user._id === userId) {
-                setMessages((prevMessages) => GiftedChat.append(prevMessages, [newMessage]));
-            }
-        });
-    
-        // Set initial messages
         setMessages([
             {
                 _id: 1,
-                text: 'Hello developer',
+                text: "I will think about it",
                 createdAt: new Date(),
                 user: {
                     _id: 2,
-                    name: 'React Native',
-                    avatar: 'https://placeimg.com/140/140/any',
+                    name: "Seller",
+                    avatar: senderAvatar,
                 },
             },
             {
                 _id: 2,
-                text: 'Hello world',
+                text: lastMsg,
                 createdAt: new Date(),
                 user: {
                     _id: 1,
-                    name: 'React Native',
-                    avatar: 'https://placeimg.com/140/140/any',
+                    name: "Buyer",
+                    avatar: require('../assets/default_pfp.png'),
                 },
             },
         ]);
-    
-        return () => {
-            socket.off('receive_message');
-        };
     }, []);
-    
 
     const onSend = useCallback((messages = []) => {
-        setMessages((previousMessages) => GiftedChat.append(previousMessages, messages));
-        const messageToSend = { ...messages[0], recipientId }; // Include the recipient ID
-        socket.emit('send_message', messageToSend); // Send the message to the server
+        setMessages((previousMessages) =>
+            GiftedChat.append(previousMessages, messages),
+        );
     }, []);
 
     const renderSend = (props) => {
