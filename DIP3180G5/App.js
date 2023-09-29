@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RegistrationScreen from './frontend/login-reg-page/registration-screen';
 import LoginScreen from './frontend/login-reg-page/login-screen';
@@ -27,14 +27,6 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-<<<<<<< HEAD
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="ChatPage">
-        <Stack.Screen name="ChatPage" component={ChatPage} options={{ headerShown: false }} />
-        <Stack.Screen name="ChatConversation" component={ChatConversation} />
-      </Stack.Navigator>
-    </NavigationContainer>
-=======
 
     <WishlistProvider>
       <NavigationContainer>
@@ -58,7 +50,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </WishlistProvider>
->>>>>>> main
   );
 }
 
