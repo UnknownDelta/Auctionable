@@ -6,7 +6,7 @@ import { useFonts } from 'expo-font';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import ChatList from '../frontend/ChatList';
-import ListingScreen from '../frontend/listing-screen';
+import ListingScreen from './listing-page/listing-screen';
 import HomeScreen from '../frontend/HomeScreen';
 import ProfileScreen from '../frontend/ProfileScreen';
 import WishlistScreen from '../frontend/WishlistPage';
