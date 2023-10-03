@@ -12,10 +12,132 @@ import {
   Image,
   Button,
   ImageBackground,
+  Pressable,
 } from "react-native";
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
 import { LinearGradient } from "expo-linear-gradient";
+import Collapsible from "react-native-collapsible";
+import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
+import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
+import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
+
+const ContentComponent = () => {
+  return (
+    <TouchableOpacity style={styles.filter}>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-end",
+          }}
+        ></TouchableOpacity>
+      </View>
+
+      <View style={styles.productList}>
+        <Text style={styles.name}>Sort Results</Text>
+      </View>
+      <View style={styles.productList}>
+      <View style={{flexDirection: "row"}}>
+        <Text style={styles.names}>Names</Text>
+        
+        <MaterialCommunityIcons
+                name={"upcircle"}
+                size={20}
+                color={"#0077B5"}
+                style={{ marginLeft: 10 }}
+              />
+                      <MaterialCommunityIcons
+                name={"downcircle"}
+                size={20}
+                color={"#0077B5"}
+                style={{ marginLeft: 10 }}
+                
+              />
+              </View>
+      </View>
+      <View style={styles.productList}>
+      <View style={{flexDirection: "row"}}>
+        <Text style={styles.names}>Usage</Text>
+        <MaterialCommunityIcons
+                name={"upcircle"}
+                size={20}
+                color={"#0077B5"}
+                style={{ marginLeft: 10 }}
+              />
+                      <MaterialCommunityIcons
+                name={"downcircle"}
+                size={20}
+                color={"#0077B5"}
+                style={{ marginLeft: 10 }}
+                
+              />
+              </View>
+      </View>
+      <View style={styles.productList}>
+      <View style={{flexDirection: "row"}}>
+        <Text style={styles.names}>Price</Text>
+        <MaterialCommunityIcons
+                name={"upcircle"}
+                size={20}
+                color={"#0077B5"}
+                style={{ marginLeft: 10 }}
+              />
+                      <MaterialCommunityIcons
+                name={"downcircle"}
+                size={20}
+                color={"#0077B5"}
+                style={{ marginLeft: 10 }}
+                
+              />
+      </View>
+      </View>
+      <View style={{ paddingTop: 20 }}>
+        <View style={styles.productList}>
+          <Text style={styles.name}>Fliter Results</Text>
+          
+        </View>
+        <View style={styles.productList}>
+          <Text style={styles.names}>Vehicle</Text>
+        </View>
+        <View style={styles.productList}>
+          <Text style={styles.names}>Accessories</Text>
+        </View>
+        <View style={styles.productList}>
+          <Text style={styles.names}>Price</Text>
+        </View>
+        <View style={styles.productList}>
+          <Text style={styles.names}>Conditions</Text>
+        </View>
+        <View style={styles.productList}>
+          <Text style={styles.names}>Durations</Text>
+        </View>
+      </View>
+
+      <TouchableOpacity
+        style={{
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
+      >
+        <Pressable style={styles.chatbutton}>
+          <Text style={styles.text}>Chat Now!</Text>
+        </Pressable>
+        <Text
+          style={{
+            color: "grey",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            marginTop: -20,
+            paddingRight: 20,
+          }}
+        >
+          used/9 months
+        </Text>
+      </TouchableOpacity>
+    </TouchableOpacity>
+  );
+};
 
 const getFonts = () =>
   Font.loadAsync({
@@ -24,15 +146,28 @@ const getFonts = () =>
   });
 
 const HomeScreen = ({ navigation }) => {
+  const [show, setShow] = useState(false);
   const [fontsloaded, setFontsLoaded] = useState(false);
+
   if (fontsloaded) {
     return (
-      <LinearGradient
-        // Background Linear Gradient
-        colors={["#00A859", "#0077B5"]}
-        style={{ flex: 1, backgroundColor: "#0077B5" }}
-      >
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flexDirection: "row", paddingBottom: 20 }}>
+          <TouchableOpacity style={{ justifyContent: "flex-end" }}>
+            <Image
+              style={{ height: 40, width: 40 }}
+              source={require("./logo.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ justifyContent: "flex-start" }}
+          ></TouchableOpacity>
+        </View>
         <SafeAreaView style={{ flex: 1 }}>
+          <View>
+            <Button title={"Show Component"} onPress={() => setShow(!show)} />
+            {show && <ContentComponent />}
+          </View>
           <ScrollView style={styles.scrollView}>
             <TouchableOpacity
               style={styles.productpage}
@@ -56,10 +191,10 @@ const HomeScreen = ({ navigation }) => {
                   }}
                 ></TouchableOpacity>
               </View>
-              <View style={{ paddingTop: 10 }}>
+              <View style={{ paddingTop: 50 }}>
                 <Image
                   source={require("./teslacar.jpeg")}
-                  style={{ height: 180, width: 350 }}
+                  style={{ height: 180, width: "100%", paddingTop: 10 }}
                 ></Image>
               </View>
               <View style={styles.productList}>
@@ -108,15 +243,15 @@ const HomeScreen = ({ navigation }) => {
                   }}
                 ></TouchableOpacity>
               </View>
-              <View style={{ paddingTop: 10 }}>
+              <View style={{ paddingTop: 50 }}>
                 <Image
                   source={require("./fordcar.jpg")}
-                  style={{ height: 180, width: 350 }}
+                  style={{ height: 180, width: "100% ", paddingTop: 10 }}
                 ></Image>
               </View>
               <View style={styles.productList}>
                 <Text style={styles.name}>Ford X</Text>
-                <Text style={{ paddingTop: 5, color: "grey" }}>$20000</Text>
+                <Text style={{ paddingTop: 5, color: "grey" }}>$20q69000</Text>
               </View>
               <View
                 style={{
@@ -139,7 +274,14 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           </ScrollView>
         </SafeAreaView>
-      </LinearGradient>
+
+        <LinearGradient
+          style={styles.shadowProp}
+          colors={["#0077B5", "#00A859"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+        />
+      </SafeAreaView>
     );
   } else {
     return (
@@ -155,6 +297,14 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  containers: {
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+    margin: 10,
+    height: 10,
+  },
   button: {
     alignItems: "center",
     backgroundColor: "#DDDDDD",
@@ -193,20 +343,30 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "roboto",
   },
+  names: {
+    fontSize: 15,
+    fontWeight: "bold",
+    fontFamily: "roboto",
+  },
   price: {
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 8,
   },
   productpage: {
-    margin: 20,
+    margin: 10,
     paddingTop: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 20,
+    borderRadius: 20,
     backgroundColor: "white",
-    height: 350,
+    height: 340,
+  },
+
+  filter: {
+    margin: 10,
+
+    borderRadius: 20,
+    backgroundColor: "white",
+    height: 500,
   },
   producttext: {
     padding: 20,
@@ -225,8 +385,11 @@ const styles = StyleSheet.create({
   },
   sidecontentcontainer: {
     paddingLeft: 100,
-    marginTop: -50,
+    marginTop: -20,
     paddingBottom: 10,
+  },
+  container: {
+    height: 10,
   },
   overlapContainer: {
     flexDirection: "row-reverse",
@@ -239,9 +402,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   avatarContainer: {
-    borderRadius: 33,
-    height: 66,
-    width: 66,
+    borderRadius: 16,
+    height: 32,
+    width: 32,
     marginLeft: 15,
     borderStyle: "solid",
     borderWidth: 3,
@@ -249,9 +412,23 @@ const styles = StyleSheet.create({
     marginTop: -10,
   },
   avatar: {
-    borderRadius: 30,
-    height: 60,
-    width: 60,
+    borderRadius: 25,
+    height: 50,
+    width: 50,
+  },
+
+  shadowProp: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+
+    height: 10,
+    elevation: 7,
+    backgroundColor: "white",
   },
 });
 export default HomeScreen;
