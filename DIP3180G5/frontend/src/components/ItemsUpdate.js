@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const ItemsForm = () => {
+const ItemsUpdate = () => {
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
@@ -15,7 +15,6 @@ const ItemsForm = () => {
     const [error, setError] = useState(null)
     const [selectedFile, setSelectedFile] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
-
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -47,14 +46,15 @@ const ItemsForm = () => {
         
         const items = {name, price, description, condition, years_used, category, new_used, images, seller, sold, qty}
     
-        const response = await fetch('/createlist', {
-            method: 'POST',
+        const response = await fetch('/updatelist/64f814178286f244433f9842', {
+            method: 'PATCH',
             body: JSON.stringify(items),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
         const json = await response.json()
+        console.log(json)
     try{
         if (!response.ok) {
             const responseBody = await response.text()
@@ -74,7 +74,7 @@ const ItemsForm = () => {
             setSold(false)
             setQty('')
             setError(null)
-            console.log('new item added')
+            console.log('item updated')
         }
     }catch(error) {
         console.error('Error:', error)
@@ -83,8 +83,8 @@ const ItemsForm = () => {
     } 
 
     return (
-        <form className="createItems" onSubmit={handleSubmit}>
-            <h3>Add a new Item</h3>
+        <form className="updateItems" onSubmit={handleSubmit}>
+            <h3>Update an Item</h3>
 
             <label>Name</label>
             <input type ="text" onChange={(e) => setName(e.target.value)}
@@ -141,4 +141,4 @@ const ItemsForm = () => {
     )
 }
 
-export default ItemsForm 
+export default ItemsUpdate
