@@ -13,6 +13,7 @@ import {
   Button,
   ImageBackground,
   Pressable,
+  AppRegistry,
 } from "react-native";
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
@@ -21,121 +22,140 @@ import Collapsible from "react-native-collapsible";
 import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
+import Slider from "react-native-sliders";
+import RangeSlider from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+
+class SliderExample extends React.Component {
+  state = {
+    value: [0.2, 0.5],
+  };
+}
 
 const ContentComponent = () => {
   return (
-    <TouchableOpacity style={styles.filter}>
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-end",
-          }}
-        ></TouchableOpacity>
-      </View>
-
+    <View style={styles.filter}>
       <View style={styles.productList}>
+       <RangeSlider></RangeSlider>
         <Text style={styles.name}>Sort Results</Text>
       </View>
       <View style={styles.productList}>
-      <View style={{flexDirection: "row"}}>
-        <Text style={styles.names}>Names</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.names}>Names</Text>
+          <View>
+            <MaterialCommunityIcons
+              name={"upcircle"}
+              size={20}
+              color={"#0077B5"}
+              style={{ marginLeft: 150 }}
+            />
+          </View>
+          <MaterialCommunityIcons
+            name={"downcircle"}
+            size={20}
+            color={"#0077B5"}
+            style={{ marginLeft: 10 }}
+          />
+        </View>
+      </View>
+      <View style={styles.productList}>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.names}>Usage </Text>
+          <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+            <MaterialCommunityIcons
+              name={"upcircle"}
+              size={20}
+              color={"#0077B5"}
+              style={{ marginLeft: 150 }}
+            />
+            <MaterialCommunityIcons
+              name={"downcircle"}
+              size={20}
+              color={"#0077B5"}
+              style={{ marginLeft: 10 }}
+            />
+          </View>
+        </View>
+      </View>
+      <View style={styles.productList}>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.names}>Price </Text>
+          <MaterialCommunityIcons
+            name={"upcircle"}
+            size={20}
+            color={"#0077B5"}
+            style={{ marginLeft: 150 }}
+          />
+          <MaterialCommunityIcons
+            name={"downcircle"}
+            size={20}
+            color={"#0077B5"}
+            style={{ marginLeft: 10 }}
+          />
+        </View>
+      </View>
+      <View style={styles.ridesFriends}>
+        <View style={{ paddingTop: 20 }}>
+          <View style={styles.productList}>
+            <Text style={styles.name}>Fliter Results</Text>
+          </View>
+          <View style={styles.productList}>
+            <Text style={styles.names}>Vehicle</Text>
+          </View>
+          <View style={styles.productList}>
+            <Text style={styles.names}>Accessories</Text>
+          </View>
+          <View style={styles.productList}>
+            <Text style={styles.names}>Price</Text>
+          </View>
+          <View style={styles.productList}>
+            <Text style={styles.names}>Conditions</Text>
+          </View>
+          <View style={styles.productList}>
+            <Text style={styles.names}>Durations</Text>
+          </View>
+          <View style={styles.container}></View>
+        </View>
+        <View style={styles.verticleLine}></View>
+        <View style={{flexDirection:'column', marginTop: 70}}>
+        <View style={{paddingTop: 10, flexDirection: 'row', justifyContent:'flex-start'}}>
+          <Pressable style={styles.chatbutton}>
+            <Text style={styles.textt}>Car</Text>
+          </Pressable>
+          <Pressable style={styles.chatbutton}>
+            <Text style={styles.textt}>Motocycle</Text>
+          </Pressable>
+        </View>
+        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent:'flex-start'}}>
+          <Pressable style={styles.chatbutton}>
+            <Text style={styles.textt}>Help</Text>
+          </Pressable>
+          <Pressable style={styles.chatbutton}>
+            <Text style={styles.textt}>Tires</Text>
+          </Pressable>
+          <Pressable style={styles.chatbutton}>
+            <Text style={styles.textt}>Others</Text>
+          </Pressable>
+        </View>
+        <View style={{ paddingTop: 10, flexDirection: "row",justifyContent:'flex-start' }}>
+          <Pressable style={styles.chatbutton}>
+            <Text style={styles.textt}>New</Text>
+          </Pressable>
+          <Pressable style={styles.chatbutton}>
+            <Text style={styles.textt}>Used</Text>
+          </Pressable>
+        </View>
+        </View>
         
-        <MaterialCommunityIcons
-                name={"upcircle"}
-                size={20}
-                color={"#0077B5"}
-                style={{ marginLeft: 10 }}
-              />
-                      <MaterialCommunityIcons
-                name={"downcircle"}
-                size={20}
-                color={"#0077B5"}
-                style={{ marginLeft: 10 }}
-                
-              />
-              </View>
-      </View>
-      <View style={styles.productList}>
-      <View style={{flexDirection: "row"}}>
-        <Text style={styles.names}>Usage</Text>
-        <MaterialCommunityIcons
-                name={"upcircle"}
-                size={20}
-                color={"#0077B5"}
-                style={{ marginLeft: 10 }}
-              />
-                      <MaterialCommunityIcons
-                name={"downcircle"}
-                size={20}
-                color={"#0077B5"}
-                style={{ marginLeft: 10 }}
-                
-              />
-              </View>
-      </View>
-      <View style={styles.productList}>
-      <View style={{flexDirection: "row"}}>
-        <Text style={styles.names}>Price</Text>
-        <MaterialCommunityIcons
-                name={"upcircle"}
-                size={20}
-                color={"#0077B5"}
-                style={{ marginLeft: 10 }}
-              />
-                      <MaterialCommunityIcons
-                name={"downcircle"}
-                size={20}
-                color={"#0077B5"}
-                style={{ marginLeft: 10 }}
-                
-              />
-      </View>
-      </View>
-      <View style={{ paddingTop: 20 }}>
-        <View style={styles.productList}>
-          <Text style={styles.name}>Fliter Results</Text>
-          
-        </View>
-        <View style={styles.productList}>
-          <Text style={styles.names}>Vehicle</Text>
-        </View>
-        <View style={styles.productList}>
-          <Text style={styles.names}>Accessories</Text>
-        </View>
-        <View style={styles.productList}>
-          <Text style={styles.names}>Price</Text>
-        </View>
-        <View style={styles.productList}>
-          <Text style={styles.names}>Conditions</Text>
-        </View>
-        <View style={styles.productList}>
-          <Text style={styles.names}>Durations</Text>
-        </View>
-      </View>
-
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Pressable style={styles.chatbutton}>
-          <Text style={styles.text}>Chat Now!</Text>
-        </Pressable>
-        <Text
-          style={{
-            color: "grey",
-            flexDirection: "row",
-            alignItems: "flex-end",
-            marginTop: -20,
-            paddingRight: 20,
-          }}
-        >
-          used/9 months
-        </Text>
-      </TouchableOpacity>
-    </TouchableOpacity>
+      </View><View style={{flexDirection: 'row', justifyContent:'center'}}>
+      <Pressable style={styles.applybutton}>
+              <Text style={styles.text}>Reset</Text>
+            </Pressable>
+            <Pressable style={styles.applybutton}>
+              <Text style={styles.text}>Apply</Text>
+            </Pressable>
+            </View>
+    </View>
   );
 };
 
@@ -148,6 +168,11 @@ const getFonts = () =>
 const HomeScreen = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const [fontsloaded, setFontsLoaded] = useState(false);
+  const [active, setActive] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const handleClick = () => {
+    setActive(!active);
+  };
 
   if (fontsloaded) {
     return (
@@ -165,8 +190,22 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <SafeAreaView style={{ flex: 1 }}>
           <View>
-            <Button title={"Show Component"} onPress={() => setShow(!show)} />
-            {show && <ContentComponent />}
+          <MaterialCommunityIcons
+              name={"filter"}
+              size={50}
+              color={"#0077B5"}
+              style={{ marginLeft: 150 }}
+              onPress={() => setShow(!show)}
+            />
+           
+           
+          <LinearGradient
+          style={styles.shadowProp}
+          colors={["#0077B5", "#00A859"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+        />
+         {show && <ContentComponent />}
           </View>
           <ScrollView style={styles.scrollView}>
             <TouchableOpacity
@@ -251,7 +290,7 @@ const HomeScreen = ({ navigation }) => {
               </View>
               <View style={styles.productList}>
                 <Text style={styles.name}>Ford X</Text>
-                <Text style={{ paddingTop: 5, color: "grey" }}>$20q69000</Text>
+                <Text style={{ paddingTop: 5, color: "grey" }}>$2069000</Text>
               </View>
               <View
                 style={{
@@ -275,12 +314,7 @@ const HomeScreen = ({ navigation }) => {
           </ScrollView>
         </SafeAreaView>
 
-        <LinearGradient
-          style={styles.shadowProp}
-          colors={["#0077B5", "#00A859"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-        />
+
       </SafeAreaView>
     );
   } else {
@@ -297,6 +331,9 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  textt: {
+
+  },
   containers: {
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
@@ -362,11 +399,11 @@ const styles = StyleSheet.create({
   },
 
   filter: {
-    margin: 10,
+    margin: 20,
 
     borderRadius: 20,
     backgroundColor: "white",
-    height: 500,
+    height: 540,
   },
   producttext: {
     padding: 20,
@@ -430,5 +467,55 @@ const styles = StyleSheet.create({
     elevation: 7,
     backgroundColor: "white",
   },
+  verticleLine: {
+    height: "100%",
+    width: 2,
+    backgroundColor: "#909090",
+  },
+  ridesFriends: {
+    paddingTop: 20,
+    
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    width: "100%",
+    marginBottom: 20,
+  },
+  textt: {
+    justifyContent:"center",
+    textAlign: 'center',
+  },
+  chatbutton: {
+    marginTop:6,
+    textAlign: 'center',
+    backgroundColor: "#00A859",
+    padding: 2,
+    paddingHorizontal: 10,
+    
+    width: "auto",
+    height: 20,
+    justifyContent: "center",
+    borderRadius: 4,
+    marginLeft: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+  },
+  applybutton: {
+    
+    alignItems: "center",
+    backgroundColor: "#00A859",
+    padding: 10,
+    width: 100,
+    marginHorizontal:10,
+    justifyContent: "center",
+    borderRadius: 40,
+   
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+  },
 });
 export default HomeScreen;
+AppRegistry.registerComponent("SliderExample", () => SliderExample);
