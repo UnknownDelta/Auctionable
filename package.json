@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "e-commerce-app",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
@@ -31,20 +30,12 @@
     "react-native-sliders": "^2.0.2",
     "react-native-svg": "13.9.0",
     "react-native-vector-icons": "^10.0.0",
-    "react-range-slider-input": "^3.0.7"
+    "react-range-slider-input": "^3.0.7",
+    "@react-navigation/stack": "^6.3.18",
+    "nodemon": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
   "private": true
-=======
-  "dependencies": {
-<<<<<<< HEAD
-    "@react-navigation/native": "^6.1.8",
-    "@react-navigation/stack": "^6.3.18"
-=======
-    "nodemon": "^3.0.1"
->>>>>>> 8f09370210d907b3dd98a268ea5c997912ea9e36
-  }
->>>>>>> 7ea83250eb3096d34bfc379c6d2f1c5f1d0f48e2
 }
