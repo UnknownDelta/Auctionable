@@ -1,0 +1,23 @@
+This is Version 1.5 of the items list database and user database, with functioning react.js but only 1 page 
+
+Functionality:
+1. Getting the list for both sold and all
+2. updating the entry
+3. Adding the entry
+4. Modular Code
+5. now react.js exist
+6. User Table now exist
+7. Displaying Images working
+8. Sending Images(not tested)
+9. User Specific lists
+
+Current Workings:
+1. functional test suite (version 1.6)
+
+libraries used:
+1. node.js
+2. dotenv
+3. express.js
+4. mongodb
+5. mongoose
+6. multer
