@@ -34,8 +34,11 @@ const theme = {
 
 export default function App() {
   return (
+<<<<<<< HEAD
     <PaperProvider theme={theme}>
   
+=======
+>>>>>>> 694969e4a0959a906b832ad668b181011597dab7
     <WishlistProvider>
       <NavigationContainer>
           <Stack.Navigator initialRouteName="LoadingPage">
@@ -68,3 +71,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+//for old app.js for loadingpage and login page will integrate tgt soon
+/*<NavigationContainer>
+      <Stack.Navigator initialRouteName="LoadingPage">
+        <Stack.Screen name="LoadingPage" component={LoadingPage} options={{ headerShown: false }} />
+        <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>*/
