@@ -24,7 +24,7 @@ import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import Slider from "react-native-sliders";
 import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
+import 'react-range-slider-input';
 
 class SliderExample extends React.Component {
   state = {
