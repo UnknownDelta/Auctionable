@@ -34,11 +34,7 @@ const theme = {
 
 export default function App() {
   return (
-<<<<<<< HEAD
     <PaperProvider theme={theme}>
-  
-=======
->>>>>>> 694969e4a0959a906b832ad668b181011597dab7
     <WishlistProvider>
       <NavigationContainer>
           <Stack.Navigator initialRouteName="LoadingPage">
