@@ -8,7 +8,7 @@ import CameraScreen from './frontend/listing-page/camera-screen';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoadingPage from './frontend/LoadingPage';
 import LoginPage from './frontend/login-screen';
@@ -27,15 +27,6 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-<<<<<<< HEAD
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="ChatPage">
-        <Stack.Screen name="ChatPage" component={ChatPage} options={{ headerShown: false }} />
-        <Stack.Screen name="ChatConversation" component={ChatConversation} />
-      </Stack.Navigator>
-    </NavigationContainer>
-=======
-
     <WishlistProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="LoadingPage">
@@ -58,7 +49,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </WishlistProvider>
->>>>>>> main
   );
 }
 
