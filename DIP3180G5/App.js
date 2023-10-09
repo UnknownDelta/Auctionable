@@ -20,9 +20,13 @@ import SettingsPage from './frontend/SettingsScreen';
 import ProfilePage from './frontend/ProfileScreen';
 import WishlistPage from './frontend/WishlistPage';
 import { WishlistProvider } from './frontend/WishlistContext';
+import {Amplify} from 'aws-amplify';
+import {Auth,Hub} from 'aws-amplify'
+import config from './src/aws-exports';
+import { useEffect, useState } from 'react';
+Amplify.configure(config)
 
 const Stack = createStackNavigator();
-
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -31,32 +35,68 @@ const theme = {
   },
 };
 
-export default function App() {
+
+const App = () => {
+  const [user, setUser] = useState(undefined)
+  const checkUser = async () => {
+    try{
+    const authUser = await Auth.currentAuthenticatedUser({bypassCache:true})
+    setUser(authUser)
+    }
+    catch(error){
+      setUser(null)
+    }
+  }
+
+  useEffect(()=>{
+    const listener = (data) =>{
+      if (data.payload.event === 'signIn' || data.payload.event === 'signOut'){
+        checkUser();
+      }
+    }
+    Hub.listen('auth',listener)
+    return () => Hub.remove('auth',listener)
+  })
+  useEffect(()=>{
+    checkUser();
+  },[])
+
+
   return (
     <PaperProvider theme={theme}>
     <WishlistProvider>
       <NavigationContainer>
           <Stack.Navigator initialRouteName="LoadingPage">
-          <Stack.Screen name="ChatPage" component={ChatPage} options={{ headerShown: false }} />
-          <Stack.Screen name="ChatConversation" component={ChatConversation} />
-          <Stack.Screen name="HomePage" component={HomePage} />
           <Stack.Screen name="LoadingPage" component={LoadingPage} options={{ headerShown: false }} />
-          <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
-          <Stack.Screen name="RegisterPage" component={RegisterPage} options={{ headerShown: false }} />
-          <Stack.Screen name="DetailsPage" component={DetailsPage} options={{ headerShown: false }} />
-          <Stack.Screen name="SettingsPage" component={SettingsPage} options={{ headerShown: false }} />
-          <Stack.Screen name="ProfilePage" component={ProfilePage} options={{ headerShown: false }} />
-          <Stack.Screen name="WishlistPage" component={WishlistPage} options={{ headerShown: false }} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{ headerShown: false }}/>
-          <Stack.Screen name="ListingScreen" component={ListingScreen} options={{ headerShown: false}}/>
-          <Stack.Screen name="CreateListingScreen" component={CreateListingScreen} options={{ headerShown: false}}/>
+          {!user? (
+            <>   
+               <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
+               <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{ headerShown: false }}/>
+            </>
+          ) :(
+            <>
+            <Stack.Screen name="ChatPage" component={ChatPage} options={{ headerShown: false }} />
+            <Stack.Screen name="ChatConversation" component={ChatConversation} />
+            <Stack.Screen name="HomePage" component={HomePage} />
+            <Stack.Screen name="RegisterPage" component={RegisterPage} options={{ headerShown: false }} />
+            <Stack.Screen name="DetailsPage" component={DetailsPage} options={{ headerShown: false }} />
+            <Stack.Screen name="SettingsPage" component={SettingsPage} options={{ headerShown: false }} />
+            <Stack.Screen name="ProfilePage" component={ProfilePage} options={{ headerShown: false }} />
+            <Stack.Screen name="WishlistPage" component={WishlistPage} options={{ headerShown: false }} />
+            <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="ListingScreen" component={ListingScreen} options={{ headerShown: false}}/>
+            <Stack.Screen name="CreateListingScreen" component={CreateListingScreen} options={{ headerShown: false}}/>
+            </>
+          )}
+      
           </Stack.Navigator>
         </NavigationContainer>
     </WishlistProvider>
     </PaperProvider>
   );
 }
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
@@ -66,6 +106,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
 
 //for old app.js for loadingpage and login page will integrate tgt soon
 /*<NavigationContainer>
