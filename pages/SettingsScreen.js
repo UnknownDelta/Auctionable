@@ -22,21 +22,17 @@ import Collapsible from "react-native-collapsible";
 import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
-import Slider from "react-native-sliders";
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
+import { Slider, RangeSlider } from '@react-native-assets/slider';
 
-class SliderExample extends React.Component {
-  state = {
-    value: [0.2, 0.5],
-  };
-}
+
+
+
 
 const ContentComponent = () => {
   return (
     <View style={styles.filter}>
       <View style={styles.productList}>
-       <RangeSlider></RangeSlider>
+ 
         <Text style={styles.name}>Sort Results</Text>
       </View>
       <View style={styles.productList}>
@@ -94,11 +90,12 @@ const ContentComponent = () => {
           />
         </View>
       </View>
-      <View style={styles.ridesFriends}>
-        <View style={{ paddingTop: 20 }}>
-          <View style={styles.productList}>
+      <View style={styles.productList}>
             <Text style={styles.name}>Fliter Results</Text>
           </View>
+      <View style={styles.ridesFriends}>
+        <View style={{ paddingTop: 20 }}>
+          
           <View style={styles.productList}>
             <Text style={styles.names}>Vehicle</Text>
           </View>
@@ -117,8 +114,8 @@ const ContentComponent = () => {
           <View style={styles.container}></View>
         </View>
         <View style={styles.verticleLine}></View>
-        <View style={{flexDirection:'column', marginTop: 70}}>
-        <View style={{paddingTop: 10, flexDirection: 'row', justifyContent:'flex-start'}}>
+        <View style={{flexDirection:'column', marginTop: 10, marginRight: -25}}>
+        <View style={{paddingTop: 10, flexDirection: 'row', justifyContent:'flex-start',  paddingRight:20, paddingLeft:10}}>
           <Pressable style={styles.chatbutton}>
             <Text style={styles.textt}>Car</Text>
           </Pressable>
@@ -126,7 +123,7 @@ const ContentComponent = () => {
             <Text style={styles.textt}>Motocycle</Text>
           </Pressable>
         </View>
-        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent:'flex-start'}}>
+        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent:'flex-start',  paddingRight:20, paddingLeft:10}}>
           <Pressable style={styles.chatbutton}>
             <Text style={styles.textt}>Help</Text>
           </Pressable>
@@ -137,13 +134,22 @@ const ContentComponent = () => {
             <Text style={styles.textt}>Others</Text>
           </Pressable>
         </View>
-        <View style={{ paddingTop: 10, flexDirection: "row",justifyContent:'flex-start' }}>
+        <View style={{ margin:30, marginTop: 8, marginBottom: 0,}}>
+          <Text>$20.5k - $550k</Text>
+        <RangeSlider range={[0,1]} minimumValue={0} maximumValue={1} step={0} inboundColor='#0077B5'/>
+        </View>
+        <View style={{ flexDirection: "row",justifyContent:'flex-start' }}>
           <Pressable style={styles.chatbutton}>
             <Text style={styles.textt}>New</Text>
           </Pressable>
           <Pressable style={styles.chatbutton}>
             <Text style={styles.textt}>Used</Text>
           </Pressable>
+          
+        </View>
+        <View style={{ margin:30, marginTop: 8, marginBottom: 0,}}>
+          <Text>5 mthns - 3.5 yrs</Text>
+        <RangeSlider range={[0,1]} minimumValue={0} maximumValue={1} step={0} inboundColor='#0077B5'/>
         </View>
         </View>
         
@@ -483,11 +489,12 @@ const styles = StyleSheet.create({
   textt: {
     justifyContent:"center",
     textAlign: 'center',
+    color:'black',
   },
   chatbutton: {
     marginTop:6,
     textAlign: 'center',
-    backgroundColor: "#00A859",
+    backgroundColor: "white",
     padding: 2,
     paddingHorizontal: 10,
     
@@ -501,6 +508,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
   },
+  text: {
+      color: 'white',
+  },
   applybutton: {
     
     alignItems: "center",
@@ -509,7 +519,7 @@ const styles = StyleSheet.create({
     width: 100,
     marginHorizontal:10,
     justifyContent: "center",
-    borderRadius: 40,
+    borderRadius: 5,
    
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@eva-design/eva": "^2.2.0",
+    "@react-native-assets/slider": "^7.0.5",
     "@react-native-community/slider": "4.4.2",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.7",
@@ -30,7 +31,8 @@
     "react-native-sliders": "^2.0.2",
     "react-native-svg": "13.9.0",
     "react-native-vector-icons": "^10.0.0",
-    "react-range-slider-input": "^3.0.7"
+    "react-range-slider-input": "^3.0.7",
+    "rn-range-slider": "^2.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
