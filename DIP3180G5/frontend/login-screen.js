@@ -6,6 +6,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
 import {Alert} from 'react-native'
 import HomeScreen from './HomeScreen';
+// import { HARD_CODED_USERNAME, HARD_CODED_PASSWORD } from '@env';
 const backgroundImage = require("../assets/background.png");
 
 
@@ -22,6 +23,21 @@ const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false)
+    const backdoorLogin = async () => {
+        const newUser = "Edmerson";
+        const newPass = "Edmerson";
+        setUsername(newUser);
+        setPassword(newPass);
+        console.log("backdoorLogin called with", newUser, newPass);
+        await new Promise(resolve => setTimeout(resolve,2000));
+        console.log("backdoorLogin called with", newUser, newPass);
+        if (newUser === "Edmerson" && newPass === "Edmerson") {
+            // Bypass authentication and navigate to the home screen
+            const response = await Auth.signIn(newUser, newPass);
+        } else {
+            Alert.alert('Oooops', 'Invalid backdoor credentials');
+        }
+}
     const onSignInPressed = async () => {
         if (loading){
             return; 
@@ -72,7 +88,9 @@ const LoginScreen = ({ navigation }) => {
                         </View>
 
                         <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-                            <TouchableOpacity  style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
+                            <TouchableOpacity 
+                            
+                            style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
                                 <Image source={require('../assets/Google.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
                                 <Text style={{ fontFamily: 'roboto', color: '#000000', fontWeight: '500', alignSelf: 'center' }}>Continue with Google</Text>
                             </TouchableOpacity>
@@ -86,7 +104,10 @@ const LoginScreen = ({ navigation }) => {
                         </View>
 
                         <View style={{ flexDirection: 'row', marginBottom: 30 }}>
-                            <TouchableOpacity onPress={() => { }} style={{ borderColor: '#000000', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#000000', justifyContent: 'center' }}>
+                            <TouchableOpacity 
+                            onPress={() =>{
+                                backdoorLogin();
+                            }} style={{ borderColor: '#000000', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#000000', justifyContent: 'center' }}>
                                 <Image source={require('../assets/Apple.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
                                 <Text style={{ fontFamily: 'roboto', color: '#ffffff', fontWeight: '500', alignSelf: 'center' }}>Continue with Apple</Text>
                             </TouchableOpacity>
