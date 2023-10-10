@@ -6,6 +6,8 @@ import CreateListingScreen from './frontend/listing-page/create-listing-screen';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoadingPage from './frontend/LoadingPage';
@@ -33,7 +35,6 @@ const theme = {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-  
     <WishlistProvider>
       <NavigationContainer>
           <Stack.Navigator initialRouteName="LoadingPage">
@@ -66,3 +67,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+//for old app.js for loadingpage and login page will integrate tgt soon
+/*<NavigationContainer>
+      <Stack.Navigator initialRouteName="LoadingPage">
+        <Stack.Screen name="LoadingPage" component={LoadingPage} options={{ headerShown: false }} />
+        <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>*/

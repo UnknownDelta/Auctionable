@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+<<<<<<< HEAD
+    "@react-navigation/native": "^6.1.8",
+    "@react-navigation/stack": "^6.3.18"
+=======
+    "nodemon": "^3.0.1"
+>>>>>>> 8f09370210d907b3dd98a268ea5c997912ea9e36
+  }
+}
