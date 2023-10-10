@@ -99,7 +99,7 @@ const navigation = useNavigation();
         <ImageBackground source={backgroundImage} style={{ flex: 1}}>
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>My Listings</Text>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginLeft: 10 }}>My Listings</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('CreateListingScreen')} style={{ marginRight:10}}>
                         <FontAwesome name="plus" size={20} color="white" />
                     </TouchableOpacity>

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { TouchableWithoutFeedback, StyleSheet, FlatList, Text, View, ImageBackground, TextInput, SafeAreaView, TouchableOpacity, Image, ScrollView, KeyboardAvoidingView} from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import AppLoading from 'expo-app-loading';
-import { useNavigation, useRoute} from "@react-navigation/native";
+import { useNavigation, useRoute, CommonActions} from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Font from 'expo-font';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
 import Modal from 'react-native-modal';
 import {RadioButton} from 'react-native-paper';
+
 
 const backgroundImage = require('./assets/background2.png');
 
@@ -39,11 +40,8 @@ const DropdownComponent = () => {
   const [icons, setIcons] = useState([
     { name: 'plus', color: 'grey', id: '1' },
   ]);
-  
-  const [newImages, setNewImages] = useState([]);
 
   const navigation = useNavigation();
-  const route = useRoute();
 
   const conditions = ['Used', 'New'];
 
@@ -345,16 +343,113 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'space-between',
   },
+  modalContainer: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+  },
+  descriptionText: {
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  button: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    width: '80%',
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  closeButton: {
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 5,
+    width: '80%',
+    marginTop: 10,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });
 
 function CreateListingScreen() {
 
     const navigation = useNavigation();
+    const [IsModalVisible, SetIsModalVisible] = useState(false);
+
+    const openModal = () => {
+      SetIsModalVisible(true);
+    };
+  
+    const closeModal = () => {
+      SetIsModalVisible(false);
+    };
+
+    const handleContinueEditing = () => {
+      // Handle the first button press here
+      closeModal(); // Close the modal
+    };
+
+    const handleLeaveAnyway = () => {
+      // Handle the second button press here
+      closeModal(); // Close the modal
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'ListingScreen' }],
+        })
+      );
+    };
+
+    const CustomModal = ({ isVisible, closeModal, description, onButton1Press, button1Text, onButton2Press, button2Text }) => {
+      return (
+        <Modal isVisible={isVisible}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.descriptionText}>{description}</Text>
+            <TouchableOpacity style={styles.button} onPress={onButton1Press}>
+              <Text style={styles.buttonText}>{button1Text}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.closeButton} onPress={onButton2Press}>
+              <Text style={styles.closeButtonText}>{button2Text}</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      );
+    };
     
         return (
             <ImageBackground source={backgroundImage} style={{ flex: 1}}>
                 <SafeAreaView style={{ flex: 1 }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10, marginBottom:10 }}>My Listings</Text>
+                  <View style={{flexDirection: 'row'}}>
+                  <TouchableOpacity onPress={openModal} style={{ marginLeft: 16, marginRight: 10 }}>
+                    <Icon name="arrow-left" size={25} />
+                  </TouchableOpacity>
+                  <CustomModal
+                    isVisible={IsModalVisible}
+                    closeModal={closeModal}
+                    description={
+                      <>
+                        <Text style={{color: '#0077B5', fontSize:25}}>Leave Without Saving</Text>
+                        <Text>
+                          {"\n"}The details you added in this section will not be saved.
+                        </Text>
+                      </>
+  }
+                    onButton1Press={handleContinueEditing}
+                    button1Text="Continue Editing"
+                    onButton2Press={handleLeaveAnyway}
+                    button2Text="Leave Anyway"
+                  />
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginLeft: 10, marginBottom:10 }}>My Listings</Text>
+                  </View>
                     <DropdownComponent />
                 </SafeAreaView>
             </ImageBackground>
