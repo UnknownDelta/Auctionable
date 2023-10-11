@@ -176,7 +176,7 @@ function BottomTabScreens() {
         />
         <Tab.Screen
           name="Profile"
-          component={SettingsStack}
+          component={ProfileStack}
           listeners={({ route }) => ({
             tabPress: (e) => {
               console.log("Tab pressed:", route.name);
@@ -242,6 +242,7 @@ function HomeStack() {
     >
       <Stack.Screen name="HomePage" component={HomePage} />
       <Stack.Screen name="DetailsPage" component={DetailsPage} />
+      <Stack.Screen name="SettingsPage" component={SettingsPage} />
     </Stack.Navigator>
   );
 }
@@ -260,7 +261,7 @@ function ListingStack() {
   );
 }
 
-function SettingsStack() {
+function ProfileStack() {
   return (
     <Stack.Navigator
       initialRouteName="ProfilePage"

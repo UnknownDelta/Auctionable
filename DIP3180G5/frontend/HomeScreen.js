@@ -18,280 +18,378 @@ import { SearchBar } from "react-native-elements";
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
 import { LinearGradient } from "expo-linear-gradient";
+import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
+import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
+import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 
 const getFonts = () =>
   Font.loadAsync({
     roboto: require("../assets/fonts/Roboto-Regular.ttf"),
     comic: require("../assets/fonts/Dudu_Calligraphy.ttf"),
+    robotolite: require("../assets/fonts/Roboto-Light.ttf"),
+    robotobold: require("../assets/fonts/Roboto-Bold.ttf"),
   });
 
 const HomeScreen = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
   if (fontsloaded) {
     return (
-      <LinearGradient
-        // Background Linear Gradient
-        colors={["#00A859", "#0077B5"]}
-        style={{ flex: 1, backgroundColor: "#0077B5" }}
-      >
-        <SafeAreaView style={{ flex: 1 }}>
-          <View>
-            <Text
-              style={{
-                paddingLeft: 20,
-                fontWeight: "bold",
-                fontFamily: "roboto",
-                fontSize: 20,
-                color: "white",
-              }}
-            >
-              Categories
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingLeft: 20,
-                paddingRight: 40,
-              }}
-            >
-              <View style={{ flex: 1, height: 5, backgroundColor: "white" }} />
-            </View>
-            <ScrollView
-              horizontal
-              contentContainerStyle={styles.contentContainer}
-              style={{ flexgrow: 0, paddingVertical: 0 }}
-            >
-              <TouchableOpacity>
-                <Image
-                  style={styles.thumb}
-                  source={require("../assets/car2.jpeg")}
-                />
-                <View style={styles.infoContainer}>
-                  <Text style={styles.name}>Kia Soul</Text>
-                </View>
-              </TouchableOpacity>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flexDirection: "row", paddingBottom: 20 }}>
+          <TouchableOpacity style={{ justifyContent: "flex-end" }}>
+            <Image
+              style={{ height: 40, width: 40 }}
+              source={require("../assets/appIcon.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={{ justifyContent: "flex-start" }}>
+            <MaterialCommunityIcons
+              name={"hearto"}
+              size={30}
+              color={"#0077B5"}
+              style={{ paddingRight: 40 }}
+            />
+          </TouchableOpacity>
+        </View>
 
-              <TouchableOpacity style={styles.individ}>
-                <Image
-                  style={styles.thumb}
-                  source={require("../assets/car.png")}
-                />
-                <View style={styles.infoContainer}>
-                  <Text style={styles.name}>Mitsubishi</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.individ}>
-                <Image
-                  style={styles.thumb}
-                  source={require("../assets/car3.png")}
-                />
-                <View style={styles.infoContainer}>
-                  <Text style={styles.name}>Tesla</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.individ}>
-                <Image
-                  style={styles.thumb}
-                  source={require("../assets/car4.png")}
-                />
-                <View style={styles.infoContainer}>
-                  <Text style={styles.name}>Bently</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.individ}>
-                <Image
-                  style={styles.thumb}
-                  source={require("../assets/car3.png")}
-                />
-                <View style={styles.infoContainer}>
-                  <Text style={styles.name}>Hyudai</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.individ}>
-                <Image
-                  style={styles.thumb}
-                  source={require("../assets/car3.png")}
-                />
-                <View style={styles.infoContainer}>
-                  <Text style={styles.name}>BMW</Text>
-                </View>
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
-          <View style={{ flexDirection: "row", flex: 1 }}>
-            <Text
-              style={{
-                paddingLeft: 20,
-                fontWeight: "bold",
-                fontFamily: "roboto",
-                fontSize: 20,
-                color: "white",
-              }}
-            >
-              Ending Dash Deals
-            </Text>
-          </View>
-          <View
+        <LinearGradient
+          style={styles.shadowProp}
+          colors={["#0077B5", "#00A859"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+        />
+        <View style={{ flexDirection: "row" }}>
+          <MaterialCommunityIcons
+            name={"appstore1"}
+            size={20}
+            color={"#0077B5"}
+            style={{ paddingLeft: 40, paddingTop: 11 }}
+          />
+          <Text
             style={{
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 20,
-              paddingRight: 40,
-              marginTop: -100,
+              paddingTop: 10,
+              paddingLeft: 5,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+              fontSize: 20,
+              color: "#0077B5",
+              paddingBottom: 5,
             }}
           >
-            <View style={{ flex: 1, height: 5, backgroundColor: "white" }} />
-            <Pressable
-              title="See More"
-              color="#f194ff"
-              style={styles.button}
-              onPress={() =>
-                navigation.navigate("SettingsPage", { screen: "Settings" })
-              }
-            >
-              <Text style={styles.text}>See More</Text>
-            </Pressable>
-          </View>
-          <ScrollView>
-            <View style={{ flex: 1, padding: 16 }}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <TouchableOpacity
-                  style={styles.productList}
-                  onPress={() => navigation.navigate("DetailsPage")}
+            Categories
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            paddingLeft: 20,
+            paddingRight: 40,
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              height: 6,
+              backgroundColor: "#0077B5",
+              borderRadius: 30,
+              marginRight: 130,
+            }}
+          />
+        </View>
+        <View>
+          <ScrollView
+            horizontal
+            contentContainerStyle={styles.contentContainer}
+            style={{ flexgrow: 0, paddingLeft: 20 }}
+          >
+            <TouchableOpacity style={styles.individ}>
+              <View style={styles.centerer}>
+                <Image style={styles.thumb} source={require("../assets/kia.png")} />
+              </View>
+              <View style={styles.infoContainer}>
+                <Text style={styles.name}>Kia</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.individ}>
+              <View style={styles.centerer}>
+                <Image style={styles.thumb} source={require("../assets/Tesla.png")} />
+              </View>
+              <View style={styles.infoContainer}>
+                <Text style={styles.name}>Tesla</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.individ}>
+              <View style={styles.centerer}>
+                <Image style={styles.thumb} source={require("../assets/bentley.png")} />
+              </View>
+              <View style={styles.infoContainer}>
+                <Text style={styles.name}>Bently</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.individ}>
+              <View style={styles.centerer}>
+                <Image style={styles.thumb} source={require("../assets/hyundai.png")} />
+              </View>
+              <View style={styles.infoContainer}>
+                <Text style={styles.name}>Hyudai</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.individ}>
+              <View style={styles.centerer}>
+                <Image style={styles.thumb} source={require("../assets/bmw.png")} />
+              </View>
+              <View style={styles.infoContainer}>
+                <Text style={styles.name}>BMW</Text>
+              </View>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
+        <LinearGradient
+          style={styles.shadowProp}
+          colors={["#0077B5", "#00A859"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+        />
+        <ScrollView>
+        <View style={{ flexDirection: "row", paddingTop: 4 }}>
+          <MaterialCommunityIconss
+            name={"stopwatch"}
+            size={20}
+            color={"#0077B5"}
+            style={{ paddingLeft: 38, paddingTop: 11 }}
+          />
+          <Text
+            style={{
+              paddingTop: 10,
+              paddingLeft: 8,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+              fontSize: 20,
+              color: "#0077B5",
+            }}
+          >
+            Ending Dash Deals
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            paddingLeft: 20,
+            paddingRight: 40,
+            marginTop: -50,
+            paddingTop: 37,
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              height: 6,
+              backgroundColor: "#0077B5",
+              marginRight: 40,
+              borderRadius: 30,
+            }}
+          />
+          <Pressable
+            title="See More"
+            color="#0077B5"
+            style={styles.button}
+            onPress={() =>
+              navigation.navigate("SettingsPage")
+            }
+          >
+            <Text style={styles.text}>See More</Text>
+          </Pressable>
+        </View>
+
+        <View>
+          <TouchableOpacity
+            style={styles.productList}
+            onPress={() => navigation.navigate("DetailsPage")}
+          >
+            <Image style={styles.image} source={require("../assets/teslacar.jpeg")} />
+            <View style={{ position: "absolute" }}>
+              <View style={{ flexDirection: "row" }}>
+                <Text
+                  style={{
+                    marginTop: 120,
+                    paddingLeft: 10,
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: "white",
+                  }}
                 >
-                  <Image
-                    style={styles.image}
-                    source={require("../assets/Kia.jpeg")}
-                  />
-                  <Text>Tesla Model X</Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text>23 Bids</Text>
+                  Tesla Model X
+                </Text>
+                <View
+                  style={{
+                    marginLeft: 135,
+                    fontSize: 20,
+                    marginTop: 21,
+
+                    color: "white",
+                    justifyContent: "flex-end",
+                    backgroundColor: "rgba(52, 52, 52, 0.8)",
+                    padding: 20,
+                    borderBottomRightRadius: 16,
+                    borderTopLeftRadius: 60,
+                  }}
+                >
+                  <View style={{ paddingBottom: 10 }}>
+                    <Text style={{ color: "white", fontSize: 10 }}>
+                      Current Bid
+                    </Text>
                     <Text
                       style={{
-                        flex: 1,
-                        alignItems: "flex-end",
-                        flexDirection: "row",
+                        color: "white",
+                        fontFamily: "robotobold",
+                        fontSize: 20,
                       }}
                     >
-                      {" "}
                       $5000
                     </Text>
                   </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.productList}>
-                  <Image
-                    style={styles.image}
-                    source={require("../assets/carmod.jpeg")}
-                  />
-                  <Text>Ferrari</Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text>66 Bids</Text>
-                    <Text
-                      style={{
-                        flex: 1,
-                        alignItems: "flex-end",
-                        flexDirection: "row",
-                      }}
-                    >
-                      {" "}
-                      $1000
-                    </Text>
+                  <View style={{ paddingBottom: 10, fontSize: 10 }}>
+                    <Text style={{ color: "white" }}>25 Bids</Text>
                   </View>
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <TouchableOpacity
-                  style={styles.productList}
-                  onPress={() => navigation.navigate("DetailsPage")}
-                >
-                  <Image
-                    style={styles.image}
-                    source={require("../assets/carmod2.jpeg")}
-                  />
-                  <Text>Bently</Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text>2 Bids</Text>
-                    <Text
-                      style={{
-                        flex: 1,
-                        alignItems: "flex-end",
-                        flexDirection: "row",
-                      }}
-                    >
-                      {" "}
-                      $8000
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.productList}>
-                  <Image
-                    style={styles.image}
-                    source={require("../assets/carmod3.webp")}
-                  />
-                  <Text>Ford</Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text>55 Bids</Text>
-                    <Text
-                      style={{
-                        flex: 1,
-                        alignItems: "flex-end",
-                        flexDirection: "row",
-                      }}
-                    >
-                      {" "}
-                      $9000
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 25,
-                    textAlign: "center",
-                    marginBottom: 16,
-                  }}
-                >
-                  You are on Home Screen
-                </Text>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() =>
-                    navigation.navigate("SettingsStack", {
-                      screen: "SettingsPage",
-                    })
-                  }
-                >
-                  <Text>Go to setting Tab</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => navigation.navigate("DetailsPage")}
-                >
-                  <Text>Open Details Screen</Text>
-                </TouchableOpacity>
+                  <Text style={{ color: "white", fontSize: 10 }}>
+                    Ending in
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      fontFamily: "robotobold",
+                      fontSize: 20,
+                      color: "red",
+                    }}
+                  >
+                    20:12
+                  </Text>
+                </View>
               </View>
             </View>
-          </ScrollView>
-        </SafeAreaView>
-      </LinearGradient>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ flexDirection: "row", paddingTop: 10 }}>
+          <MaterialCommunityIconsss
+            name={"gavel"}
+            size={25}
+            color={"#0077B5"}
+            style={{ paddingLeft: 30 }}
+          />
+          <Text
+            style={{
+              paddingLeft: 10,
+              fontWeight: "bold",
+              fontFamily: "roboto",
+              fontSize: 20,
+              color: "#0077B5",
+            }}
+          >
+            Popular
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            paddingLeft: 20,
+            paddingRight: 40,
+            marginTop: -50,
+            paddingTop: 37,
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              height: 6,
+              backgroundColor: "#0077B5",
+              borderRadius: 30,
+              marginRight: 30,
+            }}
+          />
+          <Pressable
+            title="See More"
+            color="#0077B5"
+            style={styles.button}
+            onPress={() =>
+              navigation.navigate("SettingsPage")
+            }
+          >
+            <Text style={styles.text}>See More</Text>
+          </Pressable>
+        </View>
+
+        <TouchableOpacity
+          style={styles.productList}
+          onPress={() => navigation.navigate("DetailsPage")}
+        >
+          <Image style={styles.image} source={require("../assets/bentleycar.jpg")} />
+          <View style={{ position: "absolute" }}>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  marginTop: 120,
+                  paddingLeft: 10,
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  color: "white",
+                }}
+              >
+                Bently
+              </Text>
+              <View
+                style={{
+                  marginLeft: 202,
+                  fontSize: 20,
+                  marginTop: 21,
+
+                  color: "white",
+                  justifyContent: "flex-end",
+                  backgroundColor: "rgba(52, 52, 52, 0.8)",
+                  padding: 20,
+                  borderBottomRightRadius: 16,
+                  borderTopLeftRadius: 60,
+                }}
+              >
+                <View style={{ paddingBottom: 10 }}>
+                  <Text style={{ color: "white", fontSize: 10 }}>
+                    Current Bid
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      fontFamily: "robotobold",
+                      fontSize: 20,
+                    }}
+                  >
+                    $5000
+                  </Text>
+                </View>
+                <View style={{ paddingBottom: 10, fontSize: 10 }}>
+                  <Text style={{ color: "white" }}>25 Bids</Text>
+                </View>
+                <Text style={{ color: "white", fontSize: 10 }}>Ending in</Text>
+                <Text
+                  style={{
+                    color: "white",
+                    fontFamily: "robotobold",
+                    fontSize: 20,
+                    color: "red",
+                  }}
+                >
+                  20:12
+                </Text>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+        </ScrollView>
+      </SafeAreaView>
     );
   } else {
     return (
@@ -315,8 +413,20 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   individ: {
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  centerer: {
+    justifyContent: "center",
+    borderRadius: 80 / 2,
+    backgroundColor: "#eeeeee",
+    height: 90,
+    width: 90,
+    paddingRight: 40,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
   },
   card: {
     backgroundColor: "white",
@@ -332,21 +442,25 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   thumb: {
-    height: 50,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    borderBottomLeftRadius: 16,
-    borderBottomRightRadius: 16,
-    width: 50,
+    width: 60,
+    height: 60,
+    alignItems: "center",
     alignSelf: "center",
-    backgroundColor: "white",
+    position: "absolute",
+    padding: 20,
+    justifyContent: "center",
+    backgroundColor: "#eeeeee",
   },
   infoContainer: {
     padding: 16,
+    textAlign: "center",
   },
   name: {
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: "bold",
+    color: "#0077B5",
+    textAlign: "center",
+    fontFamily: "roboto",
   },
   price: {
     fontSize: 16,
@@ -354,9 +468,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   productList: {
-    height: 150,
-    backgroundColor: "white",
-    padding: 10,
+    height: 170,
+
     margin: 10,
     borderRadius: 20,
   },
@@ -367,18 +480,32 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
-    width: 150,
+    backgroundColor: "rgba(0,0,0, 0.60)",
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
+    width: "100%",
   },
   text: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
-    color: "white",
+    color: "#0077B5",
+  },
+  shadowProp: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+
+    height: 10,
+    elevation: 7,
+    backgroundColor: "white",
   },
 });
 export default HomeScreen;
