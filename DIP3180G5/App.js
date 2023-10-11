@@ -67,20 +67,21 @@ const App = () => {
     <WishlistProvider>
       <NavigationContainer>
           <Stack.Navigator initialRouteName="LoadingPage">
-          <Stack.Screen name="LoadingPage" component={LoadingPage} options={{ headerShown: false }} />
           {!user? (
             <>   
+               <Stack.Screen name="LoadingPage" component={LoadingPage} options={{ headerShown: false }} />
                <Stack.Screen name="LoginPage" component={LoginPage} options={{ headerShown: false }} />
                <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{ headerShown: false }}/>
             </>
-          ) :(
+          ) :
+          (
             <>
             <Stack.Screen name="ChatPage" component={ChatPage} options={{ headerShown: false }} />
             <Stack.Screen name="ChatConversation" component={ChatConversation} />
             <Stack.Screen name="HomePage" component={HomePage} />
             <Stack.Screen name="RegisterPage" component={RegisterPage} options={{ headerShown: false }} />
             <Stack.Screen name="DetailsPage" component={DetailsPage} options={{ headerShown: false }} />
-            <Stack.Screen name="SettingsPage" component={SettingsPage} options={{ headerShown: false }} />
+             <Stack.Screen name="SettingsPage" component={SettingsPage} options={{ headerShown: false }} />
             <Stack.Screen name="ProfilePage" component={ProfilePage} options={{ headerShown: false }} />
             <Stack.Screen name="WishlistPage" component={WishlistPage} options={{ headerShown: false }} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
