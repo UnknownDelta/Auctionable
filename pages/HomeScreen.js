@@ -152,6 +152,7 @@ const HomeScreen = ({ navigation }) => {
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
         />
+        <ScrollView>
         <View style={{ flexDirection: "row", paddingTop: 4 }}>
           <MaterialCommunityIconss
             name={"stopwatch"}
@@ -224,7 +225,7 @@ const HomeScreen = ({ navigation }) => {
                 </Text>
                 <View
                   style={{
-                    marginLeft: 175,
+                    marginLeft: 135,
                     fontSize: 20,
                     marginTop: 21,
 
@@ -343,7 +344,7 @@ const HomeScreen = ({ navigation }) => {
               </Text>
               <View
                 style={{
-                  marginLeft: 242,
+                  marginLeft: 202,
                   fontSize: 20,
                   marginTop: 21,
 
@@ -387,6 +388,7 @@ const HomeScreen = ({ navigation }) => {
             </View>
           </View>
         </TouchableOpacity>
+        </ScrollView>
       </SafeAreaView>
     );
   } else {

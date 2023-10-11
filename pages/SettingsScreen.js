@@ -23,8 +23,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import { Slider, RangeSlider } from '@react-native-assets/slider';
-import Slider from "react-native-sliders";
-import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input';
 
 
@@ -193,16 +191,17 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity
             style={{ justifyContent: "flex-start" }}
           ></TouchableOpacity>
-        </View>
-        <SafeAreaView style={{ flex: 1 }}>
-          <View>
-          <MaterialCommunityIcons
+                    <MaterialCommunityIcons
               name={"filter"}
               size={50}
               color={"#0077B5"}
               style={{ marginLeft: 150 }}
               onPress={() => setShow(!show)}
             />
+        </View>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View>
+
            
            
           <LinearGradient
@@ -409,7 +408,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 20,
     backgroundColor: "white",
-    height: 540,
+    height: 520,
   },
   producttext: {
     padding: 20,
