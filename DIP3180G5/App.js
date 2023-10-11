@@ -196,7 +196,7 @@ function BottomTabScreens() {
               height: 2,
               backgroundColor: "#0077B5",
               position: "absolute",
-              bottom: 48, //48
+              bottom: 77, //48
               //left: 50,
               borderRadius: 20,
               transform: [{ translateX: tabOffsetValue }],

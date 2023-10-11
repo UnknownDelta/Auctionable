@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AppLoading from "expo-app-loading";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, CommonActions} from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as Font from "expo-font";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -500,7 +500,7 @@ function CreateListingScreen() {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{ name: "ListingScreen" }],
+        routes: [{ name: "ListingPage" }],
       })
     );
   };
