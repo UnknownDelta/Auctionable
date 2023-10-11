@@ -25,6 +25,7 @@
     "@rneui/base": "^4.0.0-rc.7",
     "@rneui/themed": "^4.0.0-rc.8",
     "amazon-cognito-identity-js": "^6.3.6",
+    "amplify": "^0.0.11",
     "assets": "^3.0.1",
     "aws-amplify": "^5.3.11",
     "aws-amplify-react-native": "^7.0.7",
