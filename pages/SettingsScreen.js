@@ -23,9 +23,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import { Slider, RangeSlider } from '@react-native-assets/slider';
-
-
-
+import Slider from "react-native-sliders";
+import RangeSlider from 'react-range-slider-input';
+import 'react-range-slider-input';
 
 
 const ContentComponent = () => {
