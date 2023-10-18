@@ -551,3 +551,5 @@ const styles = StyleSheet.create({
 });
 export default HomeScreen;
 AppRegistry.registerComponent("SliderExample", () => SliderExample);
+
+export default HomeScreen;
