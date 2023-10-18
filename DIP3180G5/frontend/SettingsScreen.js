@@ -21,15 +21,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
-import { Slider, RangeSlider } from '@react-native-assets/slider';
-import 'react-range-slider-input';
-
+import { Slider, RangeSlider } from "@react-native-assets/slider";
+import "react-range-slider-input";
 
 const ContentComponent = () => {
   return (
     <View style={styles.filter}>
       <View style={styles.productList}>
- 
         <Text style={styles.name}>Sort Results</Text>
       </View>
       <View style={styles.productList}>
@@ -88,11 +86,10 @@ const ContentComponent = () => {
         </View>
       </View>
       <View style={styles.productList}>
-            <Text style={styles.name}>Fliter Results</Text>
-          </View>
+        <Text style={styles.name}>Fliter Results</Text>
+      </View>
       <View style={styles.ridesFriends}>
         <View style={{ paddingTop: 20 }}>
-          
           <View style={styles.productList}>
             <Text style={styles.names}>Vehicle</Text>
           </View>
@@ -111,53 +108,82 @@ const ContentComponent = () => {
           <View style={styles.container}></View>
         </View>
         <View style={styles.verticleLine}></View>
-        <View style={{flexDirection:'column', marginTop: 10, marginRight: -25}}>
-        <View style={{paddingTop: 10, flexDirection: 'row', justifyContent:'flex-start',  paddingRight:20, paddingLeft:10}}>
-          <Pressable style={styles.chatbutton}>
-            <Text style={styles.textt}>Car</Text>
-          </Pressable>
-          <Pressable style={styles.chatbutton}>
-            <Text style={styles.textt}>Motocycle</Text>
-          </Pressable>
-        </View>
-        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent:'flex-start',  paddingRight:20, paddingLeft:10}}>
-          <Pressable style={styles.chatbutton}>
-            <Text style={styles.textt}>Help</Text>
-          </Pressable>
-          <Pressable style={styles.chatbutton}>
-            <Text style={styles.textt}>Tires</Text>
-          </Pressable>
-          <Pressable style={styles.chatbutton}>
-            <Text style={styles.textt}>Others</Text>
-          </Pressable>
-        </View>
-        <View style={{ margin:30, marginTop: 8, marginBottom: 0,}}>
-          <Text>$20.5k - $550k</Text>
-        <RangeSlider range={[0,1]} minimumValue={0} maximumValue={1} step={0} inboundColor='#0077B5'/>
-        </View>
-        <View style={{ flexDirection: "row",justifyContent:'flex-start' }}>
-          <Pressable style={styles.chatbutton}>
-            <Text style={styles.textt}>New</Text>
-          </Pressable>
-          <Pressable style={styles.chatbutton}>
-            <Text style={styles.textt}>Used</Text>
-          </Pressable>
-          
-        </View>
-        <View style={{ margin:30, marginTop: 8, marginBottom: 0,}}>
-          <Text>5 mthns - 3.5 yrs</Text>
-        <RangeSlider range={[0,1]} minimumValue={0} maximumValue={1} step={0} inboundColor='#0077B5'/>
-        </View>
-        </View>
-        
-      </View><View style={{flexDirection: 'row', justifyContent:'center'}}>
-      <Pressable style={styles.applybutton}>
-              <Text style={styles.text}>Reset</Text>
+        <View
+          style={{ flexDirection: "column", marginTop: 10, marginRight: -25 }}
+        >
+          <View
+            style={{
+              paddingTop: 10,
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              paddingRight: 20,
+              paddingLeft: 10,
+            }}
+          >
+            <Pressable style={styles.chatbutton}>
+              <Text style={styles.textt}>Car</Text>
             </Pressable>
-            <Pressable style={styles.applybutton}>
-              <Text style={styles.text}>Apply</Text>
+            <Pressable style={styles.chatbutton}>
+              <Text style={styles.textt}>Motocycle</Text>
             </Pressable>
-            </View>
+          </View>
+          <View
+            style={{
+              paddingTop: 10,
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              paddingRight: 20,
+              paddingLeft: 10,
+            }}
+          >
+            <Pressable style={styles.chatbutton}>
+              <Text style={styles.textt}>Help</Text>
+            </Pressable>
+            <Pressable style={styles.chatbutton}>
+              <Text style={styles.textt}>Tires</Text>
+            </Pressable>
+            <Pressable style={styles.chatbutton}>
+              <Text style={styles.textt}>Others</Text>
+            </Pressable>
+          </View>
+          <View style={{ margin: 30, marginTop: 8, marginBottom: 0 }}>
+            <Text>$20.5k - $550k</Text>
+            <RangeSlider
+              range={[0, 1]}
+              minimumValue={0}
+              maximumValue={1}
+              step={0}
+              inboundColor="#0077B5"
+            />
+          </View>
+          <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
+            <Pressable style={styles.chatbutton}>
+              <Text style={styles.textt}>New</Text>
+            </Pressable>
+            <Pressable style={styles.chatbutton}>
+              <Text style={styles.textt}>Used</Text>
+            </Pressable>
+          </View>
+          <View style={{ margin: 30, marginTop: 8, marginBottom: 0 }}>
+            <Text>5 mthns - 3.5 yrs</Text>
+            <RangeSlider
+              range={[0, 1]}
+              minimumValue={0}
+              maximumValue={1}
+              step={0}
+              inboundColor="#0077B5"
+            />
+          </View>
+        </View>
+      </View>
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <Pressable style={styles.applybutton}>
+          <Text style={styles.text}>Reset</Text>
+        </Pressable>
+        <Pressable style={styles.applybutton}>
+          <Text style={styles.text}>Apply</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -190,26 +216,23 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity
             style={{ justifyContent: "flex-start" }}
           ></TouchableOpacity>
-                    <MaterialCommunityIcons
-              name={"filter"}
-              size={50}
-              color={"#0077B5"}
-              style={{ marginLeft: 150 }}
-              onPress={() => setShow(!show)}
-            />
+          <MaterialCommunityIcons
+            name={"filter"}
+            size={50}
+            color={"#0077B5"}
+            style={{ marginLeft: 150 }}
+            onPress={() => setShow(!show)}
+          />
         </View>
         <SafeAreaView style={{ flex: 1 }}>
           <View>
-
-           
-           
-          <LinearGradient
-          style={styles.shadowProp}
-          colors={["#0077B5", "#00A859"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-        />
-         {show && <ContentComponent />}
+            <LinearGradient
+              style={styles.shadowProp}
+              colors={["#0077B5", "#00A859"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+            {show && <ContentComponent />}
           </View>
           <ScrollView style={styles.scrollView}>
             <TouchableOpacity
@@ -218,7 +241,10 @@ const HomeScreen = ({ navigation }) => {
             >
               <View style={styles.container}>
                 <View style={styles.avatarContainer}>
-                  <Image source={require("../assets/car.png")} style={styles.avatar} />
+                  <Image
+                    source={require("../assets/car.png")}
+                    style={styles.avatar}
+                  />
                 </View>
 
                 <View style={styles.sidecontentcontainer}>
@@ -270,7 +296,10 @@ const HomeScreen = ({ navigation }) => {
             >
               <View style={styles.container}>
                 <View style={styles.avatarContainer}>
-                  <Image source={require("../assets/car.png")} style={styles.avatar} />
+                  <Image
+                    source={require("../assets/car.png")}
+                    style={styles.avatar}
+                  />
                 </View>
 
                 <View style={styles.sidecontentcontainer}>
@@ -317,8 +346,6 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           </ScrollView>
         </SafeAreaView>
-
-
       </SafeAreaView>
     );
   } else {
@@ -335,9 +362,7 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  textt: {
-
-  },
+  textt: {},
   containers: {
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
@@ -478,24 +503,24 @@ const styles = StyleSheet.create({
   },
   ridesFriends: {
     paddingTop: 20,
-    
+
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "100%",
     marginBottom: 20,
   },
   textt: {
-    justifyContent:"center",
-    textAlign: 'center',
-    color:'black',
+    justifyContent: "center",
+    textAlign: "center",
+    color: "black",
   },
   chatbutton: {
-    marginTop:6,
-    textAlign: 'center',
+    marginTop: 6,
+    textAlign: "center",
     backgroundColor: "white",
     padding: 2,
     paddingHorizontal: 10,
-    
+
     width: "auto",
     height: 20,
     justifyContent: "center",
@@ -507,18 +532,17 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   text: {
-      color: 'white',
+    color: "white",
   },
   applybutton: {
-    
     alignItems: "center",
     backgroundColor: "#00A859",
     padding: 10,
     width: 100,
-    marginHorizontal:10,
+    marginHorizontal: 10,
     justifyContent: "center",
     borderRadius: 5,
-   
+
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
