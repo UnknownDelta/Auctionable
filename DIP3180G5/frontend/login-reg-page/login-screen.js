@@ -70,7 +70,7 @@ const LoginScreen = () => {
                         
                         <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 30 }}>
                             <Text style={{ color: '#fff', fontWeight: '500' }}>Don't have an account?</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate("RegistrationScreen")}>
+                            <TouchableOpacity onPress={() => navigation.navigate("Regist.rationScreen")}>
                                 <Text style={{ fontFamily: 'robotobold', color: '#fff', fontWeight: '500' }}>      Register</Text>
                             </TouchableOpacity>
                         </View>
