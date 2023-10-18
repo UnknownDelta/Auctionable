@@ -1,7 +1,7 @@
 // React Native Bottom Navigation
 // https://aboutreact.com/react-native-bottom-navigation/
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -17,6 +17,7 @@ import Apploading from "expo-app-loading";
 import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
+import { useWishlist } from "../frontend/WishlistContext"; // Import the useWishlist hook
 
 const getFonts = () =>
   Font.loadAsync({
@@ -26,11 +27,44 @@ const getFonts = () =>
   });
 
 const DetailsScreen = () => {
+  const item = {
+    id: "1",
+    itemName: "Tesla X", // Replace with the actual name of the item
+    itemPrice: "$2000", // Replace with the actual price of the item
+    itemCondition: "used/9 months",
+    itemPicture: require("../assets/teslacar.jpeg"),
+    checked: false, // Track the checked state
+  };
+
   const [fontsloaded, setFontsLoaded] = useState(false);
+  const {
+    wishlistItems,
+    isWishlistSelected,
+    addToWishlist,
+    removeFromWishlist,
+    toggleWishlist,
+  } = useWishlist();
+
+  const isItemInWishlist = () => {
+    return wishlistItems.some((wishlistItem) => wishlistItem.id === item.id);
+  };
+
+  const handleAddToWishlist = () => {
+    if (isWishlistSelected) {
+      removeFromWishlist(item); // You may need to replace 'item' with your actual item
+    } else {
+      addToWishlist(item); // You may need to replace 'item' with your actual item
+    }
+    toggleWishlist();
+  };
+
   if (fontsloaded) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <Image style={styles.image} source={require("../assets/teslacar.jpeg")} />
+        <Image
+          style={styles.image}
+          source={require("../assets/teslacar.jpeg")}
+        />
         <View style={styles.infoContainer}>
           <Text style={styles.name}>Tesla X</Text>
           <Text style={styles.price}>$2000</Text>
@@ -69,6 +103,7 @@ const DetailsScreen = () => {
               flexDirection: "row",
               justifyContent: "flex-end",
             }}
+            onPress={handleAddToWishlist}
           >
             <Text
               style={{
@@ -80,12 +115,14 @@ const DetailsScreen = () => {
               }}
             >
               <MaterialCommunityIcons
-                name={"hearto"}
+                name={isItemInWishlist() ? "heart" : "hearto"}
                 size={20}
                 color={"#0077B5"}
                 style={{ marginLeft: -10 }}
               />{" "}
-              Add to wishlist
+              {isItemInWishlist()
+                ? "Remove from Watchlist"
+                : "Add to Watchlist"}
             </Text>
           </TouchableOpacity>
         </View>
@@ -237,7 +274,7 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 40,
-    fontWeight: 700,
+    fontWeight: "bold",
     fontFamily: "robotobold",
     color: "#0077B5",
   },
