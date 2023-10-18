@@ -1,9 +1,6 @@
+const { json } = require('express')
 const Items = require('../models/ItemsModel')
 const mongoose = require('mongoose')
-const multer = require('multer')
-
-const storage = multer.memoryStorage()
-const upload = multer({storage: storage})
 
 
 const getItems = async(req, res) =>{
@@ -23,15 +20,16 @@ const getSoldItems = async(req, res) =>{
 
     res.status(200).json(soldItems)
 }
-const createItem = (upload.single('image'), async (req, res) =>{
-    const {name, price, description, condition, years_used, category, new_used, seller, sold, qty} = req.body
+const createItem = (async (req, res) =>{
+    const {name, price, description, condition, years_used, category, new_used, images, seller, sold, qty} = req.body
 
     try {
-        const images = req.file.buffer.toString('base64')
         const item_list = await Items.create({name, price, description, condition, years_used, category, new_used, images, seller, sold, qty})
         res.status(200).json(item_list)
+        console.log(json(item_list))
     } catch (error) {
         res.status(400).json({error: error.message})
+        console.log(error.message)
     }
 })
 

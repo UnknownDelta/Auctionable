@@ -1,20 +1,18 @@
+const { json } = require('express')
 const Items = require('../models/ItemsModel')
 const mongoose = require('mongoose')
-const multer = require('multer')
-
-const storage = multer.memoryStorage()
-const upload = multer({storage: storage})
 
 
 const getItems = async(req, res) =>{
-    const itemList = await Items.find({}).sort({createdAt:-1})
+    const {seller} = req.params
+    const itemList = await Items.find({seller : seller}).sort({createdAt:-1})
 
     res.status(200).json(itemList)
 }
 
-//works partially, the case where there is 0 past items is glitchy
 const getSoldItems = async(req, res) =>{
-    const soldItems = await Items.find({sold: true}).sort({createdAt:-1})
+    const {seller} = req.params
+    const soldItems = await Items.find({seller: seller, sold: true}).sort({createdAt:-1})
 
     if (!soldItems) {
         return res.status(400).json({error: 'No previous items'})
@@ -22,15 +20,16 @@ const getSoldItems = async(req, res) =>{
 
     res.status(200).json(soldItems)
 }
-const createItem = (upload.single('image'), async (req, res) =>{
-    const {name, price, description, condition, years_used, category, new_used, seller, sold, qty} = req.body
+const createItem = (async (req, res) =>{
+    const {brand, model, colour, fuel_type, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
 
     try {
-        const images = req.file.buffer.toString('base64')
-        const item_list = await Items.create({name, price, description, condition, years_used, category, new_used, images, seller, sold, qty})
+        const item_list = await Items.create({brand, model, colour, fuel_type, description, years_used, registration_date, category, new_used, images, seller, sold})
         res.status(200).json(item_list)
+        console.log(json(item_list))
     } catch (error) {
         res.status(400).json({error: error.message})
+        console.log(error.message)
     }
 })
 

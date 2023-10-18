@@ -1,4 +1,4 @@
-This is Version 1.5 of the items list database and user database, with functioning react.js but only 1 page 
+This is Version 1.65 of the items list database and user database, with a react test suite
 
 Functionality:
 1. Getting the list for both sold and all
@@ -8,11 +8,9 @@ Functionality:
 5. now react.js exist
 6. User Table now exist
 7. Displaying Images working
-8. Sending Images(not tested)
+8. Sending Images
 9. User Specific lists
-
-Current Workings:
-1. functional test suite (version 1.6)
+10. functional test suite
 
 libraries used:
 1. node.js
@@ -20,4 +18,3 @@ libraries used:
 3. express.js
 4. mongodb
 5. mongoose
-6. multer
