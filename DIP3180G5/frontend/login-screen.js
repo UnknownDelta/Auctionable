@@ -88,9 +88,7 @@ const LoginScreen = ({ navigation }) => {
                         </View>
 
                         <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-                            <TouchableOpacity 
-                            
-                            style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('BottomTabScreens', { screen: 'Home' })} style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
                                 <Image source={require('../assets/Google.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
                                 <Text style={{ fontFamily: 'roboto', color: '#000000', fontWeight: '500', alignSelf: 'center' }}>Continue with Google</Text>
                             </TouchableOpacity>

@@ -19,15 +19,17 @@ const ProfileScreen = ({navigation}) => {
         <View
           style={{
             flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Text
             style={{
               fontSize: 25,
-              textAlign: 'center',
-              marginBottom: 16
-            }}>
+              textAlign: "center",
+              marginBottom: 16,
+            }}
+          >
             You are on Profile Screen
           </Text>
           <Button
@@ -38,17 +40,19 @@ const ProfileScreen = ({navigation}) => {
         <Text
           style={{
             fontSize: 18,
-            textAlign: 'center',
-            color: 'grey'
-          }}>
+            textAlign: "center",
+            color: "grey",
+          }}
+        >
           React Native Bottom Navigation
         </Text>
         <Text
           style={{
             fontSize: 16,
-            textAlign: 'center',
-            color: 'grey'
-          }}>
+            textAlign: "center",
+            color: "grey",
+          }}
+        >
           www.aboutreact.com
         </Text>
       </View>

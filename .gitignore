@@ -33,8 +33,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
-node_modules
-node_modules
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
@@ -46,7 +44,6 @@ amplify/backend/amplify-meta.json
 amplify/backend/.temp
 build/
 dist/
-node_modules/
 aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
@@ -57,3 +54,5 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+DIP3180G5/node_modules
+assets/fonts/
