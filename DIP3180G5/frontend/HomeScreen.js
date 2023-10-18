@@ -12,6 +12,7 @@ import {
   Image,
   Button,
   ImageBackground,
+  TextInput,
   Pressable,
 } from "react-native";
 import { SearchBar } from "react-native-elements";
@@ -35,22 +36,29 @@ const HomeScreen = ({ navigation }) => {
   if (fontsloaded) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flexDirection: "row", paddingBottom: 20 }}>
-          <TouchableOpacity style={{ justifyContent: "flex-end" }}>
+        <View style={{ flexDirection: "row", height: "10%", marginLeft: "5%"}}>
+          <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
             <Image
               style={{ height: 40, width: 40 }}
               source={require("../assets/appIcon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={{ justifyContent: "flex-start" }}>
+          <View style={{ flex: 4, justifyContent: "center", alignItems: "center", marginLeft: "5%"}}>
+            <TextInput
+              placeholder="Search..."
+              style={{ borderWidth: 1, borderColor: "gray", borderRadius: 5, padding: 5, width: "100%" }}
+            />
+          </View>
+          <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center", marginLeft: "5%"}}>
             <MaterialCommunityIcons
               name={"hearto"}
               size={30}
               color={"#0077B5"}
-              style={{ paddingRight: 40 }}
+              style={{ width: "100%" }}
             />
           </TouchableOpacity>
         </View>
+
 
         <LinearGradient
           style={styles.shadowProp}

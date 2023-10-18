@@ -57,14 +57,20 @@ function getWidth() {
   return width / 5;
 }
 
+function getHeight() {
+  let height = Dimensions.get("window").height;
+  return height;
+}
+
 function BottomTabScreens() {
   console.log("Test log outside handleTabPress"); // Add this line
   const isFocused = useIsFocused(); // Check if the screen is focused
   const [tabOffsetValue] = useState(new Animated.Value(0));
   //const tabBarHeight = useBottomTabBarHeight();
+  const screenHeight = getHeight();
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1}}>
       <Tab.Navigator
         screenOptions={({ route, index }) => ({
           tabBarIcon: ({ color, size, focused }) => {
@@ -196,7 +202,7 @@ function BottomTabScreens() {
               height: 2,
               backgroundColor: "#0077B5",
               position: "absolute",
-              bottom: 77, //48
+              bottom: 48, //48
               //left: 50,
               borderRadius: 20,
               transform: [{ translateX: tabOffsetValue }],
