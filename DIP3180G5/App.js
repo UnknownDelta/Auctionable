@@ -14,6 +14,7 @@ import LoadingPage from "./frontend/LoadingPage";
 import LoginPage from "./frontend/login-screen";
 import ChatPage from "./frontend/ChatPage";
 import ChatConversation from "./frontend/ChatConversation";
+import ListingCategoryScreen from "./frontend/listing-category-screen";
 import ListingPage from "./frontend/listing-screen";
 import HomePage from "./frontend/HomeScreen";
 import RegisterPage from "./frontend/registration-screen";
@@ -202,7 +203,7 @@ function BottomTabScreens() {
               height: 2,
               backgroundColor: "#0077B5",
               position: "absolute",
-              bottom: 48, //48
+              bottom: 77, //48
               //left: 50,
               borderRadius: 20,
               transform: [{ translateX: tabOffsetValue }],
@@ -263,6 +264,7 @@ function ListingStack() {
     >
       <Stack.Screen name="ListingPage" component={ListingPage} />
       <Stack.Screen name="createListPage" component={createListPage} />
+      <Stack.Screen name="ListingCategoryScreen" component={ListingCategoryScreen} />
     </Stack.Navigator>
   );
 }
