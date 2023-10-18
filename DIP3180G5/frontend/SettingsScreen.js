@@ -549,7 +549,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
 });
-export default HomeScreen;
 AppRegistry.registerComponent("SliderExample", () => SliderExample);
 
 export default HomeScreen;

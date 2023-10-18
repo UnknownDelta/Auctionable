@@ -31,7 +31,7 @@ const people = [
   { 
     name: 'BMW 3 Series', 
     key: '2',
-    imageSource: require("../assets/bmw.jpg"),
+    imageSource: require("../assets/bmw.png"),
     condition: 'New',
     price: 15000
   },
