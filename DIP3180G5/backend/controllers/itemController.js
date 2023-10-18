@@ -21,10 +21,10 @@ const getSoldItems = async(req, res) =>{
     res.status(200).json(soldItems)
 }
 const createItem = (async (req, res) =>{
-    const {brand, model, colour, fuel_type, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
+    const {brand, model, colour, fuel_type, price, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
 
     try {
-        const item_list = await Items.create({brand, model, colour, fuel_type, description, years_used, registration_date, category, new_used, images, seller, sold})
+        const item_list = await Items.create({brand, model, colour, fuel_type, price, description, years_used, registration_date, category, new_used, images, seller, sold})
         res.status(200).json(item_list)
         console.log(json(item_list))
     } catch (error) {
