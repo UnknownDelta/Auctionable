@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation, route }) {
   // const { selectedColours = [] } = route.params;
   useEffect(() => {
     // Define the URL of your backend API that retrieves car data
-    const apiUrl = 'http://192.168.68.118:4000/api/cars'; // use ipv4 address
+    const apiUrl = 'http://192.168.68.118:4000/api/cars'; // use ipv4 address // change to your ipv4 address accordingly
     // Send a GET request to the backend API
     fetch(apiUrl)
       .then((response) => response.json())
@@ -42,12 +42,12 @@ export default function HomeScreen({ navigation, route }) {
   // Function to filter cars based on the search query
   const filterCars = () => {
     const filteredData = cars.filter((car) =>
+    // changed the names of variables to matched the backend
       car.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
       car.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      car.bodyType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      car.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       car.colour.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      car.fuelType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      car.transmission.toLowerCase().includes(searchQuery.toLowerCase())
+      car.fuel_type.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredCars(filteredData);
   };
@@ -73,10 +73,10 @@ export default function HomeScreen({ navigation, route }) {
         sortedCars.sort((a, b) => b.mileage - a.mileage); // Sort by mileage from high to low
         break;
       case 'yearsOfCOELeftLowToHigh':
-        sortedCars.sort((a, b) => a.yearsOfCOELeft - b.yearsOfCOELeft); // Sort by yearsOfCOELeft from low to high
+        sortedCars.sort((a, b) => b.years_used - a.years_used); // Sort by years_used from high to low (aka COE left from low to high)
         break;
       case 'yearsOfCOELeftHighToLow':
-        sortedCars.sort((a, b) => b.yearsOfCOELeft - a.yearsOfCOELeft); // Sort by yearsOfCOELeft from high to low
+        sortedCars.sort((a, b) => a.years_used - b.years_used); // Sort by years_used from low to high (aka COE left from high to low)
         break;
   
       default:
@@ -173,7 +173,7 @@ export default function HomeScreen({ navigation, route }) {
           <TouchableOpacity onPress={() => navigation.navigate('Buy', item)}>
             <Card>
             <Image
-              source={{ uri: item.imageURLs[0] }} // Set the source prop to the image URL
+              source={{ uri: item.images[0] }} // Set the source prop to the image URL
               style={{
                 width: (Dimensions.get('window').width * 0.8), // xx% of the screen width
                 height: (Dimensions.get('window').width * 0.4), //xx% of the screen height
