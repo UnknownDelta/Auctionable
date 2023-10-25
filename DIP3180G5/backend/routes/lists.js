@@ -12,6 +12,16 @@ const {
     createUser
 } = require('../controllers/userController')
 
+const {
+    getAuction,
+    createAuction
+} = require('../controllers/auctionController')
+
+const {
+    getTransaction,
+    createTransaction
+} = require('../controllers/transactionController')
+
 const listing = express.Router()
 
 listing.get('/:seller/list', getItems)
@@ -25,5 +35,13 @@ listing.patch('/updatelist/:id', updateItem)
 listing.post('/createuser', createUser)
 
 listing.get('/user/:id', getUser)
+
+listing.post('/createauction', createAuction)
+
+listing.get('/:id/auction', getAuction)
+
+listing.post('/createtransaction', createTransaction)
+
+listing.get('/:item_id/transaction', getTransaction)
 
 module.exports = listing
