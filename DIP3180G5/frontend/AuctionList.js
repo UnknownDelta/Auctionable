@@ -194,7 +194,7 @@ const getFonts = () =>
     comic: require("../assets/fonts/Dudu_Calligraphy.ttf"),
   });
 
-const HomeScreen = ({ navigation }) => {
+const AuctionList = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [active, setActive] = useState(false);
@@ -237,7 +237,7 @@ const HomeScreen = ({ navigation }) => {
           <ScrollView style={styles.scrollView}>
             <TouchableOpacity
               style={styles.productpage}
-              onPress={() => navigation.navigate("DetailsPage")}
+              onPress={() => navigation.navigate("AuctionDetailsPage")}
             >
               <View style={styles.container}>
                 <View style={styles.avatarContainer}>
@@ -292,7 +292,7 @@ const HomeScreen = ({ navigation }) => {
 
             <TouchableOpacity
               style={styles.productpage}
-              onPress={() => navigation.navigate("DetailsPage")}
+              onPress={() => navigation.navigate("AuctionDetailsPage")}
             >
               <View style={styles.container}>
                 <View style={styles.avatarContainer}>
@@ -549,5 +549,5 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
 });
-export default HomeScreen;
+export default AuctionList;
 AppRegistry.registerComponent("SliderExample", () => SliderExample);
