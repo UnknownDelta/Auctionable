@@ -1,29 +1,49 @@
-const { json } = require('express')
+// const { json } = require('express')
 const Auction = require("../models/AuctionModel")
 const mongoose = require('mongoose')
 const { Transaction } = require('mongodb')
 
-const getAuction = async(req, res) =>{
-    const {id} = req.params
-    const auctionList = await Auction.find({_id : id}).sort({createdAt:-1})
-
-    res.status(200).json(auctionList)
-}
-
-const createAuction = (async (req, res) =>{
-    const {brand, model, colour, fuel_type, mileage, buyout_price, starting_bid, ending_time, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
-
-    try {
-        const auctionList = await Auction.create({brand, model, colour, fuel_type, mileage, buyout_price, starting_bid, ending_time, description, years_used, registration_date, category, new_used, images, seller, sold})
+const auctionCarController = {
+    getAllAuctionCars: async (req, res) => {
+        try {
+            const auctionCars = await Auction.find({}).sort({createdAt: -1}); // Use the Auction model to retrieve all auction cars
+            res.status(200).json(auctionCars)
+        } catch (error) {
+            console.error(error);
+            res.status(400).json({ error: 'Server error' });
+        }
+    },
+    getAuction: async(req, res) =>{
+        const {id} = req.params
+        const auctionList = await Auction.find({_id : id}).sort({createdAt:-1})
+    
         res.status(200).json(auctionList)
-        console.log(json(auctionList))
-    } catch (error) {
-        res.status(400).json({error: error.message})
-        console.log(error.message)
+    },
+    createAuction: async (req, res) =>{
+        const {brand, model, colour, fuel_type, mileage, buyout_price, starting_bid, ending_time, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
+        try {
+            const auctionList = await Auction.create({brand, model, colour, fuel_type, mileage, buyout_price, starting_bid, ending_time, description, years_used, registration_date, category, new_used, images, seller, sold})
+            res.status(200).json(auctionList)
+            console.log(json(auctionList))
+        } catch (error) {
+            res.status(400).json({error: error.message})
+            console.log(error.message)
+        }
+    },
+    getAuctionItems: async(req, res) =>{
+        const {seller} = req.params
+        const auctionList = await Auction.find({seller : seller}).sort({createdAt:-1})
+        res.status(200).json(auctionList)
+    },
+    getAuctionSoldItems: async(req, res) =>{
+        const {seller} = req.params
+        const soldItems = await Auction.find({seller: seller, sold: true}).sort({createdAt:-1})
+    
+        if (!soldItems) {
+            return res.status(400).json({error: 'No previous items'})
+        }
+        res.status(200).json(soldItems)
     }
-})
-
-module.exports = {
-    getAuction,
-    createAuction
 }
+
+module.exports = auctionCarController;
