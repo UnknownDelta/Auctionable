@@ -24,7 +24,8 @@ export default function HomeScreen({ navigation, route }) {
   // const { selectedColours = [] } = route.params;
   useEffect(() => {
     // Define the URL of your backend API that retrieves car data
-    const apiUrl = 'http://192.168.68.118:4000/api/cars'; // use ipv4 address // change to your ipv4 address accordingly
+    // const apiUrl = 'http://192.168.68.118:4000/api/cars'; // use ipv4 address // change to your ipv4 address accordingly
+    const apiUrl = 'http://10.91.234.87:4000/api/cars'; 
     // Send a GET request to the backend API
     fetch(apiUrl)
       .then((response) => response.json())
