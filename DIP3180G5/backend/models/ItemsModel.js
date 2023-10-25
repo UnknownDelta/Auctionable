@@ -19,6 +19,10 @@ const itemSchema = new Schema({
         type: String,
         required: true
     },
+    mileage:{
+        type: Number,
+        required: true
+    },
     price:{
         type:Number,
         required: true
@@ -32,7 +36,7 @@ const itemSchema = new Schema({
         required: true
     },
     registration_date:{
-        type:String,
+        type: String,
         required: true
     },
     category:{
