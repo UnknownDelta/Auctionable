@@ -1,5 +1,6 @@
 // const { json } = require('express') // i dont think need this line here right
 const Items = require('../models/ItemsModel')
+const AuctionItems = require('../models/ItemsModel') // change here
 const mongoose = require('mongoose')
 
 const carController = {
@@ -33,6 +34,18 @@ const carController = {
     },
     
     createItem: async (req, res) =>{
+        const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
+    
+        try {
+            const item_list = await Items.create({brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold})
+            res.status(200).json(item_list)
+            // console.log(json(item_list))
+        } catch (error) {
+            res.status(400).json({error: error.message})
+            console.log(error.message)
+        }
+    },
+    createAuctionItem: async (req, res) =>{ // need change here
         const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
     
         try {
