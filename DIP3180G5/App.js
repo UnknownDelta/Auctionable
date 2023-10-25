@@ -22,6 +22,8 @@ import WishlistPage from "./frontend/WishlistPage";
 import createListPage from "./frontend/create-listing-screen";
 import SettingsPage from "./frontend/SettingsScreen";
 import ProfilePage from "./frontend/ProfileScreen";
+import AuctionListPage from "./frontend/AuctionList";
+import AuctionDetailsPage from "./frontend/AuctionDetails";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { WishlistProvider } from "./frontend/WishlistContext";
 import * as Font from "expo-font";
@@ -70,7 +72,7 @@ function BottomTabScreens() {
   const screenHeight = getHeight();
 
   return (
-    <View style={{ flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Tab.Navigator
         screenOptions={({ route, index }) => ({
           tabBarIcon: ({ color, size, focused }) => {
@@ -84,7 +86,7 @@ function BottomTabScreens() {
               return <CustomListingTabIcon color={color} size={size} />;
             } else if (route.name === "Chat") {
               iconName = "ios-chatbubbles";
-            } else if (route.name === "Profile") {
+            } else if (route.name === "Auction") {
               iconName = "ios-person";
             }
 
@@ -181,7 +183,7 @@ function BottomTabScreens() {
           })}
         />
         <Tab.Screen
-          name="Profile"
+          name="Auction"
           component={ProfileStack}
           listeners={({ route }) => ({
             tabPress: (e) => {
@@ -202,8 +204,7 @@ function BottomTabScreens() {
               height: 2,
               backgroundColor: "#0077B5",
               position: "absolute",
-              bottom: 48, //48
-              //left: 50,
+              bottom: 48, //(android - 48, iphone - 77)
               borderRadius: 20,
               transform: [{ translateX: tabOffsetValue }],
             }}
@@ -270,10 +271,11 @@ function ListingStack() {
 function ProfileStack() {
   return (
     <Stack.Navigator
-      initialRouteName="ProfilePage"
+      initialRouteName="AuctionListPage"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="ProfilePage" component={ProfilePage} />
+      <Stack.Screen name="AuctionListPage" component={AuctionListPage} />
+      <Stack.Screen name="AuctionDetailsPage" component={AuctionDetailsPage} />
     </Stack.Navigator>
   );
 }
