@@ -10,9 +10,18 @@ import ListingScreen from '../frontend/listing-screen';
 import HomeScreen from '../frontend/HomeScreen';
 import ProfileScreen from '../frontend/ProfileScreen';
 import WishlistScreen from '../frontend/WishlistPage';
+import * as Font from "expo-font";
+import Apploading from "expo-app-loading";
 
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
+
+const getFonts = () =>
+    Font.loadAsync({
+        Roboto_LightItalic: require("../assets/fonts/Roboto-LightItalic.ttf"),
+        RobotoCondensed_Regular: require("../assets/fonts/RobotoCondensed-Regular.ttf"),
+    });
+
 
 function SellerScreen({ navigation }) {
     return (
@@ -32,15 +41,6 @@ function BuyerScreen({ navigation }) {
     );
 }
 
-function AuctionScreen() {
-    return (
-        <View style={styles.container}>
-            <Text>Auction Screen</Text>
-            <StatusBar style="auto" />
-        </View>
-    );
-}
-
 function ChatScreen() {
     return (
         <View style={{ flex: 1 }}>
@@ -54,67 +54,25 @@ function ChatScreen() {
 }
 
 export default function Chat() {
-    const loadIoniconsFont = async () => {
-        await useFonts({
-            Ionicons: Ionicons.font,
-        });
-    };
 
-    useEffect(() => {
-        // Load the Ionicons font when the component mounts
-        loadIoniconsFont();
-    }, []);
+    const [fontsloaded, setFontsLoaded] = useState(false);
 
-    return (
-        <Tab.Navigator
-            screenOptions={({ route }) => ({
-                tabBarIcon: ({ color, size }) => {
-                    let iconName;
+    if (fontsloaded) {
+        return (
+            <ChatScreen />
+        );
+    } else {
+        return (
+            <Apploading
+                startAsync={getFonts}
+                onFinish={() => {
+                    setFontsLoaded(true);
+                }}
+                onError={console.warn}
+            />
+        );
+    }
 
-                    if (route.name === 'Home') {
-                        iconName = 'ios-home';
-                    } else if (route.name === 'Wishlist') {
-                        iconName = 'ios-heart-outline';
-                    } else if (route.name === 'Listing') {
-                        iconName = 'ios-list';
-                    } else if (route.name === 'Chat') {
-                        iconName = 'ios-chatbubbles';
-                    } else if (route.name === 'Profile') {
-                        iconName = 'ios-person';
-                    }
-
-                    // Customize the icon color here based on the route name
-                    let tabColor = 'white'; // Default color
-                    return <Ionicons name={iconName} color={color} size={size} />;
-                },
-                tabBarActiveTintColor: '#84EFDB', // Set active tab color
-                tabBarInactiveTintColor: 'white',  // Set inactive tab color
-                tabBarStyle: {
-                    backgroundColor: '#0077B5', // Set background color of the entire bottom tab navigator
-                },
-                /*headerStyle: {
-                    backgroundColor: 'black', // Set the background color of the header #BFE1E39
-                },*/
-                // Customize header style for the "Chat" screen
-                headerBackground: () => (
-                    <ImageBackground
-                        source={require('../assets/header.png')}
-                        style={{ flex: 1 }}
-                        resizeMode="cover"
-                    />
-                ),
-                headerShown: route.name == 'Chat' || route.name == 'Wishlist', //show only header for chat screen
-                //headerShown: route.name == 'Wishlist',
-            })}
-        >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Wishlist" component={WishlistScreen} />
-            <Tab.Screen name="Listing" component={ListingScreen} />
-            <Tab.Screen name="Chat" component={ChatScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
-            {/* Add more tab screens if needed */}
-        </Tab.Navigator>
-    );
 }
 
 const styles = StyleSheet.create({
