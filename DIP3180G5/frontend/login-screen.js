@@ -127,7 +127,7 @@ const LoginScreen = ({ navigation }) => {
                 onFinish={() => {
                     setFontsLoaded(true);
                 }}
-                onError={console.warn}
+                //onError={console.warn}
             />
         );
     }
