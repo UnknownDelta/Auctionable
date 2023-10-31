@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema= mongoose.Schema
 
-const itemSchema = new Schema({
+const auctionSchema = new Schema({
     brand:{
         type: String,
         required: true
@@ -20,11 +20,19 @@ const itemSchema = new Schema({
         required: true
     },
     mileage:{
+        type:Number,
+        required: true
+    },
+    buyout_price:{
+        type:Number,
+        required: true
+    },
+    starting_bid:{
         type: Number,
         required: true
     },
-    price:{
-        type:Number,
+    ending_time:{
+        type:String,
         required: true
     },
     description: {
@@ -36,7 +44,7 @@ const itemSchema = new Schema({
         required: true
     },
     registration_date:{
-        type: String,
+        type:String,
         required: true
     },
     category:{
@@ -61,4 +69,4 @@ const itemSchema = new Schema({
     }
 }, { timestamps: true })
 
-module.exports = mongoose.model('Items', itemSchema)
+module.exports = mongoose.model('Auction', auctionSchema)

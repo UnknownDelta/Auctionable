@@ -13,32 +13,6 @@ const carController = {
     }
   },
 
-  // Controller for searching cars
-  searchCars: async (req, res) => {
-    const { searchTerm } = req.query;
-    try {
-      res.json({mssg: 'SEARCH all cars'})
-      // const cars = await Car.find({ $text: { $search: searchTerm } });
-      // res.json(cars);
-    } catch (error) {
-      console.error(error);
-      res.status(400).json({ error: 'Server error' });
-    }
-  },
-
-  // Controller for filtering/sorting cars
-  filterCars: async (req, res) => {
-    const { filterCriteria } = req.query;
-    try {
-      res.json({mssg: 'FILTER all cars'})
-      // const cars = await Car.find(filterCriteria).sort({ /* specify sort criteria here */ });
-      // res.json(cars);
-    } catch (error) {
-      console.error(error);
-      res.status(400).json({ error: 'Server error' });
-    }
-  },
-
   createNewCarListing: async (req, res) => {
     const {
       brand,

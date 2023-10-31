@@ -14,10 +14,10 @@ app.use((req, res, next) => {
     next();
 });
 // Connect to the MongoDB database
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI) // need change mongo uri in dotenv file
     .then(() => {
         // Define routes and route handling
-        const carRoutes = require('./routes/cars');
+        const carRoutes = require('./routes/lists'); // changed this from /cars to /lists
         app.use('/api/cars', carRoutes);
         // Start the server
         app.listen(port, () => {
