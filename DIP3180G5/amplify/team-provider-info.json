@@ -14,6 +14,20 @@
     "categories": {
       "auth": {
         "Authentication": {}
+      },
+      "function": {
+        "myLamda": {},
+        "lamdaFunction": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/lamdaFunction-2f4e767276306743356d-build.zip"
+        },
+        "auctionLamda": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/auctionLamda-336774307a6465694259-build.zip"
+        }
+      },
+      "api": {
+        "clutchapi": {}
       }
     }
   }

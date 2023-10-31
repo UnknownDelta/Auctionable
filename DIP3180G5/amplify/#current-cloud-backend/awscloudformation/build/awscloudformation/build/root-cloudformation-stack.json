@@ -209,6 +209,61 @@
         }
       }
     },
+    "functionlamdaFunction": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/lamdaFunction-cloudformation-template.json",
+        "Parameters": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/lamdaFunction-2f4e767276306743356d-build.zip",
+          "env": "staging"
+        }
+      }
+    },
+    "functionauctionLamda": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/auctionLamda-cloudformation-template.json",
+        "Parameters": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/auctionLamda-336774307a6465694259-build.zip",
+          "env": "staging"
+        }
+      }
+    },
+    "apiclutchapi": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/api/clutchapi-cloudformation-template.json",
+        "Parameters": {
+          "functionlamdaFunctionName": {
+            "Fn::GetAtt": [
+              "functionlamdaFunction",
+              "Outputs.Name"
+            ]
+          },
+          "functionlamdaFunctionArn": {
+            "Fn::GetAtt": [
+              "functionlamdaFunction",
+              "Outputs.Arn"
+            ]
+          },
+          "functionauctionLamdaName": {
+            "Fn::GetAtt": [
+              "functionauctionLamda",
+              "Outputs.Name"
+            ]
+          },
+          "functionauctionLamdaArn": {
+            "Fn::GetAtt": [
+              "functionauctionLamda",
+              "Outputs.Arn"
+            ]
+          },
+          "env": "staging"
+        }
+      }
+    },
     "UpdateRolesWithIDPFunction": {
       "DependsOn": [
         "AuthRole",

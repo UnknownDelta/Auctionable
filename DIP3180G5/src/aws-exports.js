@@ -25,6 +25,13 @@ const awsmobile = {
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
+    ],
+    "aws_cloud_logic_custom": [
+        {
+            "name": "clutchapi",
+            "endpoint": "https://z02ed6pn5g.execute-api.us-east-1.amazonaws.com/staging",
+            "region": "us-east-1"
+        }
     ]
 };
 

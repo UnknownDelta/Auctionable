@@ -1,4 +1,28 @@
 {
+  "api": {
+    "clutchapi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "lamdaFunction"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "auctionLamda"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "Authentication": {
       "customAuth": false,
@@ -25,6 +49,52 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "auctionLamda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "lamdaFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_auctionLamda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "auctionLamda"
+        }
+      ]
+    },
+    "AMPLIFY_function_auctionLamda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "auctionLamda"
+        }
+      ]
+    },
+    "AMPLIFY_function_lamdaFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lamdaFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_lamdaFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lamdaFunction"
+        }
+      ]
     }
   }
 }
