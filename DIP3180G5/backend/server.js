@@ -12,9 +12,11 @@ app.use((req, res, next) => {
     next();
 });
 
-mongoose.connect(process.env.MONGO_URI)
+// Connect to the MongoDB database
+mongoose.connect(process.env.MONGO_URI) // need change mongo uri in dotenv file
     .then(() => {
-        const carRoutes = require('./routes/cars');
+        // Define routes and route handling
+        const carRoutes = require('./routes/lists'); // changed this from /cars to /lists
         app.use('/api/cars', carRoutes);
     })
     .catch((error) => {
