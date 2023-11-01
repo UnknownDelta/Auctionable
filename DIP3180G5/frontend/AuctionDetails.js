@@ -10,6 +10,7 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import CountDown from "react-native-countdown-component";
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
@@ -58,6 +59,7 @@ const DetailTabContent = () => {
 };
 
 const BidTabContent = () => {
+  const navigation = useNavigation();
   const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
   const [highestBid, setHighestBid] = useState(53000); // Initialize the highest bid state
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
@@ -79,6 +81,7 @@ const BidTabContent = () => {
     const newHighestBid = highestBid + bidAmount;
     setHighestBid(newHighestBid);
     closeModal();
+    navigation.navigate("AuctionSuccessPage");
   };
   return (
     <View style={{ flex: 1, padding: 18, backgroundColor: "white" }}>

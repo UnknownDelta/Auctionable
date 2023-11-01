@@ -25,6 +25,7 @@ import SettingsPage from "./frontend/SettingsScreen";
 import ProfilePage from "./frontend/ProfileScreen";
 import AuctionListPage from "./frontend/AuctionList";
 import AuctionDetailsPage from "./frontend/AuctionDetails";
+import PurchaseHistoryPage from "./frontend/PurchasePage";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { WishlistProvider } from "./frontend/WishlistContext";
 import * as Font from "expo-font";
@@ -32,6 +33,7 @@ import Apploading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import TransactionScreen from "./frontend/TransactionScreen";
+import AuctionSuccessPage from "./frontend/AuctionSuccess";
 
 const Tab = createBottomTabNavigator();
 
@@ -320,6 +322,14 @@ export default function App() {
             <Stack.Screen
               name="TransactionScreen"
               component={TransactionScreen}
+            />
+            <Stack.Screen
+              name="PurchaseHistoryPage"
+              component={PurchaseHistoryPage}
+            />
+            <Stack.Screen
+              name="AuctionSuccessPage"
+              component={AuctionSuccessPage}
             />
           </Stack.Navigator>
         </NavigationContainer>
