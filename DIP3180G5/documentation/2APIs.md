@@ -6,7 +6,7 @@
 
 **Input:**
 
-*No Input*
+<font color="blue">*No Input*</font>
 
 **Example Output:**
 
@@ -99,7 +99,7 @@
 
 **Example Output:**
 
-*Output is in Frontend*
+<font color="green">*Output is in Frontend*</font>
 
 ### Search for vehicles you sold
 
@@ -112,7 +112,7 @@
 
 **Example Output:**
 
-*To Be Filled*
+<font color="yellow">*To Be Filled*</font>
 
 ### Update current vehicle sale
 
@@ -137,7 +137,7 @@
 
 **Example Output:**
 
-*Output is in Frontend*
+<font color="green">*Output is in Frontend*</font>
 
 ## Transaction Database APIs
 
@@ -177,4 +177,4 @@
 
 **Example Output:**
 
-*Output is in Frontend*
+<font color="green">*Output is in Frontend*</font>
