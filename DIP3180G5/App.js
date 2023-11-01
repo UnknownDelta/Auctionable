@@ -323,6 +323,14 @@ export default function App() {
               name="TransactionScreen"
               component={TransactionScreen}
             />
+            <Stack.Screen
+              name="PurchaseHistoryPage"
+              component={PurchaseHistoryPage}
+            />
+            <Stack.Screen
+              name="AuctionSuccessPage"
+              component={AuctionSuccessPage}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </WishlistProvider>
