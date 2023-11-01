@@ -1,6 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "clutchapi": {
+    "api5607ff3e": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
@@ -19,14 +19,21 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "auctionLamda": {
+    "AuctionAPI": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
-    "lamdaFunction": {
+    "authentication64447f17": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "lamdaBackend": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

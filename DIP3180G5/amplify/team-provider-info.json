@@ -17,17 +17,18 @@
       },
       "function": {
         "myLamda": {},
-        "lamdaFunction": {
+        "AuctionAPI": {
           "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
-          "s3Key": "amplify-builds/lamdaFunction-2f4e767276306743356d-build.zip"
+          "s3Key": "amplify-builds/AuctionAPI-79536c5464664d556741-build.zip"
         },
-        "auctionLamda": {
+        "lamdaBackend": {
           "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
-          "s3Key": "amplify-builds/auctionLamda-336774307a6465694259-build.zip"
+          "s3Key": "amplify-builds/lamdaBackend-37436f6e36676a4b3879-build.zip"
+        },
+        "authentication64447f17": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/authentication64447f17-4f334f597074672f3633-build.zip"
         }
-      },
-      "api": {
-        "clutchapi": {}
       }
     }
   }

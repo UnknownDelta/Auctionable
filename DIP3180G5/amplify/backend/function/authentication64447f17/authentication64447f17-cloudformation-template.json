@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "auctionLamda",
+            "authentication64447f17",
             {
               "Fn::Join": [
                 "",
                 [
-                  "auctionLamda",
+                  "authentication64447f17",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "authenticationLambdaRolea3ec676b",
+            "authenticationLambdaRole85023e38",
             {
               "Fn::Join": [
                 "",
                 [
-                  "authenticationLambdaRolea3ec676b",
+                  "authenticationLambdaRole85023e38",
                   "-",
                   {
                     "Ref": "env"

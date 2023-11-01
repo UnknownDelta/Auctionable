@@ -28,8 +28,8 @@ const awsmobile = {
     ],
     "aws_cloud_logic_custom": [
         {
-            "name": "clutchapi",
-            "endpoint": "https://z02ed6pn5g.execute-api.us-east-1.amazonaws.com/staging",
+            "name": "api5607ff3e",
+            "endpoint": "https://m5hv6wc6l4.execute-api.us-east-1.amazonaws.com/staging",
             "region": "us-east-1"
         }
     ]

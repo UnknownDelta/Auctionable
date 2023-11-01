@@ -1,28 +1,5 @@
 {
-  "api": {
-    "clutchapi": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "lamdaFunction"
-        },
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "auctionLamda"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    }
-  },
+  "api": {},
   "auth": {
     "Authentication": {
       "customAuth": false,
@@ -52,47 +29,69 @@
     }
   },
   "function": {
-    "auctionLamda": {
+    "AuctionAPI": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "lamdaFunction": {
+    "authentication64447f17": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "lamdaBackend": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_auctionLamda_deploymentBucketName": {
+    "AMPLIFY_function_AuctionAPI_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "auctionLamda"
+          "resourceName": "AuctionAPI"
         }
       ]
     },
-    "AMPLIFY_function_auctionLamda_s3Key": {
+    "AMPLIFY_function_AuctionAPI_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "auctionLamda"
+          "resourceName": "AuctionAPI"
         }
       ]
     },
-    "AMPLIFY_function_lamdaFunction_deploymentBucketName": {
+    "AMPLIFY_function_authentication64447f17_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "lamdaFunction"
+          "resourceName": "authentication64447f17"
         }
       ]
     },
-    "AMPLIFY_function_lamdaFunction_s3Key": {
+    "AMPLIFY_function_authentication64447f17_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "lamdaFunction"
+          "resourceName": "authentication64447f17"
+        }
+      ]
+    },
+    "AMPLIFY_function_lamdaBackend_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lamdaBackend"
+        }
+      ]
+    },
+    "AMPLIFY_function_lamdaBackend_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lamdaBackend"
         }
       ]
     }

@@ -209,54 +209,53 @@
         }
       }
     },
-    "functionlamdaFunction": {
+    "functionAuctionAPI": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/lamdaFunction-cloudformation-template.json",
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/AuctionAPI-cloudformation-template.json",
         "Parameters": {
           "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
-          "s3Key": "amplify-builds/lamdaFunction-2f4e767276306743356d-build.zip",
+          "s3Key": "amplify-builds/AuctionAPI-79536c5464664d556741-build.zip",
           "env": "staging"
         }
       }
     },
-    "functionauctionLamda": {
+    "functionlamdaBackend": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/auctionLamda-cloudformation-template.json",
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/lamdaBackend-cloudformation-template.json",
         "Parameters": {
           "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
-          "s3Key": "amplify-builds/auctionLamda-336774307a6465694259-build.zip",
+          "s3Key": "amplify-builds/lamdaBackend-37436f6e36676a4b3879-build.zip",
           "env": "staging"
         }
       }
     },
-    "apiclutchapi": {
+    "functionauthentication64447f17": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/api/clutchapi-cloudformation-template.json",
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/authentication64447f17-cloudformation-template.json",
         "Parameters": {
-          "functionlamdaFunctionName": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/authentication64447f17-4f334f597074672f3633-build.zip",
+          "env": "staging"
+        }
+      }
+    },
+    "apiapi5607ff3e": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/api/api5607ff3e-cloudformation-template.json",
+        "Parameters": {
+          "functionAuctionAPIName": {
             "Fn::GetAtt": [
-              "functionlamdaFunction",
+              "functionAuctionAPI",
               "Outputs.Name"
             ]
           },
-          "functionlamdaFunctionArn": {
+          "functionAuctionAPIArn": {
             "Fn::GetAtt": [
-              "functionlamdaFunction",
-              "Outputs.Arn"
-            ]
-          },
-          "functionauctionLamdaName": {
-            "Fn::GetAtt": [
-              "functionauctionLamda",
-              "Outputs.Name"
-            ]
-          },
-          "functionauctionLamdaArn": {
-            "Fn::GetAtt": [
-              "functionauctionLamda",
+              "functionAuctionAPI",
               "Outputs.Arn"
             ]
           },

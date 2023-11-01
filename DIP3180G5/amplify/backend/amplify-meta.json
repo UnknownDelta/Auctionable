@@ -48,7 +48,7 @@
         "IdentityPoolName": "testAuthIdentityPool__staging",
         "UserPoolName": "Authentication"
       },
-      "lastPushTimeStamp": "2023-10-25T08:33:40.586Z",
+      "lastPushTimeStamp": "2023-10-31T19:18:38.960Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/auth/Authentication-cloudformation-template.json",
         "logicalId": "authAuthentication"
@@ -56,92 +56,85 @@
     }
   },
   "function": {
-    "lamdaFunction": {
+    "AuctionAPI": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "lastBuildTimeStamp": "2023-10-25T08:25:41.374Z",
+      "lastBuildTimeStamp": "2023-10-31T19:16:10.858Z",
       "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2023-10-25T08:25:42.337Z",
-      "distZipFilename": "lamdaFunction-2f4e767276306743356d-build.zip",
+      "lastPackageTimeStamp": "2023-10-31T19:16:11.882Z",
+      "distZipFilename": "AuctionAPI-79536c5464664d556741-build.zip",
       "s3Bucket": {
         "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
-        "s3Key": "amplify-builds/lamdaFunction-2f4e767276306743356d-build.zip"
+        "s3Key": "amplify-builds/AuctionAPI-79536c5464664d556741-build.zip"
       },
       "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/lamdaFunction-cloudformation-template.json",
-        "logicalId": "functionlamdaFunction"
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/AuctionAPI-cloudformation-template.json",
+        "logicalId": "functionAuctionAPI"
       },
-      "lastPushTimeStamp": "2023-10-25T08:33:40.590Z",
+      "lastPushTimeStamp": "2023-10-31T19:18:45.776Z",
       "output": {
-        "LambdaExecutionRoleArn": "arn:aws:iam::170507994784:role/authenticationLambdaRolec67bce90-staging",
+        "LambdaExecutionRoleArn": "arn:aws:iam::170507994784:role/authenticationLambdaRole535efc57-staging",
         "Region": "us-east-1",
-        "Arn": "arn:aws:lambda:us-east-1:170507994784:function:lamdaFunction-staging",
-        "Name": "lamdaFunction-staging",
-        "LambdaExecutionRole": "authenticationLambdaRolec67bce90-staging"
+        "Arn": "arn:aws:lambda:us-east-1:170507994784:function:AuctionAPI-staging",
+        "Name": "AuctionAPI-staging",
+        "LambdaExecutionRole": "authenticationLambdaRole535efc57-staging"
       },
-      "lastPushDirHash": "MLayFEvZD5sJokZaHk6iDDRKFOI="
+      "lastPushDirHash": "Mw/3ui6AAQSC1Xzn7SHt9TUcYLU="
     },
-    "auctionLamda": {
+    "lamdaBackend": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "lastBuildTimeStamp": "2023-10-25T08:26:03.292Z",
+      "lastBuildTimeStamp": "2023-10-31T19:16:15.962Z",
       "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2023-10-25T08:26:03.924Z",
-      "distZipFilename": "auctionLamda-336774307a6465694259-build.zip",
+      "lastPackageTimeStamp": "2023-10-31T19:16:16.735Z",
+      "distZipFilename": "lamdaBackend-37436f6e36676a4b3879-build.zip",
       "s3Bucket": {
         "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
-        "s3Key": "amplify-builds/auctionLamda-336774307a6465694259-build.zip"
+        "s3Key": "amplify-builds/lamdaBackend-37436f6e36676a4b3879-build.zip"
       },
       "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/auctionLamda-cloudformation-template.json",
-        "logicalId": "functionauctionLamda"
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/lamdaBackend-cloudformation-template.json",
+        "logicalId": "functionlamdaBackend"
       },
-      "lastPushTimeStamp": "2023-10-25T08:33:40.592Z",
+      "lastPushTimeStamp": "2023-10-31T19:18:45.776Z",
       "output": {
-        "LambdaExecutionRoleArn": "arn:aws:iam::170507994784:role/authenticationLambdaRolea3ec676b-staging",
+        "LambdaExecutionRoleArn": "arn:aws:iam::170507994784:role/authenticationLambdaRole94577db1-staging",
         "Region": "us-east-1",
-        "Arn": "arn:aws:lambda:us-east-1:170507994784:function:auctionLamda-staging",
-        "Name": "auctionLamda-staging",
-        "LambdaExecutionRole": "authenticationLambdaRolea3ec676b-staging"
+        "Arn": "arn:aws:lambda:us-east-1:170507994784:function:lamdaBackend-staging",
+        "Name": "lamdaBackend-staging",
+        "LambdaExecutionRole": "authenticationLambdaRole94577db1-staging"
       },
-      "lastPushDirHash": "R6v1vlsLMK3vjb4tk7Eas+Tu9oY="
+      "lastPushDirHash": "+22sn7moNH07iWttae55gqT7iIU="
+    },
+    "authentication64447f17": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [],
+      "lastBuildTimeStamp": "2023-10-31T19:16:28.802Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-10-31T19:16:29.702Z",
+      "distZipFilename": "authentication64447f17-4f334f597074672f3633-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+        "s3Key": "amplify-builds/authentication64447f17-4f334f597074672f3633-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/authentication64447f17-cloudformation-template.json",
+        "logicalId": "functionauthentication64447f17"
+      },
+      "lastPushTimeStamp": "2023-10-31T19:18:45.776Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::170507994784:role/authenticationLambdaRole85023e38-staging",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:170507994784:function:authentication64447f17-staging",
+        "Name": "authentication64447f17-staging",
+        "LambdaExecutionRole": "authenticationLambdaRole85023e38-staging"
+      },
+      "lastPushDirHash": "8Vzky1VeeuiQKqOIXGsQXhL64co="
     }
   },
-  "api": {
-    "clutchapi": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "lamdaFunction",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "auctionLamda",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ],
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/api/clutchapi-cloudformation-template.json",
-        "logicalId": "apiclutchapi"
-      },
-      "lastPushTimeStamp": "2023-10-25T08:33:40.594Z",
-      "output": {
-        "ApiName": "clutchapi",
-        "RootUrl": "https://z02ed6pn5g.execute-api.us-east-1.amazonaws.com/staging",
-        "ApiId": "z02ed6pn5g"
-      },
-      "lastPushDirHash": "1MLnQIEW+FW1TRNR+dmEF5Eusvc="
-    }
-  }
+  "api": {}
 }

@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "lamdaFunction",
+            "lamdaBackend",
             {
               "Fn::Join": [
                 "",
                 [
-                  "lamdaFunction",
+                  "lamdaBackend",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "authenticationLambdaRolec67bce90",
+            "authenticationLambdaRole94577db1",
             {
               "Fn::Join": [
                 "",
                 [
-                  "authenticationLambdaRolec67bce90",
+                  "authenticationLambdaRole94577db1",
                   "-",
                   {
                     "Ref": "env"
