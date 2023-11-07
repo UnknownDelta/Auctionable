@@ -206,7 +206,7 @@ const HomeScreen = ({ navigation }) => {
   if (fontsloaded) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flexDirection: "row", paddingBottom: 20 }}>
+        <View style={{ flexDirection: "row", paddingBottom: 20, marginLeft: 25 }}>
           <TouchableOpacity style={{ justifyContent: "flex-end" }}>
             <Image
               style={{ height: 40, width: 40 }}

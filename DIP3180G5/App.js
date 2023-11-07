@@ -21,7 +21,7 @@ import RegisterPage from "./frontend/RegistrationScreen";
 import DetailsPage from "./frontend/DetailsScreen";
 import WishlistPage from "./frontend/WishlistPage";
 import createListPage from "./frontend/create-listing-screen";
-import SettingsPage from "./frontend/SettingsScreen";
+import SettingsPage from "./frontend/AllListing";
 import ProfilePage from "./frontend/ProfileScreen";
 import AuctionListPage from "./frontend/AuctionList";
 import AuctionDetailsPage from "./frontend/AuctionDetails";
