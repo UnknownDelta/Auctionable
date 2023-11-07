@@ -209,6 +209,60 @@
         }
       }
     },
+    "functionAuctionAPI": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/AuctionAPI-cloudformation-template.json",
+        "Parameters": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/AuctionAPI-79536c5464664d556741-build.zip",
+          "env": "staging"
+        }
+      }
+    },
+    "functionlamdaBackend": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/lamdaBackend-cloudformation-template.json",
+        "Parameters": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/lamdaBackend-37436f6e36676a4b3879-build.zip",
+          "env": "staging"
+        }
+      }
+    },
+    "functionauthentication64447f17": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/authentication64447f17-cloudformation-template.json",
+        "Parameters": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/authentication64447f17-4f334f597074672f3633-build.zip",
+          "env": "staging"
+        }
+      }
+    },
+    "apiapi5607ff3e": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/api/api5607ff3e-cloudformation-template.json",
+        "Parameters": {
+          "functionAuctionAPIName": {
+            "Fn::GetAtt": [
+              "functionAuctionAPI",
+              "Outputs.Name"
+            ]
+          },
+          "functionAuctionAPIArn": {
+            "Fn::GetAtt": [
+              "functionAuctionAPI",
+              "Outputs.Arn"
+            ]
+          },
+          "env": "staging"
+        }
+      }
+    },
     "UpdateRolesWithIDPFunction": {
       "DependsOn": [
         "AuthRole",

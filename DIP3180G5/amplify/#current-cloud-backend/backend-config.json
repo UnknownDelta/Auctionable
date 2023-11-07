@@ -1,4 +1,20 @@
 {
+  "api": {
+    "api5607ff3e": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "AuctionAPI"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "Authentication": {
       "customAuth": false,
@@ -25,6 +41,74 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "AuctionAPI": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "authentication64447f17": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "lamdaBackend": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_AuctionAPI_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AuctionAPI"
+        }
+      ]
+    },
+    "AMPLIFY_function_AuctionAPI_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AuctionAPI"
+        }
+      ]
+    },
+    "AMPLIFY_function_authentication64447f17_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "authentication64447f17"
+        }
+      ]
+    },
+    "AMPLIFY_function_authentication64447f17_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "authentication64447f17"
+        }
+      ]
+    },
+    "AMPLIFY_function_lamdaBackend_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lamdaBackend"
+        }
+      ]
+    },
+    "AMPLIFY_function_lamdaBackend_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lamdaBackend"
+        }
+      ]
     }
   }
 }

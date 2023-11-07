@@ -17,7 +17,7 @@ import ChatConversation from "./frontend/ChatConversation";
 import ListingCategoryScreen from "./frontend/listing-category-screen";
 import ListingPage from "./frontend/listing-screen";
 import HomePage from "./frontend/HomeScreen";
-import RegisterPage from "./frontend/registration-screen";
+import RegisterPage from "./frontend/RegistrationScreen";
 import DetailsPage from "./frontend/DetailsScreen";
 import WishlistPage from "./frontend/WishlistPage";
 import createListPage from "./frontend/create-listing-screen";

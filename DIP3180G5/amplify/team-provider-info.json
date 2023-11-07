@@ -1,0 +1,35 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-authentication-staging-144230-authRole",
+      "UnauthRoleArn": "arn:aws:iam::170507994784:role/amplify-authentication-staging-144230-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::170507994784:role/amplify-authentication-staging-144230-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-authentication-staging-144230-deployment",
+      "UnauthRoleName": "amplify-authentication-staging-144230-unauthRole",
+      "StackName": "amplify-authentication-staging-144230",
+      "StackId": "arn:aws:cloudformation:us-east-1:170507994784:stack/amplify-authentication-staging-144230/134f73d0-66b2-11ee-9e0f-12fd9622a7ff",
+      "AmplifyAppId": "d2iahtsnpq2mkz"
+    },
+    "categories": {
+      "auth": {
+        "Authentication": {}
+      },
+      "function": {
+        "myLamda": {},
+        "AuctionAPI": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/AuctionAPI-79536c5464664d556741-build.zip"
+        },
+        "lamdaBackend": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/lamdaBackend-37436f6e36676a4b3879-build.zip"
+        },
+        "authentication64447f17": {
+          "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+          "s3Key": "amplify-builds/authentication64447f17-4f334f597074672f3633-build.zip"
+        }
+      }
+    }
+  }
+}

@@ -1,10 +1,18 @@
-// React Native Bottom Navigation
-// https://aboutreact.com/react-native-bottom-navigation/
+import * as React from 'react';
+import { View, Text, SafeAreaView, Button } from 'react-native';
+import { Auth } from 'aws-amplify';
 
-import * as React from "react";
-import { View, Text, SafeAreaView } from "react-native";
+const ProfileScreen = ({navigation}) => {
 
-const ProfileScreen = () => {
+  const handleLogout = async () => {
+    try {
+      await Auth.signOut();
+      console.log('Successfully signed out');  
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, padding: 16 }}>
@@ -24,6 +32,10 @@ const ProfileScreen = () => {
           >
             You are on Profile Screen
           </Text>
+          <Button
+            title="Logout"
+            onPress={handleLogout}
+          />
         </View>
         <Text
           style={{
@@ -46,5 +58,6 @@ const ProfileScreen = () => {
       </View>
     </SafeAreaView>
   );
-};
+}
+
 export default ProfileScreen;
