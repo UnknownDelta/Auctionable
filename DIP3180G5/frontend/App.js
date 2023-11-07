@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import HomeScreen from './screens/homescreen';
 import BuyScreen from './screens/buyscreen';
 import * as Font from 'expo-font';
-// import { AppLoading } from 'expo';
 import AppLoading from 'expo-app-loading';
 import HomeStack from './routes/homeStack';
 import { NavigationContainer } from '@react-navigation/native';
