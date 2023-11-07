@@ -15,16 +15,6 @@ const carController = {
             res.status(400).json({ error: 'Server error' });
         }
     },
-    getAllAuctionCars: async (req, res) => {
-        try {
-            // res.json({mssg: 'GET all cars'})
-            const cars = await Items.find({}).sort({createdAt: -1}); // Use the Car model to retrieve all cars
-            res.status(200).json(cars)
-        } catch (error) {
-            console.error(error);
-            res.status(400).json({ error: 'Server error' });
-        }
-    },
     getItems: async(req, res) =>{
         const {seller} = req.params
         const itemList = await Items.find({seller : seller}).sort({createdAt:-1})

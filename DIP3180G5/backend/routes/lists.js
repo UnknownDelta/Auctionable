@@ -16,6 +16,7 @@ router.get('/:seller/pastauction', auctionCarController.getAuctionSoldItems) // 
 router.post('/createlist', carController.createItem)
 router.post('/createauction', auctionCarController.createAuction)  // changed
 router.patch('/updatelist/:id', carController.updateItem)
+router.patch('/updateauction/:id', auctionCarController.updateAuctionItem) // this is to update the current highest bidder
 router.post('/createuser', userController.createUser)
 router.get('/user/:id', userController.getUser)
 router.get('/:id/auction', auctionCarController.getAuction) // changed, get a single auction car
