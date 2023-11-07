@@ -23,6 +23,9 @@ import WishlistPage from "./frontend/WishlistPage";
 import createListPage from "./frontend/create-listing-screen";
 import SettingsPage from "./frontend/SettingsScreen";
 import ProfilePage from "./frontend/ProfileScreen";
+import AuctionListPage from "./frontend/AuctionList";
+import AuctionDetailsPage from "./frontend/AuctionDetails";
+import PurchaseHistoryPage from "./frontend/PurchasePage";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { WishlistProvider } from "./frontend/WishlistContext";
 import * as Font from "expo-font";
@@ -30,6 +33,7 @@ import Apploading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import TransactionScreen from "./frontend/TransactionScreen";
+import AuctionSuccessPage from "./frontend/AuctionSuccess";
 
 const Tab = createBottomTabNavigator();
 
@@ -71,7 +75,7 @@ function BottomTabScreens() {
   const screenHeight = getHeight();
 
   return (
-    <View style={{ flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Tab.Navigator
         screenOptions={({ route, index }) => ({
           tabBarIcon: ({ color, size, focused }) => {
@@ -85,7 +89,7 @@ function BottomTabScreens() {
               return <CustomListingTabIcon color={color} size={size} />;
             } else if (route.name === "Chat") {
               iconName = "ios-chatbubbles";
-            } else if (route.name === "Profile") {
+            } else if (route.name === "Auction") {
               iconName = "ios-person";
             }
 
@@ -182,7 +186,7 @@ function BottomTabScreens() {
           })}
         />
         <Tab.Screen
-          name="Profile"
+          name="Auction"
           component={ProfileStack}
           listeners={({ route }) => ({
             tabPress: (e) => {
@@ -264,7 +268,10 @@ function ListingStack() {
     >
       <Stack.Screen name="ListingPage" component={ListingPage} />
       <Stack.Screen name="createListPage" component={createListPage} />
-      <Stack.Screen name="ListingCategoryScreen" component={ListingCategoryScreen} />
+      <Stack.Screen
+        name="ListingCategoryScreen"
+        component={ListingCategoryScreen}
+      />
     </Stack.Navigator>
   );
 }
@@ -272,10 +279,11 @@ function ListingStack() {
 function ProfileStack() {
   return (
     <Stack.Navigator
-      initialRouteName="ProfilePage"
+      initialRouteName="AuctionListPage"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="ProfilePage" component={ProfilePage} />
+      <Stack.Screen name="AuctionListPage" component={AuctionListPage} />
+      <Stack.Screen name="AuctionDetailsPage" component={AuctionDetailsPage} />
     </Stack.Navigator>
   );
 }
@@ -314,6 +322,14 @@ export default function App() {
             <Stack.Screen
               name="TransactionScreen"
               component={TransactionScreen}
+            />
+            <Stack.Screen
+              name="PurchaseHistoryPage"
+              component={PurchaseHistoryPage}
+            />
+            <Stack.Screen
+              name="AuctionSuccessPage"
+              component={AuctionSuccessPage}
             />
           </Stack.Navigator>
         </NavigationContainer>
