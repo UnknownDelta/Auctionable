@@ -12,7 +12,11 @@ const carController = {
       res.status(400).json({ error: 'Server error' });
     }
   },
-
+  getCarDetails: async(req, res) =>{
+    const {id} = req.params
+    const cars = await Car.find({_id : id}).sort({createdAt:-1})
+    res.status(200).json(cars)
+  },
   createNewCarListing: async (req, res) => {
     const {
       brand,
