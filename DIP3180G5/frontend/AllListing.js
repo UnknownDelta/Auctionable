@@ -1,7 +1,7 @@
 // React Native Bottom Navigation
 // https://aboutreact.com/react-native-bottom-navigation/
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -22,7 +22,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import { Slider, RangeSlider } from "@react-native-assets/slider";
-import { AllListingsData } from "./Constants.js";
+import { AllListingsDataConstants } from "./Constants.js";
 import "react-range-slider-input";
 
 const ContentComponent = () => {
@@ -205,9 +205,29 @@ const HomeScreen = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [active, setActive] = useState(false);
   const [selected, setSelected] = useState(false);
+  const [AllListingsData, setAllListingsData] = useState([]);
   const handleClick = () => {
     setActive(!active);
   };
+
+  const fetchListingsData = async () => {
+    try {
+      const response = await fetch(
+        "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+      );
+      const data = await response.json();
+      setAllListingsData(data); // Update the state with fetched data
+    } catch (error) {
+      setAllListingsData(AllListingsDataConstants);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch data when the component mounts
+    fetchListingsData();
+    // Load fonts and set fontsLoaded to true
+    getFonts().then(() => setFontsLoaded(true));
+  }, []);
 
   if (fontsloaded) {
     return (
