@@ -39,7 +39,7 @@
 
 ```
 
-![getAllCars](/flowcharts/allcars.png)
+<img src="flowcharts/allcars.png" />
 
 ### Search for vehicles you are selling
 
@@ -79,7 +79,7 @@
 ]
 ```
 
-![getItems](/flowcharts/currentcars.png)
+<img src="flowcharts/currentcars.png"/>
 
 ### Create new vehicle sale
 
@@ -106,7 +106,7 @@
 
 *Output is in Frontend*
 
-![createItem](/flowcharts/createcar.png)
+<img src="flowcharts/createcar.png"/>
 
 ### Search for vehicles you sold
 
@@ -121,7 +121,7 @@
 
 *To Be Filled*
 
-![getSoldItems](/flowcharts/pastcars.png)
+<img src="flowcharts/pastcars.png">
 
 ### Update current vehicle sale
 
@@ -148,7 +148,7 @@
 
 *Output is in Frontend*
 
-![updateItem](/flowcharts/updatecar.png)
+<img src = "flowcharts/updatecar.png"/>
 
 ## Transaction Database APIs
 
@@ -176,7 +176,7 @@
 ]
 ```
 
-![getTransaction](/flowcharts/thetransaction.png)
+<img src="flowcharts/thetransaction.png"/>
 
 ### Create new bids for an auction
 
@@ -192,4 +192,4 @@
 
 *Output is in Frontend*
 
-![createTransaction](/flowcharts/createtransaction.png)
+<img src="flowcharts/createtransaction.png"/>
