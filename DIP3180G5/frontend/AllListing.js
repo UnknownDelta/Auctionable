@@ -219,6 +219,10 @@ const HomeScreen = ({ navigation }) => {
         "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
       );
       const data = await response.json();
+      console.log("HALO")
+      if (data === undefined){
+        setAllListingsData(AllListingsDataConstants);
+      }
       setAllListingsData(data); // Update the state with fetched data
     } catch (error) {
       setAllListingsData(AllListingsDataConstants);
@@ -228,6 +232,7 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     // Fetch data when the component mounts
     fetchListingsData();
+    console.log(AllListingsData);
     // Load fonts and set fontsLoaded to true
     getFonts().then(() => setFontsLoaded(true));
   }, []);
