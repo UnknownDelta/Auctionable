@@ -14,6 +14,7 @@ import {
   ImageBackground,
   Pressable,
   AppRegistry,
+  LogBox
 } from "react-native";
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
@@ -24,6 +25,8 @@ import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunit
 import { Slider, RangeSlider } from "@react-native-assets/slider";
 import { AllListingsDataConstants } from "./Constants.js";
 import "react-range-slider-input";
+
+LogBox.ignoreAllLogs();
 
 const ContentComponent = () => {
   return (
