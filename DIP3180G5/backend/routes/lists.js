@@ -2,7 +2,7 @@
 const express = require('express')
 const router = express.Router();
 // Import your car controller
-const carController = require('../controllers/itemController')
+const carController = require('../controllers/carController')
 const userController = require('../controllers/userController')
 const auctionCarController = require('../controllers/auctionController')
 const transactionController = require('../controllers/transactionController')
