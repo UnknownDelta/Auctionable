@@ -1,29 +1,45 @@
-// Load environment variables from the .env file
 require('dotenv').config();
-// Import required libraries and setup the port
 const express = require('express');
 const mongoose = require('mongoose');
-const port = process.env.PORT;
-// Create the Express app
-const app = express();
-// Middleware for parsing JSON requests
-app.use(express.json());
-// Custom logging middleware (for debugging)
-app.use((req, res, next) => {
-    console.log(req.path, req.method);
-    next();
-});
-// Connect to the MongoDB database
-mongoose.connect(process.env.MONGO_URI) // need change mongo uri in dotenv file
-    .then(() => {
-        // Define routes and route handling
-        const carRoutes = require('./routes/lists'); // changed this from /cars to /lists
-        app.use('/api/cars', carRoutes);
-        // Start the server
-        app.listen(port, () => {
-            console.log('Connected to the database and listening on port', port);
-        });
-    })
-    .catch((error) => {
-        console.log(error);
+let server; // Variable to hold the server instance
+
+const startServer = () => {
+    const app = express();
+    const port = process.env.PORT;
+
+    app.use(express.json());
+
+    app.use((req, res, next) => {
+        console.log(req.path, req.method);
+        next();
     });
+
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => {
+            const carRoutes = require('./routes/lists');
+            app.use('/api/cars', carRoutes);
+
+            server = app.listen(port, () => {
+                console.log('Connected to the database and listening on port', port);
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
+const stopServer = () => {
+    if (server) {
+        server.close((err) => {
+            if (err) {
+                console.error('Error closing the server:', err);
+            }
+        });
+    }
+};
+
+if (require.main === module) {
+    startServer();
+}
+
+module.exports = { startServer, stopServer };

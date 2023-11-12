@@ -1,34 +1,26 @@
-// const mongoose = require('mongoose');
-// const app = require('../server');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+const express = require('express');
+const mongoose = require('mongoose');
+const { startServer, stopServer } = require('../server');
+const request = require('supertest');
 
-// describe('Server Connection', () => {
-//   beforeAll(async () => {
-//     // Mocking mongoose connect with a spy
-//     jest.spyOn(mongoose, 'connect').mockImplementation(() => Promise.resolve());
 
-//     // Disabling console log during tests
-//     jest.spyOn(console, 'log').mockImplementation(() => {});
-//   });
+describe('Server Connection', () => {
+    beforeAll(async () => {
+        mongoose.connect(process.env.MONGO_URI);
+        startServer();
+    });
 
-//   afterAll(async () => {
-//     // Restoring mocked functions to their original state
-//     jest.restoreAllMocks();
+    afterAll(async () => {
+        await stopServer();
+        mongoose.disconnect();
+    });
+    it('should start the server', async () => {
+        // Send a test request to your server to check if it's running
+        const response = await request('http://localhost:' + process.env.PORT + '/api/cars').get('/'); // Replace '/' with your route
 
-//     // Closing the server connection or any necessary teardown
-//     await mongoose.disconnect();
-//   });
-
-//   it('should connect to the MongoDB database', async () => {
-//     await app; // Ensuring the server is fully loaded
-
-//     // Expect mongoose.connect to have been called with the correct URI
-//     expect(mongoose.connect).toHaveBeenCalledWith(process.env.MONGO_URI);
-//   });
-
-//   it('should start the server', async () => {
-//     const server = await app; // Ensure the server is fully loaded
-
-//     // Expect app.listen to have been called with the correct port
-//     expect(server.address().port).toBe(process.env.PORT);
-//   });
-// });
+        // Expect the status to be 200 indicating a successful connection
+        expect(response.status).toBe(200);
+    });
+});
