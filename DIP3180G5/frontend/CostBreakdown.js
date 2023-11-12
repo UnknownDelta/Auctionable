@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState}from "react";
 import {
   View,
   Text,
@@ -8,8 +8,10 @@ import {
   ImageBackground,
   SafeAreaView,
 } from "react-native";
+import { CheckBox } from "react-native-elements";
 
 const TransactionScreen = ({ navigation }) => {
+const [isWarrantySelected, setWarrantySelected] = useState(false);
   return (
     <ImageBackground
       source={require("../assets/background4.png")}
@@ -27,7 +29,7 @@ const TransactionScreen = ({ navigation }) => {
           </View>
           <View style={styles.priceContainer}>
             <Text style={styles.totalPrice}>
-              Total Price <Text style={styles.price}>             $84,800</Text>
+              Total Price <Text style={styles.price}>             $80,000</Text>
             </Text>
             <View
               style={{
@@ -37,26 +39,50 @@ const TransactionScreen = ({ navigation }) => {
             />
           </View>
           <View  style={styles.additionalInfo}>
-              <Text style={styles.additionalInfoHeader}>Inclusive of:</Text>
+              <Text style={styles.additionalInfoHeader}>Service Fee 1%  <Text style={styles.price}>             $800</Text></Text>
+              <View
+              style={{
+                borderBottomColor: "black",
+                borderBottomWidth: 2,
+              }}
+            />
+            <Text style={styles.additionalInfoHeader}>Inclusive of:</Text>
               <Text style={styles.additionalInfoContent}>Transferring of ownership paperwork</Text>
-              <Text style={styles.additionalInfoContent}>Condition check by Clutch</Text>
-              <Text style={styles.additionalInfoContent}>Additional 6 months warranty</Text>
+              <Text style={styles.additionalInfoContent2}>Condition check by Clutch</Text>
+              <Text style={styles.totalPrice}>
+              Total Price <Text style={styles.price}>             $80,800</Text>
+            </Text>
+            <View
+              style={{
+                borderBottomColor: "black",
+                borderBottomWidth: 2,
+              }}
+            />
           </View>
-          <Image
-            style={styles.imageIcon}
-            source={require("../assets/card_payment.png")}
-          />
-          <Image
-            style={styles.imageIcon}
-            source={require("../assets/installment.png")}
-          />
+          <TouchableOpacity
+            style={styles.button2}
+          >
+            <View style={styles.checkboxText}>
+            <CheckBox
+              checked={isWarrantySelected}
+              onPress={() => setWarrantySelected(!isWarrantySelected)}
+              containerStyle={styles.checkboxContainer}
+            /><Text style={styles.buttonText2}>Additional Six Months Warranty</Text>
+            </View>
+            <Text style={styles.price2}>$4000</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              navigation.navigate("TransactionAuctionPage");
+              // Check if the warranty checkbox is selected
+              if (isWarrantySelected) {
+                navigation.navigate("CheckoutPage");
+              } else {
+                navigation.navigate("TransactionAuctionPage");
+              }
             }}
           >
-            <Text style={styles.buttonText}>PAY</Text>
+            <Text style={styles.buttonText}>Continue</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -90,20 +116,34 @@ const styles = StyleSheet.create({
     // Additional styles for the white container
   },
   button: {
-    backgroundColor: "#00A859",
+    backgroundColor: "white",
     padding: 10,
     borderRadius: 10,
     alignItems: "center",
     marginTop: 20,
     width: 120,
     alignSelf: "center",
+    elevation:5,
+  },
+  button2:{
+    backgroundColor: "white",
+    width:270,
+    borderRadius: 10,
+    alignItems: "center",
+    padding:10,
+    alignSelf:"center",
+    elevation:5,
   },
   buttonText: {
-    color: "white",
+    color: "#0077B5",
     fontWeight: "bold",
     fontSize: 18,
   },
 
+  buttonText2:{
+    color: "black",
+    fontWeight:"bold",
+  },
   imageIcon: {
     width: 250,
     height: 70,
@@ -138,6 +178,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
     alignSelf:"flex-end"
   },
+  price2:{
+    color:"#0077B5",
+    fontSize: 19,
+  },
 
   additionalInfo:{
     marginTop:10,
@@ -151,6 +195,19 @@ const styles = StyleSheet.create({
   additionalInfoContent:{ 
     color:"#0077B5",
   },
+  additionalInfoContent2:{ 
+    marginBottom:70,
+    color:"#0077B5",
+  },
+  checkboxContainer: {
+    margin: 0,
+    padding: 0,
+    backgroundColor: "transparent",
+    borderWidth: 0,
+  },
+  checkboxText:{
+    flexDirection:"row",
+  }
 });
 
 export default TransactionScreen;

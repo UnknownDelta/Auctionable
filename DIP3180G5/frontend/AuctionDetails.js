@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -9,11 +10,15 @@ import {
   FlatList,
   Animated,
   Easing,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import CountDown from "react-native-countdown-component";
+import { useNavigation } from "@react-navigation/native";
+import ConfettiCannon from 'react-native-confetti-cannon';
+import * as Animatable from 'react-native-animatable';
+import { Table, Row, Rows } from 'react-native-table-component';
 import { useNavigation } from "@react-navigation/native";
 import ConfettiCannon from 'react-native-confetti-cannon';
 import * as Animatable from 'react-native-animatable';
@@ -31,6 +36,16 @@ const ImageSection = () => {
       />
     </View>
   );
+};
+const tableDataSample = {
+  tableHead: ['Pos.', 'Name', 'Amount', 'Date', 'Time' ],
+  widthArr: [50,80, 80, 100, 100,],
+  tableData: [['#1','Alice', '100', '2023-10-25', '10:00 AM'],
+  ['#2','Bob', '90','2023-10-25', '10:00 AM'],
+  ['#3','Barker', '10','2023-10-25', '10:00 AM'],
+  ['#4','Dave', '20',  '2023-10-25', '10:00 AM'],
+  ['#5','Elison', '40',  '2023-10-25', '10:00 AM'],
+  ]
 };
 const tableDataSample = {
   tableHead: ['Pos.', 'Name', 'Amount', 'Date', 'Time' ],
@@ -74,7 +89,6 @@ const DetailTabContent = () => {
     </View>
   );
 };
-
 const TableTwo = () => {
   const [data, setData] = React.useState(tableDataSample);
   return (
@@ -169,6 +183,58 @@ const BidTabContent = () => {
   );
 };
 
+const handleTermsAndConditionsClick = ({ visible, onClose }) => {
+  return (
+    <Modal animationType="fade" transparent={true} visible={visible}>
+      <View style={styles.modalContainer2}>
+        <View style={styles.modalContent2}>
+          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+            <Text style={styles.closeButtonText}>X</Text>
+          </TouchableOpacity>
+          <Text style={styles.modalTitle2}>Terms and Conditions</Text>
+          <ScrollView style={styles.scrollContainer}>
+            <Text>1. Only bidders who have been verified, accepted</Text>
+            <Text>   our terms and conditions, and executed the</Text>
+            <Text>   Bidding Agreement are contractually binding</Text>
+            <Text>2. All bids are contractually binding.</Text>
+            <Text>3. General application users are able to view the</Text>
+            <Text>   highest bid only. Registered bidders are able to</Text>
+            <Text>   see all bids</Text>
+            <Text>4. Any bid placeed within 3 minutes of closing</Text>
+            <Text>   extends the closing by another 3 minutes. There</Text>
+            <Text>   is no limit to this extension.</Text>
+            <Text>5. All auctions, unless otherwise stated, shall be</Text>
+            <Text>   conducted in Singapore dollars.</Text>
+            <Text>6. All auctions shall be subject to a minimum price</Text>
+            <Text>   determined by Auctionable and any bid of a</Text>
+            <Text>   value less than such minimum price will be</Text>
+            <Text>   declined</Text>
+            <Text>7. The increase in each bid will be regulated by</Text>
+            <Text>   Auctionable.</Text>
+            <Text>8. All auctions are subject to a reserve price and</Text>
+            <Text>   Auctionable shall have the right at any time at</Text>
+            <Text>   its discretion to withdraw the property from the </Text>
+            <Text>   Online Auction without disclosing the reserve</Text>
+            <Text>   price.</Text>
+            <Text>9. Any vendor reserves the right of bidding itself or</Text>
+            <Text>   by its agents as often as it shall please.</Text>
+            <Text>10. Where the reserve price has been met, the</Text>
+            <Text>    vehicle will be sold to the highest bidder at the</Text>
+            <Text>    end of the auction period</Text>
+            <Text>11. In the event of a dispute in respect of any bid,</Text>
+            <Text>    Auctionable reserves the right to re-open</Text>
+            <Text>    bidding or determine which bidder submitted</Text>
+            <Text>    the Successful Bid.</Text>
+            <Text>12. All prices, offers and bids, unless stated</Text>
+            <Text>    otherwise, exclude applicable duties, taxes and</Text>
+            <Text>    levies including without limitation stamp duty.</Text>
+          </ScrollView>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
 const ButtonSection = ({ handleBidButtonClick }) => {
   return (
     <View style={{ flex: 1, padding: 16 }}>
@@ -225,8 +291,30 @@ const ButtonSection = ({ handleBidButtonClick }) => {
 
 const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
+  const [modalVisible2, setModalVisible2] = useState(false);
+
+
+   // Function to open the first modal
+   const handleFirstModalClick = () => {
+    setModalVisible(true);
+  };
+
   const closeModal = () => {
     setModalVisible(false);
+  };
+
+  // Function to open the second modal (Terms and Conditions)
+  const handleTermsAndConditionsClick = () => {
+    // Close the first modal
+    setModalVisible(false);
+    // Open the second modal
+    setModalVisible2(true);
+  };
+
+  // Function to close the second modal (Terms and Conditions)
+  const closeModal2 = () => {
+    setModalVisible2(false);
+    setModalVisible(true);
   };
 
   return (
@@ -284,12 +372,104 @@ const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
                 <Text style={styles.modalButtonText}>Cancel/Edit</Text>
               </TouchableOpacity>
             </View>
+            <View style={styles.termsAndConditions}>
+              <Text style={styles.termsText}>
+                By confirming bidding, you agree with our{" "}
+                <TouchableOpacity onPress={handleTermsAndConditionsClick}>
+                  <Text style={styles.termsLink}>Terms and Conditions</Text>
+                </TouchableOpacity>
+              </Text>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal animationType="fade" transparent={true} visible={modalVisible2}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity style={styles.closeButton} onPress={closeModal2}>
+              <Text style={styles.closeButtonText}>X</Text>
+            </TouchableOpacity>
+            <Text style={styles.modalTitle2}>Terms and Conditions</Text>
+            <ScrollView style={styles.scrollContainer}>
+            <Text>1.   Only bidders who have been verified, </Text>
+            <Text>       accepted our terms and conditions, and</Text>
+            <Text>       executed the Bidding Agreement are</Text>
+            <Text>       contractually binding</Text>
+            <Text>2.   All bids are contractually binding.</Text>
+            <Text>3.   General application users are able to view</Text>
+            <Text>       the highest bid only. Registered bidders </Text>
+            <Text>       are able to see all bids</Text>
+            <Text>4.   Any bid placeed within 3 minutes of</Text>
+            <Text>       closing extends the closing by another 3</Text>
+            <Text>       minutes. There is no limit to this</Text>
+            <Text>       extension.</Text>
+            <Text>5.   All auctions, unless otherwise stated,</Text>
+            <Text>       shall be conducted in Singapore dollars.</Text>
+            <Text>6.   All auctions shall be subject to a</Text>
+            <Text>       minimum price determined by</Text>
+            <Text>       Auctionable and any bid of a value less</Text>
+            <Text>       than such minimum price will be declined</Text>
+            <Text>7.   The increase in each bid will be regulated </Text>
+            <Text>       by Auctionable.</Text>
+            <Text>8.   All auctions are subject to a reserve price</Text>
+            <Text>       and Auctionable shall have the right at</Text>
+            <Text>       any time at its discretion to withdraw the </Text>
+            <Text>       property from the Online Auction without</Text>
+            <Text>       disclosing the reserve price.</Text>
+            <Text>9.   Any vendor reserves the right of bidding</Text>
+            <Text>       itself or by its agents as often as it shall</Text>
+            <Text>       please.</Text>
+            <Text>10. Where the reserve price has been met,</Text>
+            <Text>       the vehicle will be sold to the highest</Text>
+            <Text>       bidder at the end of the auction period</Text>
+            <Text>11. In the event of a dispute in respect of any</Text>
+            <Text>       bid, Auctionable reserves the right to</Text>
+            <Text>       re-open bidding or determine which</Text>
+            <Text>       bidder submitted the Successful Bid.</Text>
+            <Text>12. All prices, offers and bids, unless stated</Text>
+            <Text>       otherwise, exclude applicable duties,</Text>
+            <Text>       taxes and levies including without</Text>
+            <Text>       limitation stamp duty.</Text>
+            </ScrollView>
           </View>
         </View>
       </Modal>
     </View>
   );
 };
+
+const bids = [
+  { name: 'Alice', amount: 100, date: '2023-10-25', time: '10:00 AM' },
+  { name: 'Bob', amount: 90, date: '2023-10-25', time: '10:30 AM' },
+  { name: 'Dave', amount: 10, date: '2023-10-25', time: '11:00 AM' },
+  { name: 'Elison', amount: 60, date: '2023-10-25', time: '11:30 AM' },
+  { name: 'Greg', amount: 40, date: '2023-10-25', time: '12:00 AM' },
+  { name: 'Hunter', amount: 30, date: '2023-10-25', time: '12:30 PM' },
+  { name: 'Jacob', amount: 70, date: '2023-10-25', time: '01:00 PM' },
+  { name: 'Zavier', amount: 80, date: '2023-10-25', time: '01:30 PM' },
+  { name: 'Ferah', amount: 50, date: '2023-10-25', time: '02:30 PM' },
+  { name: 'Natalie', amount: 20, date: '2023-10-25', time: '02:30 PM' },
+];
+
+const sortedBids = bids.slice().sort((a, b) => b.amount - a.amount);
+const first = sortedBids[0];
+const second = sortedBids[1];
+const third = sortedBids[2];
+
+const Podium = ({ animation, showFirst, showSecond, showThird }) => {
+  const rectangleHeight1 = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 160], 
+  });
+  const rectangleHeight2 = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 130], 
+  });
+  const rectangleHeight3 = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 100],
+  });
 
 const bids = [
   { name: 'Alice', amount: 100, date: '2023-10-25', time: '10:00 AM' },
@@ -356,8 +536,121 @@ const Podium = ({ animation, showFirst, showSecond, showThird }) => {
   </View>
 )}
 
+    <View style={styles.containers}>
+        <View style={styles.rectanglesContainer}>
+          <Animated.View
+            style={[styles.rectangle2, { height: rectangleHeight2 }]}
+          />
+          <Animated.View
+            style={[styles.rectangle1, styles.shadow, { height: rectangleHeight1 }]}
+          />
+          <Animated.View
+            style={[styles.rectangle3, { height: rectangleHeight3 }]}
+          />
+        </View>
+        <View style={styles.horizontalLine} />
+        {showThird && (
+  <View style={styles.thirdBidInfo}>
+    <Text style={styles.textWithCustomFont}>{third.name}</Text>
+    <Text style={styles.textWithCustomFont}>{third.amount}</Text>
+  </View>
+)}
+{showSecond && (
+  <View style={styles.secondBidInfo}>
+    <Text style={styles.textWithCustomFont}>{second.name}</Text>
+    <Text style={styles.textWithCustomFont}>{second.amount}</Text>
+  </View>
+)}
+{showFirst && (
+  <View style={styles.firstBidInfo}>
+    <Text style={styles.textWithCustomFont}>{first.name}</Text>
+    <Text style={styles.textWithCustomFont}>{first.amount}</Text>
+  </View>
+)}
+
     </View>
   );
+};
+
+const RankList = ({ data }) => {
+
+};
+
+const LeaderBoard = () => {
+
+  };
+
+const OtherSection = () => {
+  const [animation] = useState(new Animated.Value(0));
+  const [isConfettiActive, setIsConfettiActive] = useState(false);
+  const [showFirst, setShowFirst] = useState(false);
+  const [showSecond, setShowSecond] = useState(false);
+  const [showThird, setShowThird] = useState(false);
+
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: 1, 
+      duration: 1000, 
+      easing: Easing.linear, 
+      useNativeDriver: false, 
+    }).start(() => {
+      setTimeout(() => {
+        setShowThird(true);
+      }, 500);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (showThird) {
+      // Trigger the second action after a 1 second delay
+      setTimeout(() => {
+        setShowSecond(true);
+      }, 1000);
+    }
+  }, [showThird]);
+
+  useEffect(() => {
+    if (showSecond) {
+      // Trigger the third action after a 1 second delay
+      setTimeout(() => {
+        setShowFirst(true);
+      }, 1000);
+    }
+  }, [showSecond]);
+
+  useEffect(() => {
+    if (showFirst) {
+      setTimeout(() => {
+        setIsConfettiActive(true);
+      }, 0); // Setting a minimal delay to show the crown instantly when showFirst is true
+  
+      // Set the confetti to turn off after a delay
+      setTimeout(() => {
+        setIsConfettiActive(false);
+      }, 5000); // Keep it active for 5 seconds
+    }
+  }, [showFirst]);  
+  
+  return (
+      <View style={styles.containers}>
+        
+        <Podium animation={animation} showFirst={showFirst} showSecond={showSecond} showThird={showThird} isConfettiActive={isConfettiActive}/>
+        {showFirst && (
+                <Image
+                source={require('../assets/crown.png')}
+                style={styles.crownImage}
+              />
+      )}
+        
+        <Animatable.View animation="fadeOut" duration={2000} delay={6000} style={styles.confettiContainer}>
+          {isConfettiActive && (
+            <ConfettiCannon count={200} origin={{ x: 200, y: 1000 }} fadeOut={true} fadeOutDelay={3000} />
+          )}
+        </Animatable.View>
+        <TableTwo/>
+
+      </View>
+    );
 };
 
 const RankList = ({ data }) => {
@@ -574,6 +867,117 @@ const styles = StyleSheet.create({
     fontWeight: 'bold', // Apply font weight for boldness
     textAlign: 'center', // Center-align the text
   },  
+  tablecontainer:{
+    width:400, justifyContent:'center', marginTop:-300, height:200,
+  },
+  containers: {    
+    justifyContent: 'center',
+    alignItems: 'center',
+   
+    flexDirection: 'column',
+    zIndex:-1,
+  paddingTop:280,
+},
+  rowSection: { height: 60, backgroundColor: '#E7E6E1' },
+  head: { height: 44, backgroundColor: 'darkblue' },
+  headText: { fontSize: 15, fontWeight: 'bold' , textAlign: 'center', color: 'white' },
+  text: { margin: 6, fontSize: 15, textAlign: 'center' },
+ 
+  horizontalLine: {
+    position: 'absolute',
+    bottom: 300, 
+    width: '100%',
+    height: 6, 
+    backgroundColor: 'black', 
+  },
+  rectanglesContainer: {
+    
+    bottom: 300, // Adjust the top value to position the line
+    flexDirection: 'row',
+    alignItems: 'flex-end', // Align the rectangles with the top of the parent
+  },
+  rectangle1: {
+    width: 100,
+    height: 50,
+    backgroundColor: 'blue',
+    zIndex: 1,
+  },
+  rectangle2: {
+    width: 100,
+    height: 50,
+    backgroundColor: 'blue', // Change the color as needed
+  },
+  rectangle3: {
+    width: 100,
+    height: 50,
+    backgroundColor: 'blue', // Change the color as needed
+  },
+  shadow: {
+    shadowColor: 'black', // Shadow color
+    shadowOffset: { width: -4, height: 0 }, // Negative width for the left shadow and positive width for the right shadow
+    shadowOpacity: 0.3, // Adjust the opacity as needed
+    shadowRadius: 10, // Adjust the radius as needed
+  },  
+  pushToBack: {
+    zIndex: 0, // Lower zIndex to push it to the back
+  },
+  confettiContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  rankingsContainer: {
+    position: 'absolute',
+    top: 0,
+    marginTop: 550, // Adjust the top value as needed
+    width: 380,
+    flex: 1,
+    height: 100,
+  },
+  rankCard: {
+    backgroundColor: 'cyan',
+    padding: 10,
+    margin: 5,
+    borderRadius: 5,
+    flexDirection:'row',
+  },
+
+  crownImage: {
+    position: 'absolute',
+    marginTop: -80,
+    top: 80, // Adjust the top value to position the crown on rect1
+    left: 170, // Adjust the left value to position the crown on rect1
+    width: 50, // Adjust the width of the crown
+    height: 50, // Adjust the height of the crown
+    zIndex: 2, // Set a higher z-index to display the crown on top
+  },
+  thirdBidInfo: {
+    position: 'absolute',
+    top: -170, // Adjust the top position as needed
+    left: 225, // Adjust the left position as needed
+    zIndex: 10, // Ensure it's displayed on top
+  },
+  secondBidInfo: {
+    position: 'absolute',
+    top: -200, // Adjust the top position as needed
+    left: 25, // Adjust the left position as needed
+    zIndex: 10, // Ensure it's displayed on top
+  },
+  firstBidInfo: {
+    position: 'absolute',
+    top: -230, // Adjust the top position as needed
+    left: 120, // Adjust the left position as needed
+    zIndex: 10, // Ensure it's displayed on top
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textWithCustomFont: {
+    fontSize: 20, // Define the font size or other styles as needed
+    fontWeight: 'bold', // Apply font weight for boldness
+    textAlign: 'center', // Center-align the text
+  },  
   button: {
     alignItems: "center",
     backgroundColor: "#00A859",
@@ -611,6 +1015,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 20,
     borderRadius: 10,
+    margin:20,
   },
   modalMessage: {
     fontSize: 18,
@@ -649,6 +1054,54 @@ const styles = StyleSheet.create({
     backgroundColor: "#DB0A0A",
     paddingVertical: 7, // Increase vertical padding to make the button taller
     paddingHorizontal: 12,
+  },
+
+  termsAndConditions: {
+    alignItems: "center",
+    marginTop: 10,
+  },
+  termsText: {
+    fontSize: 12,
+    textAlign: "center",
+  },
+  termsLink: {
+    color: "#0077B5",
+    fontSize:12,
+    textDecorationLine: "underline",
+  },
+
+  modalContainer2: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
+  modalContent2: {
+    backgroundColor: "white",
+    padding: 20,
+    margin:20,
+    borderRadius: 10,
+  },
+  closeButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    backgroundColor: "transparent",
+    zIndex: 1,
+  },
+  closeButtonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#0077B5",
+  },
+  modalTitle2: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#0077B5",
+  },
+  scrollContainer: {
+    maxHeight: 500, // Adjust the maximum height as needed
   },
 });
 
