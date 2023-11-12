@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -10,19 +9,11 @@ import {
   FlatList,
   Animated,
   Easing,
-  ScrollView
-  FlatList,
-  Animated,
-  Easing,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import CountDown from "react-native-countdown-component";
-import { useNavigation } from "@react-navigation/native";
-import ConfettiCannon from 'react-native-confetti-cannon';
-import * as Animatable from 'react-native-animatable';
-import { Table, Row, Rows } from 'react-native-table-component';
 import { useNavigation } from "@react-navigation/native";
 import ConfettiCannon from 'react-native-confetti-cannon';
 import * as Animatable from 'react-native-animatable';
@@ -40,16 +31,6 @@ const ImageSection = () => {
       />
     </View>
   );
-};
-const tableDataSample = {
-  tableHead: ['Pos.', 'Name', 'Amount', 'Date', 'Time' ],
-  widthArr: [50,80, 80, 100, 100,],
-  tableData: [['#1','Alice', '100', '2023-10-25', '10:00 AM'],
-  ['#2','Bob', '90','2023-10-25', '10:00 AM'],
-  ['#3','Barker', '10','2023-10-25', '10:00 AM'],
-  ['#4','Dave', '20',  '2023-10-25', '10:00 AM'],
-  ['#5','Elison', '40',  '2023-10-25', '10:00 AM'],
-  ]
 };
 const tableDataSample = {
   tableHead: ['Pos.', 'Name', 'Amount', 'Date', 'Time' ],
@@ -93,39 +74,6 @@ const DetailTabContent = () => {
     </View>
   );
 };
-
-const TableTwo = () => {
-  const [data, setData] = React.useState(tableDataSample);
-  return (
-      <View style={styles.tablecontainer}>
-          <ScrollView horizontal={false}>
-              <View>
-                  <Table borderStyle={{ borderWidth: 0, }}>
-                      <Row
-                          data={data.tableHead}
-                          widthArr={data.widthArr}
-                          style={styles.head}
-                          textStyle={styles.headText}
-                      />
-                  </Table>
-                  <ScrollView>
-                      <Table borderStyle={{ borderWidth: 0,}}>
-                          {data.tableData.map((rowData, index) => (
-                              <Row
-                                  key={index}
-                                  data={rowData}
-                                  widthArr={data.widthArr}
-                                  style={styles.rowSection}
-                                  textStyle={styles.text}
-                              />
-                          ))}
-                      </Table>
-                  </ScrollView>
-              </View>
-          </ScrollView>
-      </View>
-  );
-}
 const TableTwo = () => {
   const [data, setData] = React.useState(tableDataSample);
   return (
@@ -159,7 +107,6 @@ const TableTwo = () => {
   );
 }
 const BidTabContent = () => {
-  const navigation = useNavigation();
   const navigation = useNavigation();
   const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
   const [highestBid, setHighestBid] = useState(53000); // Initialize the highest bid state

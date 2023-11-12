@@ -22,7 +22,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import { Ionicons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 
 const getFonts = () =>
@@ -51,9 +50,6 @@ const HomeScreen = ({ navigation }) => {
               style={{ borderWidth: 1, borderColor: "gray", borderRadius: 5, padding: 5, width: "100%" }}
             />
           </View>
-          <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center", marginLeft: "5%"}} onPress={() => navigation.navigate("WishlistPage")}>
-            <Ionicons
-              name={"ios-cart"}
           <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center", marginLeft: "5%"}} onPress={() => navigation.navigate("WishlistPage")}>
             <Ionicons
               name={"ios-cart"}
