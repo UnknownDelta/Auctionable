@@ -1,0 +1,25 @@
+org: edmersonlow
+app: backend
+service: backend
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+  region: us-east-1
+  environment:
+    MONGO_URI:  mongodb+srv://UnknownDelta:LFCYozD1MsOkHClV@car.qtyslgp.mongodb.net/?retryWrites=true&w=majority # Make sure to set this variable in your AWS environment
+
+functions:
+  api:
+    handler: index.handler # This points to the exports.handler in index.js
+    events:
+      - http:
+          path: /
+          method: any
+      - http:
+          path: /{proxy+}
+          method: any
+
+
+

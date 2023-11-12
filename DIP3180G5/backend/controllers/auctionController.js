@@ -43,6 +43,20 @@ const auctionCarController = {
             return res.status(400).json({error: 'No previous items'})
         }
         res.status(200).json(soldItems)
+    },
+    updateAuctionItem: async(req, res) =>{
+        const {id} = req.params
+    
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({error: 'No such id'})
+        }
+        const auctionList = await Items.findOneAndUpdate({_id: id},{
+            ...req.body
+        })
+        if (!auctionList) {
+            return res.status(400).json({error: 'No previous items'})
+        }
+        res.status(200).json(auctionList)
     }
 }
 

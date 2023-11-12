@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Text, Button, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { globalStyles } from '../styles/global';
-import Card from '../shared/card';
+import Card from '../src/components/card';
 
 export default function BuyScreen({ route }) {
   // pressHandler is for button

@@ -21,6 +21,7 @@ import Apploading from "expo-app-loading";
 import { LinearGradient } from "expo-linear-gradient";
 import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
+import { Ionicons } from "@expo/vector-icons";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 
 const getFonts = () =>
@@ -49,9 +50,9 @@ const HomeScreen = ({ navigation }) => {
               style={{ borderWidth: 1, borderColor: "gray", borderRadius: 5, padding: 5, width: "100%" }}
             />
           </View>
-          <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center", marginLeft: "5%"}}>
-            <MaterialCommunityIcons
-              name={"hearto"}
+          <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center", marginLeft: "5%"}} onPress={() => navigation.navigate("WishlistPage")}>
+            <Ionicons
+              name={"ios-cart"}
               size={30}
               color={"#0077B5"}
               style={{ width: "100%" }}
@@ -235,7 +236,7 @@ const HomeScreen = ({ navigation }) => {
                 source={require("../assets/teslacar.jpeg")}
               />
               <View style={{ position: "absolute" }}>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "87.7%"}}>
                   <Text
                     style={{
                       marginTop: 120,
@@ -249,7 +250,6 @@ const HomeScreen = ({ navigation }) => {
                   </Text>
                   <View
                     style={{
-                      marginLeft: 135,
                       fontSize: 20,
                       marginTop: 21,
 
@@ -355,7 +355,7 @@ const HomeScreen = ({ navigation }) => {
               source={require("../assets/bentleycar.jpg")}
             />
             <View style={{ position: "absolute" }}>
-              <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between", width: "82.4%" }}>
                 <Text
                   style={{
                     marginTop: 120,
@@ -369,10 +369,8 @@ const HomeScreen = ({ navigation }) => {
                 </Text>
                 <View
                   style={{
-                    marginLeft: 202,
                     fontSize: 20,
                     marginTop: 21,
-
                     color: "white",
                     justifyContent: "flex-end",
                     backgroundColor: "rgba(52, 52, 52, 0.8)",
@@ -425,7 +423,7 @@ const HomeScreen = ({ navigation }) => {
         onFinish={() => {
           setFontsLoaded(true);
         }}
-        //onError={console.warn}
+        onError={console.warn}
       />
     );
   }
@@ -496,8 +494,11 @@ const styles = StyleSheet.create({
   },
   productList: {
     height: 170,
-
-    margin: 10,
+    width: "90%",
+    marginLeft: "5%",
+    marginRight: "5%",
+    marginTop: 10,
+    marginBottom: 10,
     borderRadius: 20,
   },
   contentContainer: {

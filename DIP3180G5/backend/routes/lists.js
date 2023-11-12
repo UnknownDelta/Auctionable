@@ -6,19 +6,27 @@ const carController = require('../controllers/itemController')
 const userController = require('../controllers/userController')
 const auctionCarController = require('../controllers/auctionController')
 const transactionController = require('../controllers/transactionController')
-// Define routes for getting all cars, etc
+
+// car controller
 router.get('/', carController.getAllCars);
-router.get('/auctions', auctionCarController.getAllAuctionCars) // changed 
 router.get('/:seller/list', carController.getItems)
-router.get('/:seller/auctions', auctionCarController.getAuctionItems) // changed
 router.get('/:seller/pastlist', carController.getSoldItems)
-router.get('/:seller/pastauction', auctionCarController.getAuctionSoldItems) // changed 
 router.post('/createlist', carController.createItem)
-router.post('/createauction', auctionCarController.createAuction)  // changed
 router.patch('/updatelist/:id', carController.updateItem)
-router.post('/createuser', userController.createUser)
+
+// user controller
 router.get('/user/:id', userController.getUser)
-router.get('/:id/auction', auctionCarController.getAuction) // changed, get a single auction car
+router.post('/createuser', userController.createUser)
+
+// auction controller
+router.get('/auctions', auctionCarController.getAllAuctionCars)
+router.get('/auctions/:id', auctionCarController.getAuction) // get a single auction car
+router.post('/createauction', auctionCarController.createAuction)
+router.get('/auctions/:seller', auctionCarController.getAuctionItems) // get a list of auction cars posted by a specific seller
+router.get('/pastauctions/:seller', auctionCarController.getAuctionSoldItems) // get a list of sold auctions cars by a specific seller
+router.patch('/updateauction/:id', auctionCarController.updateAuctionItem) // this is to update the current highest bidder
+
+// transaction controller
 router.post('/createtransaction', transactionController.createTransaction) // changed
 router.get('/:item_id/transaction', transactionController.getTransaction) // changed, everyone's transactions for a specific auction car (use in leaderboard)
 

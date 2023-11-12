@@ -31,6 +31,10 @@ const auctionSchema = new Schema({
         type: Number,
         required: true
     },
+    reserve_price: {
+        type: Number,
+        required: true
+    },
     ending_time:{
         type:String,
         required: true
@@ -66,7 +70,12 @@ const auctionSchema = new Schema({
     sold:{
         type: Boolean,
         required: true
+    },
+    highestBidder: {
+        type: String, // id of highest bidder
+        required: true
     }
+
 }, { timestamps: true })
 
 module.exports = mongoose.model('Auction', auctionSchema)

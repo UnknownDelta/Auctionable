@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Text, TextInput, Button, FlatList, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import { globalStyles } from '../styles/global';
-import Card from '../shared/card';
+import Card from '../src/components/card';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
