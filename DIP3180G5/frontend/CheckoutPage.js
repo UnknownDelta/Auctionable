@@ -1,101 +1,156 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
-  PaymentElement,
-  LinkAuthenticationElement,
-  useStripe,
-  useElements
-} from "@stripe/react-stripe-js";
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  SafeAreaView,
+} from "react-native";
 
-export default function CheckoutForm() {
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
-    );
-
-    if (!clientSecret) {
-      return;
-    }
-
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
-          break;
-        case "processing":
-          setMessage("Your payment is processing.");
-          break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    });
-  }, [stripe]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
-      return;
-    }
-
-    setIsLoading(true);
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
-      },
-    });
-
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      setMessage("An unexpected error occurred.");
-    }
-
-    setIsLoading(false);
-  };
-
-  const paymentElementOptions = {
-    layout: "tabs"
-  }
-
+const TransactionScreen = ({ navigation }) => {
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <LinkAuthenticationElement
-        id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <ImageBackground
+      source={require("../assets/background4.png")}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <Text style={styles.message}>Checkout</Text>
+        <View style={styles.whiteContainer}>
+          <View style={styles.itemContainer}>
+            <Image
+              style={styles.itemImage}
+              source={require("../assets/teslacar.jpeg")}
+            />
+            <Text style={styles.itemName}>2021 Toyota Camry</Text>
+          </View>
+          <View style={styles.priceContainer}>
+            <Text style={styles.totalPrice}>
+              Total Price <Text style={styles.price}>             $84,800</Text>
+            </Text>
+            <View
+              style={{
+                borderBottomColor: "black",
+                borderBottomWidth: 2,
+              }}
+            />
+          </View>
+          <View  style={styles.additionalInfo}>
+              <Text style={styles.additionalInfoHeader}>Inclusive of:</Text>
+              <Text style={styles.additionalInfoContent}>Transferring of ownership paperwork</Text>
+              <Text style={styles.additionalInfoContent}>Condition check by Clutch</Text>
+              <Text style={styles.additionalInfoContent}>Additional 6 months warranty</Text>
+          </View>
+          <Image
+            style={styles.imageIcon}
+            source={require("../assets/card_payment.png")}
+          />
+          <Image
+            style={styles.imageIcon}
+            source={require("../assets/installment.png")}
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("TransactionAuctionPage");
+            }}
+          >
+            <Text style={styles.buttonText}>PAY</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ImageBackground>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+  },
+  message: {
+    fontSize: 25,
+    fontWeight: "bold",
+    marginTop: 20,
+    textAlign: "center",
+    color: "white",
+  },
+  whiteContainer: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    marginTop: 20,
+    // Additional styles for the white container
+  },
+  button: {
+    backgroundColor: "#00A859",
+    padding: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 20,
+    width: 120,
+    alignSelf: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+
+  imageIcon: {
+    width: 250,
+    height: 70,
+    alignSelf: "center",
+  },
+  itemImage: {
+    width: 100,
+    height: 80,
+    marginRight: 10,
+  },
+  itemContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  itemName: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+
+  priceContainer: {
+    marginTop: 20,
+  },
+
+  totalPrice: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+
+  price: {
+    color: "#0077B5",
+    fontWeight: "bold",
+    fontSize: 25,
+    alignSelf:"flex-end"
+  },
+
+  additionalInfo:{
+    marginTop:10,
+    marginBottom:50,
+  },
+
+  additionalInfoHeader:{
+    fontWeight:"bold",
+    fontsize:16,
+  },
+  additionalInfoContent:{ 
+    color:"#0077B5",
+  },
+});
+
+export default TransactionScreen;
