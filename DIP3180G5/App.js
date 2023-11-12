@@ -7,7 +7,7 @@ import {
   Animated,
   ImageBackground,
 } from "react-native";
-import React, { useState,useRef ,useEffect} from "react";
+import React, { useState,useRef,useRef ,useEffect,useEffect} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoadingPage from "./frontend/LoadingPage";
@@ -25,7 +25,6 @@ import SettingsPage from "./frontend/AllListing";
 import ProfilePage from "./frontend/ProfileScreen";
 import AuctionListPage from "./frontend/AuctionList";
 import AuctionDetailsPage from "./frontend/AuctionDetails";
-import PurchaseHistoryPage from "./frontend/PurchasePage";
 import PurchaseHistoryPage from "./frontend/PurchasePage";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { WishlistProvider } from "./frontend/WishlistContext";
@@ -59,6 +58,15 @@ const CustomListingTabIcon = ({ color, size }) => {
   return (
     <Image
       source={require("./assets/listingIcon.png")}
+      style={{ width: size, height: size, tintColor: color }}
+    />
+  );
+};
+
+const CustomListingTabIconAuction = ({ color, size }) => {
+  return (
+    <Image
+      source={require("./assets/auction_logo.png")}
       style={{ width: size, height: size, tintColor: color }}
     />
   );
@@ -110,7 +118,35 @@ const ProfileHeader = () => {
     </View>
   );
 };
+const GradientText = (props) => {
+  return (
+    <MaskedView maskElement={<Text {...props} />}>
+      <LinearGradient
+        colors={["#0077B5", "#00A859"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+      >
+        <Text {...props} style={[props.style, { opacity: 0 }]} />
+      </LinearGradient>
+    </MaskedView>
+  );
+};
 
+const ProfileHeader = () => {
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <Image
+        source={require("./assets/Aquasama.png")}
+        style={{ width: 40, height: 40, borderRadius: 20 }}
+      />
+      <GradientText style={{ marginLeft: 10, fontSize: 20 }}>
+        Insert Name
+      </GradientText>
+    </View>
+  );
+};
+
+function BottomTabScreens({route}) {
 function BottomTabScreens({route}) {
   console.log("Test log outside handleTabPress"); // Add this line
   const isFocused = useIsFocused(); // Check if the screen is focused
@@ -138,8 +174,33 @@ function BottomTabScreens({route}) {
       useNativeDriver: false,
     }).start();
   };
+  const tabOffsetValue = useRef(new Animated.Value(0)).current;
+
+  const routeName = getFocusedRouteNameFromRoute(route);
+  useEffect(() => {
+    handleTabPress(routeName);
+  }, [routeName]);
+
+  console.log('Currently focused tab:', routeName);
+
+  const tabOffsetValues = {
+    Home: 0,
+    Listing: getWidth(),
+    Auction: getWidth() * 2,
+    Chat: getWidth() * 3,
+    Profile: getWidth() * 4,
+  };
+
+  const handleTabPress = (routeName) => {
+    console.log("Tab pressed:", routeName);
+    Animated.spring(tabOffsetValue, {
+      toValue: tabOffsetValues[routeName],
+      useNativeDriver: false,
+    }).start();
+  };
 
   return (
+    <View style={{ flex: 1 }}>
     <View style={{ flex: 1 }}>
       <Tab.Navigator
         screenOptions={({ route, index }) => ({
@@ -150,10 +211,14 @@ function BottomTabScreens({route}) {
               iconName = "ios-home";
             } else if (route.name === "Profile") {
               iconName = "ios-person";
+            } else if (route.name === "Profile") {
+              iconName = "ios-person";
             } else if (route.name === "Listing") {
               return <CustomListingTabIcon color={color} size={size} />;
             } else if (route.name === "Chat") {
               iconName = "ios-chatbubbles";
+            } else if (route.name === "Auction") {
+              return <CustomListingTabIconAuction color={color} size={size} />;
             } else if (route.name === "Auction") {
               return <CustomListingTabIconAuction color={color} size={size} />;
             }
@@ -203,8 +268,18 @@ function BottomTabScreens({route}) {
          listeners={() => ({
           tabPress: () => handleTabPress("Home"),
          })}
+         name="Home"
+         component={HomeStack}
+         options={{ headerShown: false }}
+         listeners={() => ({
+          tabPress: () => handleTabPress("Home"),
+         })}
         />
         <Tab.Screen
+          name="Listing"
+          component={ListingStack}
+          listeners={() => ({
+            tabPress: () => handleTabPress("Listing"),
           name="Listing"
           component={ListingStack}
           listeners={() => ({
@@ -216,6 +291,10 @@ function BottomTabScreens({route}) {
           component={AuctionStack}
           listeners={() => ({
             tabPress: () => handleTabPress("Auction"),
+          name="Auction"
+          component={AuctionStack}
+          listeners={() => ({
+            tabPress: () => handleTabPress("Auction"),
           })}
         />
         <Tab.Screen
@@ -223,11 +302,15 @@ function BottomTabScreens({route}) {
           component={ChatPage}
           listeners={() => ({
             tabPress: () => handleTabPress("Chat"),
+          listeners={() => ({
+            tabPress: () => handleTabPress("Chat"),
           })}
         />
         <Tab.Screen
           name="Profile"
           component={ProfileStack}
+          listeners={() => ({
+            tabPress: () => handleTabPress("Profile"),
           listeners={() => ({
             tabPress: () => handleTabPress("Profile"),
           })}
@@ -242,8 +325,10 @@ function BottomTabScreens({route}) {
               backgroundColor: "#0077B5",
               position: "absolute",
               bottom: 48, //48
+              bottom: 48, //48
               //left: 50,
               borderRadius: 20,
+              transform: [{ translateX: tabOffsetValue}],
               transform: [{ translateX: tabOffsetValue}],
             }}
           />
@@ -299,6 +384,17 @@ function HomeStack() {
           },
         }}
       />
+      <Stack.Screen
+        name="WishlistPage"
+        component={WishlistPage}
+        options={{
+          headerShown: true,
+          title: "Cart",
+          headerStyle: {
+            backgroundColor: "#BFE1E4", // Change the background color
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -329,6 +425,22 @@ function AuctionStack() {
     >
       <Stack.Screen name="AuctionListPage" component={AuctionListPage} />
       <Stack.Screen name="AuctionDetailsPage" component={AuctionDetailsPage} />
+      <Stack.Screen
+        name="ListingCategoryScreen"
+        component={ListingCategoryScreen}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function AuctionStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="AuctionListPage"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="AuctionListPage" component={AuctionListPage} />
+      <Stack.Screen name="AuctionDetailsPage" component={AuctionDetailsPage} />
     </Stack.Navigator>
   );
 }
@@ -340,6 +452,23 @@ function ProfileStack() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="ProfilePage" component={ProfilePage} />
+      <Stack.Screen
+        name="PurchaseHistoryPage"
+        component={PurchaseHistoryPage}
+      />
+      <Stack.Screen name="ProfileAuctionPage" component={ProfileAuctionPage} />
+      <Stack.Screen
+        name="ProfileSettingsPage"
+        component={ProfileSettingsPage}
+      />
+      <Stack.Screen
+        name="NotificationMain"
+        component={NotificationMain}
+      />
+      <Stack.Screen
+        name="NotificationOutbid"
+        component={NotificationOutbid}
+      />
       <Stack.Screen
         name="PurchaseHistoryPage"
         component={PurchaseHistoryPage}
@@ -390,10 +519,32 @@ export default function App() {
               name="ChatConversation"
               component={ChatConversation}
               options={{ headerShown: false }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="TransactionScreen"
               component={TransactionScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AuctionSuccessPage"
+              component={AuctionSuccessPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CheckoutPage"
+              component={CheckoutPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TransactionAuctionPage"
+              component={TransactionAuctionPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CostBreakdownPage"
+              component={CostBreakdownPage}
+              options={{ headerShown: false }}
               options={{ headerShown: false }}
             />
             <Stack.Screen

@@ -730,3 +730,369 @@ Ke 5.000000 5.000000 5.000000
 Ni 1.450000
 d 1.000000
 illum 2
+# Blender MTL File: 'C-A.blend'
+# Material Count: 33
+
+newmtl Lamborghini_AventadorLP7004_2011BadgeA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_BadgeA_Normal.png
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_BadgeA_DiffuseAOSO.png
+map_d C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_BadgeA_DiffuseAOSO.png
+
+newmtl Lamborghini_AventadorLP7004_2011Base_Material
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+
+newmtl Lamborghini_AventadorLP7004_2011Carbon1_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.341000 0.341000 0.341000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl Lamborghini_AventadorLP7004_2011Coloured_Material
+Ns 362.374503
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 1.000000 0.000000
+Ks 0.547619 0.547619 0.547619
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\Already Modded\\Global_Texture_Coloured_Diffuse.png
+
+newmtl Lamborghini_AventadorLP7004_2011EngineA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_EngineA_Normal.png
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_EngineA_DiffuseAOSO.png
+map_d C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_EngineA_DiffuseAOSO.png
+
+newmtl Lamborghini_AventadorLP7004_2011Grille1A_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_Grille1A_Normal.png
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_Grille1A_DiffuseAOSO.png
+map_d C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_Grille1A_DiffuseAOSO.png
+
+newmtl Lamborghini_AventadorLP7004_2011Grille2A_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_Grille2A_Normal.png
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_Grille2A_DiffuseAOSO.png
+
+newmtl Lamborghini_AventadorLP7004_2011Grille3A_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_Grille3A_Normal.png
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_Grille3A_DiffuseAOSO.png
+
+newmtl Lamborghini_AventadorLP7004_2011InteriorA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_InteriorA_Normal.png
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_InteriorA_DiffuseAOSO.png
+map_d C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_InteriorA_DiffuseAOSO.png
+
+newmtl Lamborghini_AventadorLP7004_2011InteriorTillingA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_InteriorTillingA_Normal.png
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_InteriorTillingA_DiffuseAOSO.png
+map_d C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_InteriorTillingA_DiffuseAOSO.png
+
+newmtl Lamborghini_AventadorLP7004_2011LicensePlateDefaultA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.029098 0.029098 0.029098
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl Lamborghini_AventadorLP7004_2011LightA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_LightA_Diffuse.png
+map_d C:\\Users\\ACER\\Desktop\\Mods\\CSR2 Model\\Lamborghini Aventador LP-700-4\\GameObject\\Lamborghini_AventadorLP7004_2011_LightA_Diffuse.png
+
+newmtl Lamborghini_AventadorLP7004_2011Paint_Material
+Ns 307.311080
+Ka 0.738095 0.738095 0.738095
+Kd 0.162646 0.162646 0.162646
+Ks 0.559524 0.559524 0.559524
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl Lamborghini_AventadorLP7004_2011SeatBelt_Material
+Ns 43.730491
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 1.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\Already Modded\\Global_Texture_Coloured_Diffuse.png
+
+newmtl Lamborghini_AventadorLP7004_2011WindowInside_Material
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.500000
+illum 6
+
+newmtl Lamborghini_AventadorLP7004_2011Window_Material
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.500000
+illum 6
+
+newmtl None
+Ns 500
+Ka 0.8 0.8 0.8
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl aerodisc
+Ns 250.000000
+Ka 0.400000 0.400000 0.400000
+Kd 0.800000 0.800000 0.800000
+Ks 0.560000 0.560000 0.560000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\Rotiform DAB\\Texture\\aerodisc_1.png
+
+newmtl badge
+Ns 224.999983
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\Fifteen52\\textures\\badge.png
+
+newmtl knalpot
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\Already Modded\\knalpot.png
+
+newmtl plastic
+Ns 359.999993
+Ka 0.600000 0.600000 0.600000
+Kd 0.015994 0.015994 0.015994
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl plat
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\Already Modded\\plat3.png
+
+newmtl redlight
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 5.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl rim
+Ns 250.000000
+Ka 0.782609 0.782609 0.782609
+Kd 0.787399 0.787399 0.787399
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\OZ Crono LeMans\\textures\\rim_diff.png
+
+newmtl rotor
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.090000 0.090000 0.090000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Bump C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\BBS_BBS-LM\\maps\\BrakeDisc_ForgedDrilled_nrml.png
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\BBS_BBS-LM\\maps\\BrakeDisc_ForgedDrilled_diff.png
+
+newmtl rotor.001
+Ns 224.999983
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\Fifteen52\\textures\\rotor.png
+
+newmtl spoke
+Ns 359.999993
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\Rotiform DAB\\Texture\\spoke.png
+
+newmtl spoke.001
+Ns 338.984869
+Ka 1.000000 1.000000 1.000000
+Kd 0.327778 0.254152 0.042311
+Ks 0.642857 0.642857 0.642857
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl steel
+Ns 434.835147
+Ka 0.724638 0.724638 0.724638
+Kd 0.334323 0.334323 0.334323
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\OZ Crono LeMans\\textures\\steel_diff.png
+
+newmtl steels
+Ns 422.500008
+Ka 0.800000 0.800000 0.800000
+Kd 0.190176 0.190176 0.190176
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl tire
+Ns 143.999962
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\Fifteen52\\textures\\tire.png
+
+newmtl tire.002
+Ns 115.994524
+Ka 0.710145 0.710145 0.710145
+Kd 0.800000 0.800000 0.800000
+Ks 0.210145 0.210145 0.210145
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump -bm 1.500000 C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\Roohana RFG23\\textures\\tire_normal.png
+map_Kd C:\\Users\\ACER\\Desktop\\Mods\\3D Models\\Rims\\Roohana RFG23\\textures\\tire_diff.png
+
+newmtl whielight
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 5.000000 5.000000 5.000000
+Ni 1.450000
+d 1.000000
+illum 2
