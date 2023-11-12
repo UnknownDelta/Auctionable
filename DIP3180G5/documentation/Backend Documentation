@@ -1,0 +1,23 @@
+This is Version 2.0(Joint Backend)
+
+Functionality:
+1. Modular Code
+2. now react.js exist(depreciated)(will be handled by Frontend)
+3. Displaying Images working
+4. Sending Images(functioning)(will be handled by Frontend)
+5. User Specific lists
+6. functional test suite(depreciated)(obsolete)
+7. Documentation(Frankly, not really a "Functionality")
+
+DB Included
+1.Items
+2.Users
+3.Auction
+4.Transactions
+ 
+libraries used: (TO BE TRANSFFERED TO API DOCUMENTATION)
+1. node.js
+2. dotenv
+3. express.js
+4. mongodb
+5. mongoose
