@@ -10,8 +10,6 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
-  Button,
-  ImageBackground,
   Pressable,
   AppRegistry,
 } from "react-native";

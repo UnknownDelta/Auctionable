@@ -16,7 +16,6 @@ const TransactionScreen = ({ navigation }) => {
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
-      <View style={styles.container}>
         <View style={styles.container}>
           <Text style={styles.message}>Thank you for your order!</Text>
           <View style={styles.appIconContainer}>
