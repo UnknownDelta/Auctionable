@@ -38,6 +38,9 @@
 ]
 
 ```
+
+<img src="flowcharts/allcars.png" />
+
 ### Search for vehicles you are selling
 
 **Input:**
@@ -76,6 +79,8 @@
 ]
 ```
 
+<img src="flowcharts/currentcars.png"/>
+
 ### Create new vehicle sale
 
 **Input:**
@@ -101,6 +106,8 @@
 
 *Output is in Frontend*
 
+<img src="flowcharts/createcar.png"/>
+
 ### Search for vehicles you sold
 
 **Input:**
@@ -113,6 +120,8 @@
 **Example Output:**
 
 *To Be Filled*
+
+<img src="flowcharts/pastcars.png">
 
 ### Update current vehicle sale
 
@@ -138,6 +147,8 @@
 **Example Output:**
 
 *Output is in Frontend*
+
+<img src = "flowcharts/updatecar.png"/>
 
 ## Transaction Database APIs
 
@@ -165,6 +176,8 @@
 ]
 ```
 
+<img src="flowcharts/thetransaction.png"/>
+
 ### Create new bids for an auction
 
 **Input:**
@@ -178,3 +191,5 @@
 **Example Output:**
 
 *Output is in Frontend*
+
+<img src="flowcharts/createtransaction.png"/>
