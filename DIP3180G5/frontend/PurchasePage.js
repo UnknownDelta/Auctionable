@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, Image, StyleSheet } from "react-native";
+import { View, Text, FlatList, Image, StyleSheet ,TouchableOpacity} from "react-native";
 
 class PurchaseHistoryScreen extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class PurchaseHistoryScreen extends Component {
           productName: "Tesla",
           price: "$20,000",
           date: "2023-10-25",
+          seller: "Aquasama",
           image: require("../assets/teslacar.jpeg"), // Replace with the actual image path
         },
         {
@@ -20,8 +21,42 @@ class PurchaseHistoryScreen extends Component {
           productName: "Fordcar",
           price: "$15,000",
           date: "2023-10-20",
+          seller: "Aquasama",
           image: require("../assets/fordcar.jpg"), // Replace with the actual image path
         },
+        {
+          id: "1",
+          productName: "Tesla",
+          price: "$20,000",
+          date: "2023-10-25",
+          seller: "Aquasama",
+          image: require("../assets/teslacar.jpeg"), // Replace with the actual image path
+        },
+        {
+          id: "2",
+          productName: "Fordcar",
+          price: "$15,000",
+          date: "2023-10-20",
+          seller: "Aquasama",
+          image: require("../assets/fordcar.jpg"), // Replace with the actual image path
+        },
+        {
+          id: "1",
+          productName: "Tesla",
+          price: "$20,000",
+          date: "2023-10-25",
+          seller: "Aquasama",
+          image: require("../assets/teslacar.jpeg"), // Replace with the actual image path
+        },
+        {
+          id: "2",
+          productName: "Fordcar",
+          price: "$15,000",
+          date: "2023-10-20",
+          seller: "Aquasama",
+          image: require("../assets/fordcar.jpg"), // Replace with the actual image path
+        },
+
         // Add more purchase history items here
       ],
     };
@@ -29,12 +64,13 @@ class PurchaseHistoryScreen extends Component {
 
   renderPurchaseItem = ({ item }) => (
     <View style={styles.purchaseItem}>
+      <Image source={item.image} style={styles.image} />
       <View style={styles.leftContainer}>
         <Text style={styles.productName}>{item.productName}</Text>
         <Text style={styles.price}>{item.price}</Text>
         <Text style={styles.date}>{item.date}</Text>
+        <Text style={styles.date}>{item.seller}</Text>
       </View>
-      <Image source={item.image} style={styles.image} />
     </View>
   );
 
@@ -58,14 +94,14 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   header: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    marginTop: 25,
-    padding: 12,
+    paddingBottom:10,
   },
   purchaseItem: {
     borderWidth: 1,
     borderColor: "#ccc",
+    backgroundColor:"white",
     padding: 12,
     marginBottom: 12,
     borderRadius: 8,
@@ -79,7 +115,7 @@ const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
-    marginLeft: 10,
+    marginRight: 10,
   },
   productName: {
     fontSize: 18,
@@ -87,11 +123,22 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 16,
-    color: "green",
+    color: "#0077B5",
   },
   date: {
-    fontSize: 14,
+    fontSize: 16,
     color: "#555",
+  },
+  newTouchableOp: {
+    backgroundColor: "lightgray", // Background color
+    padding: 5,
+    marginBottom: 10,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  touchableText: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

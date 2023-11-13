@@ -18,6 +18,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import { useWishlist } from "../frontend/WishlistContext"; // Import the useWishlist hook
+import { useNavigation } from "@react-navigation/native";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -27,6 +28,15 @@ const getFonts = () =>
   });
 
 const DetailsScreen = () => {
+  const navigation = useNavigation();
+  const handleChatNowPress = () => {
+    navigation.navigate('Chat'); // Navigate to the "ChatConversation" screen
+  };
+  
+  const handleAuctionButtonPress = () => {
+    navigation.navigate('Auction'); // Navigate to the "AuctionListPage" screen
+  };
+
   const item = {
     id: "1",
     itemName: "Tesla X", // Replace with the actual name of the item
@@ -133,8 +143,8 @@ const DetailsScreen = () => {
                 style={{ marginLeft: -10 }}
               />{" "}
               {isItemInWishlist()
-                ? "Remove from Watchlist"
-                : "Add to Watchlist"}
+                ? "Remove from Cart"
+                : "Add to Cart"}
             </Text>
           </TouchableOpacity>
         </View>
@@ -177,7 +187,7 @@ const DetailsScreen = () => {
               marginTop: 40,
             }}
           >
-            <Pressable style={styles.chatbutton}>
+            <Pressable style={styles.chatbutton} onPress={handleChatNowPress} >
               <Text style={styles.text}>Chat Now!</Text>
             </Pressable>
           </View>
@@ -187,7 +197,7 @@ const DetailsScreen = () => {
               justifyContent: "flex-end",
             }}
           >
-            <Pressable style={styles.auctionbutton}>
+            <Pressable style={styles.auctionbutton} onPress={ handleAuctionButtonPress}>
               <MaterialCommunityIconsss
                 name={"gavel"}
                 size={40}
