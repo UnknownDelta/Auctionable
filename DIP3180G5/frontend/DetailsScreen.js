@@ -68,6 +68,18 @@ const DetailsScreen = () => {
     toggleWishlist();
   };
 
+  // const fetchItemDetails = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+  //     );
+  //     const data = await response.json();
+  //     setAllListingsData(data); // Update the state with fetched data
+  //   } catch (error) {
+  //     setAllListingsData(AllListingsDataConstants);
+  //   }
+  // };
+
   if (fontsloaded) {
     return (
       <SafeAreaView style={{ flex: 1 }}>

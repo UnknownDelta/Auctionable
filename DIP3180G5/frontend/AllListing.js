@@ -1,7 +1,7 @@
 // React Native Bottom Navigation
 // https://aboutreact.com/react-native-bottom-navigation/
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -12,6 +12,7 @@ import {
   Image,
   Pressable,
   AppRegistry,
+  LogBox
 } from "react-native";
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
@@ -20,7 +21,10 @@ import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import { Slider, RangeSlider } from "@react-native-assets/slider";
+import { AllListingsDataConstants } from "./Constants.js";
 import "react-range-slider-input";
+
+LogBox.ignoreAllLogs();
 
 const ContentComponent = () => {
   return (
@@ -186,6 +190,11 @@ const ContentComponent = () => {
   );
 };
 
+const getYear = (date) => {
+  return date.split("-")[2];
+};
+
+
 const getFonts = () =>
   Font.loadAsync({
     roboto: require("../assets/fonts/Roboto-Regular.ttf"),
@@ -197,9 +206,34 @@ const HomeScreen = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [active, setActive] = useState(false);
   const [selected, setSelected] = useState(false);
+  const [AllListingsData, setAllListingsData] = useState([]);
   const handleClick = () => {
     setActive(!active);
   };
+
+  const fetchListingsData = async () => {
+    try {
+      const response = await fetch(
+        "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+      );
+      const data = await response.json();
+      console.log("HALO")
+      if (data === undefined){
+        setAllListingsData(AllListingsDataConstants);
+      }
+      setAllListingsData(data); // Update the state with fetched data
+    } catch (error) {
+      setAllListingsData(AllListingsDataConstants);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch data when the component mounts
+    fetchListingsData();
+    console.log(AllListingsData);
+    // Load fonts and set fontsLoaded to true
+    getFonts().then(() => setFontsLoaded(true));
+  }, []);
 
   if (fontsloaded) {
     return (
@@ -233,22 +267,24 @@ const HomeScreen = ({ navigation }) => {
             {show && <ContentComponent />}
           </View>
           <ScrollView style={styles.scrollView}>
-            <TouchableOpacity
+
+          {AllListingsData.map((item) => (
+              <TouchableOpacity
               style={styles.productpage}
               onPress={() => navigation.navigate("DetailsPage")}
             >
               <View style={styles.container}>
                 <View style={styles.avatarContainer}>
                   <Image
-                    source={require("../assets/car.png")}
+                    source={item.images}
                     style={styles.avatar}
                   />
                 </View>
 
                 <View style={styles.sidecontentcontainer}>
                   <View>
-                    <Text>Car</Text>
-                    <Text style={{ paddingTop: 5, color: "grey" }}>Owner</Text>
+                    <Text>{item.category}</Text>
+                    <Text style={{ paddingTop: 5, color: "grey" }}>{item.seller}</Text>
                   </View>
                 </View>
                 <TouchableOpacity
@@ -260,13 +296,13 @@ const HomeScreen = ({ navigation }) => {
               </View>
               <View style={{ paddingTop: 50 }}>
                 <Image
-                  source={require("../assets/teslacar.jpeg")}
+                  source={item.images}
                   style={{ height: 180, width: "100%", paddingTop: 10 }}
                 ></Image>
               </View>
               <View style={styles.productList}>
-                <Text style={styles.name}>Tesla X</Text>
-                <Text style={{ paddingTop: 5, color: "grey" }}>$20000</Text>
+                <Text style={styles.name}>{item.brand + " " + item.model}</Text>
+                <Text style={{ paddingTop: 5, color: "grey" }}>${item.price}</Text>
               </View>
               <TouchableOpacity
                 style={{
@@ -283,65 +319,11 @@ const HomeScreen = ({ navigation }) => {
                     paddingRight: 20,
                   }}
                 >
-                  used/9 months
+                  registered in {getYear(item.registration_date)}
                 </Text>
               </TouchableOpacity>
             </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.productpage}
-              onPress={() => navigation.navigate("DetailsPage")}
-            >
-              <View style={styles.container}>
-                <View style={styles.avatarContainer}>
-                  <Image
-                    source={require("../assets/car.png")}
-                    style={styles.avatar}
-                  />
-                </View>
-
-                <View style={styles.sidecontentcontainer}>
-                  <View>
-                    <Text>Car</Text>
-                    <Text style={{ paddingTop: 5, color: "grey" }}>Owner</Text>
-                  </View>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "flex-end",
-                  }}
-                ></TouchableOpacity>
-              </View>
-              <View style={{ paddingTop: 50 }}>
-                <Image
-                  source={require("../assets/fordcar.jpg")}
-                  style={{ height: 180, width: "100% ", paddingTop: 10 }}
-                ></Image>
-              </View>
-              <View style={styles.productList}>
-                <Text style={styles.name}>Ford X</Text>
-                <Text style={{ paddingTop: 5, color: "grey" }}>$2069000</Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "grey",
-                    flexDirection: "row",
-                    alignItems: "flex-end",
-                    marginTop: -20,
-                    paddingRight: 20,
-                  }}
-                >
-                  used/9 months
-                </Text>
-              </View>
-            </TouchableOpacity>
+          ))}
           </ScrollView>
         </SafeAreaView>
       </SafeAreaView>

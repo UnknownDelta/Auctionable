@@ -2,13 +2,14 @@
 const express = require('express')
 const router = express.Router();
 // Import your car controller
-const carController = require('../controllers/itemController')
+const carController = require('../controllers/carController')
 const userController = require('../controllers/userController')
 const auctionCarController = require('../controllers/auctionController')
 const transactionController = require('../controllers/transactionController')
 
 // car controller
 router.get('/', carController.getAllCars);
+router.get('/:id', carController.getCarDetails);
 router.get('/:seller/list', carController.getItems)
 router.get('/:seller/pastlist', carController.getSoldItems)
 router.post('/createlist', carController.createItem)
