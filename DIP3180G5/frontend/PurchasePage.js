@@ -1,290 +1,109 @@
-import React, { Component } from "react";
-import { View, Text, FlatList, Image, StyleSheet ,TouchableOpacity} from "react-native";
+import * as React from 'react';
+import { View, Text, SafeAreaView, Button, TouchableOpacity,StyleSheet  } from 'react-native';
+import { Auth } from 'aws-amplify';
+import Icon from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from "@react-navigation/native";
 
-class PurchaseHistoryScreen extends Component {
-  constructor(props) {
-    super(props);
 
-    // Sample data for purchase history
-    this.state = {
-      purchases: [
-        {
-          id: "1",
-          productName: "Tesla",
-          price: "$20,000",
-          date: "2023-10-25",
-          seller: "Aquasama",
-          image: require("../assets/teslacar.jpeg"), // Replace with the actual image path
-        },
-        {
-          id: "2",
-          productName: "Fordcar",
-          price: "$15,000",
-          date: "2023-10-20",
-          seller: "Aquasama",
-          image: require("../assets/fordcar.jpg"), // Replace with the actual image path
-        },
-        {
-          id: "1",
-          productName: "Tesla",
-          price: "$20,000",
-          date: "2023-10-25",
-          seller: "Aquasama",
-          image: require("../assets/teslacar.jpeg"), // Replace with the actual image path
-        },
-        {
-          id: "2",
-          productName: "Fordcar",
-          price: "$15,000",
-          date: "2023-10-20",
-          seller: "Aquasama",
-          image: require("../assets/fordcar.jpg"), // Replace with the actual image path
-        },
-        {
-          id: "1",
-          productName: "Tesla",
-          price: "$20,000",
-          date: "2023-10-25",
-          seller: "Aquasama",
-          image: require("../assets/teslacar.jpeg"), // Replace with the actual image path
-        },
-        {
-          id: "2",
-          productName: "Fordcar",
-          price: "$15,000",
-          date: "2023-10-20",
-          seller: "Aquasama",
-          image: require("../assets/fordcar.jpg"), // Replace with the actual image path
-        },
+const ProfileScreen = ({navigation}) => {
+  const handleLogout = async () => {
+    try {
+      await Auth.signOut();
+      console.log('Successfully signed out');  
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
+  };
+  return (
+    <SafeAreaView style={{ flex: 1 ,padding: 16}}>
+      <View style={styles.contentContainer}>
+        <View>
+          <Text style={{ fontSize: 20, marginBottom: 20, fontWeight: "bold"}}>
+            Activity
+          </Text>
+          <TouchableOpacity
+            style={styles.optionButton}
+            onPress={() => {
+              navigation.navigate("NotificationMain")
+            }}
+          >
+            <Text style={styles.optionButtonText}>Notification</Text>
+            <Icon name="angle-right" size={20} color="#5D5B5B" style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+           style={styles.optionButton}
+            onPress={() => {
+              navigation.navigate("ProfileAuctionPage")
+            }}
+          >
+            <Text style={styles.optionButtonText}>Auctions</Text>
+            <Icon name="angle-right" size={20} color="#5D5B5B" style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+           style={styles.optionButton}
+            onPress={() => {
+              navigation.navigate("PurchaseHistoryPage")
+            }}
+          >
+            <Text style={styles.optionButtonText}>Purchase History</Text>
+            <Icon name="angle-right" size={20} color="#5D5B5B" style={styles.icon} />
+          </TouchableOpacity>
+        </View>
 
-        // Add more purchase history items here
-      ],
-    };
-  }
-
-  renderPurchaseItem = ({ item }) => (
-    <View style={styles.purchaseItem}>
-      <Image source={item.image} style={styles.image} />
-      <View style={styles.leftContainer}>
-        <Text style={styles.productName}>{item.productName}</Text>
-        <Text style={styles.price}>{item.price}</Text>
-        <Text style={styles.date}>{item.date}</Text>
-        <Text style={styles.date}>{item.seller}</Text>
+        <View style={{justifyContent: "center" }}>
+          <Text style={{ marginTop:20,fontSize: 20, marginBottom: 20, fontWeight: "bold" }}>
+            General
+          </Text>
+          <TouchableOpacity style={styles.optionButton}
+            onPress={() => {
+              navigation.navigate("ProfileSettingsPage")
+            }}
+          >
+            <Text style={styles.optionButtonText}>Settings</Text>
+            <Icon name="angle-right" size={20} color="#5D5B5B" style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.optionButton}
+            onPress={() => {
+              navigation.navigate("ProfileSettingsPage")
+            }}
+          >
+            <Text style={styles.optionButtonText}>Settings</Text>
+            <Icon name="angle-right" size={20} color="#5D5B5B" style={styles.icon} />
+          </TouchableOpacity>
+          <Button
+            title="Logout"
+            onPress={handleLogout}
+          />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Purchase History</Text>
-        <FlatList
-          data={this.state.purchases}
-          renderItem={this.renderPurchaseItem}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-    );
-  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: "bold",
-    paddingBottom:10,
-  },
-  purchaseItem: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor:"white",
-    padding: 12,
-    marginBottom: 12,
-    borderRadius: 8,
-    flexDirection: "row",
-    justifyContent: "space-between", // Align items to the ends of the row
-    alignItems: "center",
-  },
-  leftContainer: {
-    flex: 1,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    marginRight: 10,
-  },
-  productName: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  price: {
-    fontSize: 16,
-    color: "#0077B5",
-  },
-  date: {
-    fontSize: 16,
-    color: "#555",
-  },
-  newTouchableOp: {
-    backgroundColor: "lightgray", // Background color
-    padding: 5,
-    marginBottom: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  touchableText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
-
-export default PurchaseHistoryScreen;
-import React, { Component } from "react";
-import { View, Text, FlatList, Image, StyleSheet ,TouchableOpacity} from "react-native";
-
-class PurchaseHistoryScreen extends Component {
-  constructor(props) {
-    super(props);
-
-    // Sample data for purchase history
-    this.state = {
-      purchases: [
-        {
-          id: "1",
-          productName: "Tesla",
-          price: "$20,000",
-          date: "2023-10-25",
-          seller: "Aquasama",
-          image: require("../assets/teslacar.jpeg"), // Replace with the actual image path
-        },
-        {
-          id: "2",
-          productName: "Fordcar",
-          price: "$15,000",
-          date: "2023-10-20",
-          seller: "Aquasama",
-          image: require("../assets/fordcar.jpg"), // Replace with the actual image path
-        },
-        {
-          id: "1",
-          productName: "Tesla",
-          price: "$20,000",
-          date: "2023-10-25",
-          seller: "Aquasama",
-          image: require("../assets/teslacar.jpeg"), // Replace with the actual image path
-        },
-        {
-          id: "2",
-          productName: "Fordcar",
-          price: "$15,000",
-          date: "2023-10-20",
-          seller: "Aquasama",
-          image: require("../assets/fordcar.jpg"), // Replace with the actual image path
-        },
-        {
-          id: "1",
-          productName: "Tesla",
-          price: "$20,000",
-          date: "2023-10-25",
-          seller: "Aquasama",
-          image: require("../assets/teslacar.jpeg"), // Replace with the actual image path
-        },
-        {
-          id: "2",
-          productName: "Fordcar",
-          price: "$15,000",
-          date: "2023-10-20",
-          seller: "Aquasama",
-          image: require("../assets/fordcar.jpg"), // Replace with the actual image path
-        },
-
-        // Add more purchase history items here
-      ],
-    };
-  }
-
-  renderPurchaseItem = ({ item }) => (
-    <View style={styles.purchaseItem}>
-      <Image source={item.image} style={styles.image} />
-      <View style={styles.leftContainer}>
-        <Text style={styles.productName}>{item.productName}</Text>
-        <Text style={styles.price}>{item.price}</Text>
-        <Text style={styles.date}>{item.date}</Text>
-        <Text style={styles.date}>{item.seller}</Text>
-      </View>
-    </View>
-  );
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Purchase History</Text>
-        <FlatList
-          data={this.state.purchases}
-          renderItem={this.renderPurchaseItem}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  header: {
+  sectionHeader: {
     fontSize: 20,
+    marginBottom: 16,
     fontWeight: "bold",
-    paddingBottom:10,
   },
-  purchaseItem: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor:"white",
+  optionButton: {
+    backgroundColor: "white",
     padding: 12,
-    marginBottom: 12,
+    marginBottom: 20,
     borderRadius: 8,
     flexDirection: "row",
-    justifyContent: "space-between", // Align items to the ends of the row
-    alignItems: "center",
+    justifyContent: "space-between",
   },
-  leftContainer: {
-    flex: 1,
+  optionButtonText: {
+    color: "#5D5B5B",
+    textAlign: "left",
   },
-  image: {
-    width: 100,
-    height: 100,
-    marginRight: 10,
+  icon: {
+    alignSelf: "center",
   },
-  productName: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  price: {
-    fontSize: 16,
-    color: "#0077B5",
-  },
-  date: {
-    fontSize: 16,
-    color: "#555",
-  },
-  newTouchableOp: {
-    backgroundColor: "lightgray", // Background color
-    padding: 5,
-    marginBottom: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  touchableText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
+  contentContainer:{
+    backgroundColor:"#F5F5FA",
+  }
 });
-
-export default PurchaseHistoryScreen;
+export default ProfileScreen;

@@ -26,7 +26,6 @@ export default function LoadingPage() {
         const timeout = setTimeout(() => {
             setTimeoutCompleted(true);
         }, 1000); //Change to 5000 in the future
-        }, 1000); //Change to 5000 in the future
 
         // Clear the timeout if it's no longer needed
         return () => clearTimeout(timeout);

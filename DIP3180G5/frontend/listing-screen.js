@@ -1,567 +1,137 @@
-import React , {useState} from 'react'
-import React , {useState} from 'react'
-import { SafeAreaView, View, Text, FlatList, StyleSheet, Image, ImageBackground } from 'react-native'
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, ImageBackground } from 'react-native'
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { FontAwesome } from 'react-native-vector-icons'; // or any other icon library
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
-import { Dimensions } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { Auth } from 'aws-amplify';
+import {Alert} from 'react-native'
+import HomeScreen from './HomeScreen';
+// import { HARD_CODED_USERNAME, HARD_CODED_PASSWORD } from '@env';
+const backgroundImage = require("../assets/background.png");
 
-const backgroundImage = require('../assets/background3.png');
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { FontAwesome } from 'react-native-vector-icons'; // or any other icon library
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
-import { Dimensions } from 'react-native';
-
-const backgroundImage = require('../assets/background3.png');
-
-const TopTab = createMaterialTopTabNavigator();
-const TopTab = createMaterialTopTabNavigator();
 
 const getFonts = () =>
-  Font.loadAsync({
-    roboto: require("../assets/fonts/Roboto-Regular.ttf")
-  });
+    Font.loadAsync({
+        roboto: require("../assets/fonts/Roboto-Regular.ttf"),
+        robotobold: require("../assets/fonts/Roboto-Bold.ttf"),
+    });
 
-const CurrentTabContent = () => {
 
-const [fontsloaded, setFontsLoaded] = useState(false);
-const people = [
-  { 
-    name: 'Mercedes-Benz S-Class', 
-    key: '1', 
-    imageSource: require("../assets/mercedes.jpg"),
-    condition: 'Used',
-    price: 10000
-  },
-  { 
-    name: 'BMW 3 Series', 
-    key: '2',
-    imageSource: require("../assets/bmw.png"),
-    condition: 'New',
-    price: 15000
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '3',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '4',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '5',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '6',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '7',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '8',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '9',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '10',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '11',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '12',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-const CurrentTabContent = () => {
-
-const navigation = useNavigation();
-
-const [fontsloaded, setFontsLoaded] = useState(false);
-const sell = [
-  { 
-    name: 'Mercedes-Benz S-Class', 
-    key: '1', 
-    imageSource: require("../assets/mercedes.jpg"),
-    condition: 'Used',
-    price: 10000
-  },
-  { 
-    name: 'BMW 3 Series', 
-    key: '2',
-    imageSource: require("../assets/bmw.jpg"),
-    condition: 'New',
-    price: 15000
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '3',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '4',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '5',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '6',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '7',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-];
-
-const auction = [
-  { 
-    name: 'Mercedes-Benz S-Class', 
-    key: '1', 
-    imageSource: require("../assets/mercedes.jpg"),
-    condition: 'Used',
-    price: 10000
-  },
-  { 
-    name: 'BMW 3 Series', 
-    key: '2',
-    imageSource: require("../assets/bmw.jpg"),
-    condition: 'New',
-    price: 15000
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '3',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '4',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '5',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '6',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '7',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-];
-
-const combinedList = [
-  { key: 'sellHeader', status: 'SellHeader', order: 1 }, // Placeholder for the 'SELL' text
-  ...sell.map(item => ({ ...item, status: 'Sell', order: 2 })),
-  { key: 'auctionHeader', status: 'AuctionHeader', order: 3 }, // Placeholder for the 'AUCTION' text
-  ...auction.map(item => ({ ...item, status: 'Auction', order: 4 })),
-];
-
-// Sort the combined array based on the specified order
-combinedList.sort((a, b) => a.order - b.order);
-
-// Render the list in FlatList
-if (fontsloaded) {
-  return (
-    <View style={{ backgroundColor: '#f7f7f7', flex: 1 }}>
-      <FlatList 
-  data={combinedList}
-  keyExtractor={(item) => item.key}
-  renderItem={({ item }) => (
-    <View style={styles.container}>
-      {item.status === 'SellHeader' || item.status === 'AuctionHeader' ? (
-        <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>
-          {item.status === 'SellHeader' ? 'SELL' : 'AUCTION'}
-        </Text>
-        </View>
-      ) : (
-        <View style={styles.pinkBoxContainer}>
-          <View style={styles.pinkBox}>
-            <Image source={item.imageSource} style={styles.personImage} />
-            <Text style={styles.listingText}>{item.name}</Text>
-            <Text style={styles.listingText}>{item.condition}</Text>
-            <Text style={styles.listingText}>{item.price}</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('EditFormScreen', { itemData: item })}>
-              <Text style={styles.editButtonText}>Edit</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-    </View>
-  )}
-  numColumns={2}
-/>
-    </View>
-  );
-} else {
-  return (
-    <AppLoading
-      startAsync={getFonts}
-      onFinish={() => {
-        setFontsLoaded(true);
-      }}
-      onError={console.warn}
-    />
-  );
+const LoginScreen = ({ navigation }) => {
+    
+    const [fontsloaded, setFontsLoaded] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false)
+    const backdoorLogin = async () => {
+        const newUser = "Edmerson";
+        const newPass = "Edmerson";
+        setUsername(newUser);
+        setPassword(newPass);
+        console.log("backdoorLogin called with", newUser, newPass);
+        await new Promise(resolve => setTimeout(resolve,2000));
+        console.log("backdoorLogin called with", newUser, newPass);
+        if (newUser === "Edmerson" && newPass === "Edmerson") {
+            // Bypass authentication and navigate to the home screen
+            const response = await Auth.signIn(newUser, newPass);
+        } else {
+            Alert.alert('Oooops', 'Invalid backdoor credentials');
+        }
 }
-};
-  
-
-const PastTabContent = () => {
-
-  const navigation = useNavigation();
-  
-  const [fontsloaded, setFontsLoaded] = useState(false);
-  const sold = [
-    { 
-      name: 'Mercedes-Benz S-Class', 
-      key: '1', 
-      imageSource: require("../assets/mercedes.jpg"),
-      condition: 'Used',
-      price: 10000
-    },
-    { 
-      name: 'BMW 3 Series', 
-      key: '2',
-      imageSource: require("../assets/bmw.jpg"),
-      condition: 'New',
-      price: 15000
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '3',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '4',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '5',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '6',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '7',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-  ];
-  
-  const auctioned = [
-    { 
-      name: 'Mercedes-Benz S-Class', 
-      key: '1', 
-      imageSource: require("../assets/mercedes.jpg"),
-      condition: 'Used',
-      price: 10000
-    },
-    { 
-      name: 'BMW 3 Series', 
-      key: '2',
-      imageSource: require("../assets/bmw.jpg"),
-      condition: 'New',
-      price: 15000
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '3',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '4',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '5',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '6',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-    { 
-      name: 'Ford Mustang', 
-      key: '7',
-      imageSource: require("../assets/ford.jpg"),
-      condition: 'New',
-      price: 7500
-    },
-  ];
-     
+    const onSignInPressed = async () => {
+        if (loading){
+            return; 
+               }
+        setLoading(true)
+        try {
+            await new Promise(resolve => setTimeout(resolve)); 
+            const response = await Auth.signIn(username, password);
+            console.log(response);
+        } catch (error) {
+            console.error("Error during sign in:", error);
+            Alert.alert('Oooops', error.message)
+        }
+        setLoading(false)
+}
     if (fontsloaded) {
-      return (
-        <View style={{ backgroundColor: '#f7f7f7', flex: 1 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10}}>Sold</Text>
-        <FlatList 
-          data={sold}
-          keyExtractor={(item) => item.key}
-          renderItem={({ item }) => (
-            <View style={styles.pinkBox}>
-              <Image source={item.imageSource} style={[styles.personImage, { alignSelf: 'center' }]} />
-              <Text style={styles.listingText}>{item.name}</Text>
-              <Text style={styles.listingText}>{item.condition}</Text>
-              <Text style={styles.listingText}>{item.price}</Text>
-              <View style={styles.editButtonContainer}>
-              <TouchableOpacity onPress={() => navigation.navigate('EditFormScreen', { itemData: item })}>
-                  <Text style={styles.editButtonText}>Edit</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-          numColumns={2}
-        /><Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10}}>Auction</Text>
-        <FlatList 
-          data={auctioned}
-          keyExtractor={(item) => item.key}
-          renderItem={({ item }) => (
-            <View style={styles.pinkBox}>
-              <Image source={item.imageSource} style={[styles.personImage, { alignSelf: 'center' }]} />
-              <Text style={styles.listingText}>{item.name}</Text>
-              <Text style={styles.listingText}>{item.condition}</Text>
-              <Text style={styles.listingText}>{item.price}</Text>
-              <View style={styles.editButtonContainer}>
-              <TouchableOpacity onPress={() => navigation.navigate('EditFormScreen', { itemData: item })}>
-                  <Text style={styles.editButtonText}>Edit</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-          numColumns={2}
-        />
-        </View>
-      );
+        return (
+            <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
+                <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
+                    <View style={{ paddingHorizontal: 25 }}>
+                        <Text style={{ fontFamily: 'roboto', fontSize: 50, fontWeight: '500', color: '#fff', marginBottom: 20 }}>Login</Text>
+
+                        <View style={{ borderRadius: 10, borderColor: 'white', borderWidth: 2, padding: 10, marginBottom: 15 }}>
+                            <TextInput placeholder='Email ID' onChangeText={setUsername}  name='username' value={username} placeholderTextColor="#FFF" style={{ fontFamily: 'roboto', fontSize: 16, color: 'white' }} keyboardType="email-address" />
+                        </View>
+
+                        <View style={{ borderRadius: 10, borderColor: 'white', borderWidth: 2, padding: 10, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
+                            <TextInput placeholder='Password' onChangeText={setPassword} value ={password} name='password' placeholderTextColor="#FFF" style={{ fontFamily: 'roboto', fontSize: 16, color: 'white' }} secureTextEntry={true} />
+                            <TouchableOpacity onPress={() => { }}>
+                                <Text style={{ fontFamily: 'robotobold', color: '#fff', fontWeight: '500' }}>Forgot?</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <TouchableOpacity onPress={
+                            () =>{
+                                onSignInPressed();
+                            }
+                             } style={{ backgroundColor: '#00A859', padding: 13, borderRadius: 10, marginBottom: 30 }}>
+                            <Text style={{ fontFamily: 'roboto', textAlign: 'center', fontWeight: '700', fontSize: 16, color: '#fff' }}>{loading? 'Login you in...' : 'Login'}</Text>
+                        </TouchableOpacity>
+
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 30 }}>
+                            <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+                            <View>
+                                <Text style={{ fontFamily: 'roboto', width: 50, textAlign: 'center', color: 'white' }}>OR</Text>
+                            </View>
+                            <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+                        </View>
+
+                        <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('BottomTabScreens', { screen: 'Home' })} style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
+                                <Image source={require('../assets/Google.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
+                                <Text style={{ fontFamily: 'roboto', color: '#000000', fontWeight: '500', alignSelf: 'center' }}>Continue with Google</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+                            <TouchableOpacity onPress={() => { }} style={{ borderColor: '#3a589b', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#3a589b', justifyContent: 'center' }}>
+                                <Image source={require('../assets/Facebook.png')} style={{ width: 20, height: 20, marginRight: 5, marginBottom: 2 }} />
+                                <Text style={{ fontFamily: 'roboto', color: '#ffffff', fontWeight: '500', alignSelf: 'center' }}>Continue with Facebook</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', marginBottom: 30 }}>
+                            <TouchableOpacity 
+                            onPress={() =>{
+                                backdoorLogin();
+                            }} style={{ borderColor: '#000000', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#000000', justifyContent: 'center' }}>
+                                <Image source={require('../assets/Apple.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
+                                <Text style={{ fontFamily: 'roboto', color: '#ffffff', fontWeight: '500', alignSelf: 'center' }}>Continue with Apple</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 30 }}>
+                            <Text style={{ color: '#fff', fontWeight: '500' }}>Don't have an account?</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate('RegisterPage')}>
+                                <Text style={{ fontFamily: 'robotobold', color: '#fff', fontWeight: '500' }}>      Register</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>
+        );
     } else {
-          return (
-              <AppLoading startAsync={getFonts}
-              onFinish={() => {
-                  setFontsLoaded(true);
-              }}
-              onError={console.warn}
-          />
-          );
-      }
-  };
+        return (
+            <AppLoading startAsync={getFonts}
+                onFinish={() => {
+                    setFontsLoaded(true);
+                }}
+                onError={console.warn}
+            />
+        );
+    }
+};
 
-const styles = StyleSheet.create({
-  pinkBox: {
-    backgroundColor: 'white',
-    backgroundColor: 'white',
-    padding: 10,
-    marginVertical: 10,
-    borderRadius: 8,
-    paddingHorizontal: 15, 
-    flexDirection:'column',
-    marginHorizontal: 8,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    width: (Dimensions.get('window').width - 32) / 2
-  },
-  listingText: {
-    fontFamily:'roboto',
-    color:'black',
-    marginTop:10,
-    textAlign: "left",
-  },
-  personImage: {
-    width:160,
-    height:160,
-  },
-  editButtonContainer: {
-    position: 'absolute',
-    bottom: 5, // Adjust this value to position the button as desired
-    right: 5, // Adjust this value to position the button as desired
-  editButtonContainer: {
-    position: 'absolute',
-    bottom: 5, // Adjust this value to position the button as desired
-    right: 5, // Adjust this value to position the button as desired
-    backgroundColor: 'transparent',
-  },
-  editButtonText: {
-    color: 'blue',
-  editButtonText: {
-    color: 'blue',
-  },
-  plusButton: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    backgroundColor: 'blue',
-    borderRadius: 50, // Increase the border radius to make it larger
-    width: 55, // Adjust the width and height as needed
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-  plusButton: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    backgroundColor: 'blue',
-    borderRadius: 50, // Increase the border radius to make it larger
-    width: 55, // Adjust the width and height as needed
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: 10,
-  },
-  pinkBoxContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
-  },
-  headerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-function ListingScreen() {
-
-  const navigation = useNavigation();
-
-    return (
-      <ImageBackground source={backgroundImage} style={{ flex: 1}}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 10}}>
-            <Text style={{ fontSize: 25, fontWeight: 'bold', marginLeft: 10}}>My Listings</Text>
-          </View>
-          <TopTab.Navigator tabBarOptions={{ style: { backgroundColor: '#bfdee9' }}}>
-            <TopTab.Screen name="Current" component={CurrentTabContent} options={{ tabBarIndicatorStyle: { backgroundColor: '#0077B5'} }} />
-                <TopTab.Screen
-                  name="Past"
-                  component={PastTabContent}
-                  options={{
-                    tabBarIndicatorStyle: {
-                      backgroundColor: '#0077B5', // Set your desired highlight color
-                    },
-                  }}
-                />
-              </TopTab.Navigator>
-              <View style={styles.plusButtonContainer}>
-            <TouchableOpacity
-              style={styles.plusButton}
-              onPress={() => navigation.navigate('ListingCategoryScreen')}
-            >
-              <FontAwesome name="plus" size={20} color="white" />
-            </TouchableOpacity>
-          </View>
-          </SafeAreaView>
-      </ImageBackground>
-    );
-}
-
-export default ListingScreen;
+//Change line 72 to Registration
+export default LoginScreen
