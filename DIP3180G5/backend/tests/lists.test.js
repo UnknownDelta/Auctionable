@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const { startServer, stopServer } = require('../server');
 const request = require('supertest');
 const router = require('../routes/lists');
+const db = require('../database');
 
 const app = express();
 app.use('/api/cars', router);
@@ -13,15 +14,15 @@ app.use('/api/cars', router);
 
 describe('Routes', () => {
     beforeAll(async () => {
-        mongoose.connect(process.env.MONGO_URI + 1, { useNewUrlParser: true, useUnifiedTopology: true });
-        startServer();
+        await db.connectToDatabase(process.env.MONGO_URI);
+        startServer(process.env.PORT_TEST_ROUTES);
     });
 
     afterAll(async () => {
-        if (app.listening) { // Checking if the server is running
-            await stopServer();
+        if (app.listening) {
+            await stopServer(process.env.PORT_TEST_SERVER);
         }
-        await mongoose.disconnect();
+        await db.disconnectFromDatabase();
     });
 
     it('should test GET /', async () => {

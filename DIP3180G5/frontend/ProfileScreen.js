@@ -70,10 +70,11 @@ const ProfileScreen = ({navigation}) => {
             <Text style={styles.optionButtonText}>Settings</Text>
             <Icon name="angle-right" size={20} color="#5D5B5B" style={styles.icon} />
           </TouchableOpacity>
-          <Button
-            title="Logout"
-            onPress={handleLogout}
-          />
+          <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 30 }}>
+            <TouchableOpacity onPress={() => navigation.navigate('LoginPage')} style={{ backgroundColor: '#00A859', padding: 13, borderRadius: 10, marginBottom: 30, width: '80%', alignItems: 'center' }}>
+              <Text style={{ fontSize: 30, fontWeight: 700, color: 'white' }}>Log Out</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </SafeAreaView>

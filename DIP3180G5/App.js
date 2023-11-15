@@ -44,6 +44,70 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import NotificationMain from "./frontend/NotificationMain";
 import NotificationOutbid from "./frontend/NotificationOutbid";
 
+const Tab = createBottomTabNavigator();
+
+const getFonts = () =>
+  Font.loadAsync({
+    Roboto_LightItalic: require("./assets/fonts/Roboto-LightItalic.ttf"),
+    RobotoCondensed_Regular: require("./assets/fonts/RobotoCondensed-Regular.ttf"),
+  });
+
+const CustomListingTabIcon = ({ color, size }) => {
+  return (
+    <Image
+      source={require("./assets/listingIcon.png")}
+      style={{ width: size, height: size, tintColor: color }}
+    />
+  );
+};
+
+const CustomListingTabIconAuction = ({ color, size }) => {
+  return (
+    <Image
+      source={require("./assets/auction_logo.png")}
+      style={{ width: size, height: size, tintColor: color }}
+    />
+  );
+};
+
+const tabLabelStyle = {
+  fontFamily: "RobotoCondensed_Regular",
+  fontSize: 13,
+};
+
+function getWidth() {
+  let width = Dimensions.get("window").width;
+  return width / 5;
+}
+
+const GradientText = (props) => {
+  return (
+    <MaskedView maskElement={<Text {...props} />}>
+      <LinearGradient
+        colors={["#0077B5", "#00A859"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+      >
+        <Text {...props} style={[props.style, { opacity: 0 }]} />
+      </LinearGradient>
+    </MaskedView>
+  );
+};
+
+const ProfileHeader = () => {
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <Image
+        source={require("./assets/Aquasama.png")}
+        style={{ width: 40, height: 40, borderRadius: 20 }}
+      />
+      <GradientText style={{ marginLeft: 10, fontSize: 20 }}>
+        Insert Name
+      </GradientText>
+    </View>
+  );
+};
+
 function BottomTabScreens({route}) {
   console.log("Test log outside handleTabPress"); // Add this line
   const isFocused = useIsFocused(); // Check if the screen is focused
