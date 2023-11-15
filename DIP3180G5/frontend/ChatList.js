@@ -1,149 +1,137 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, Dimensions, Image, ImageBackground } from 'react-native';
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, ImageBackground } from 'react-native'
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { Auth } from 'aws-amplify';
+import {Alert} from 'react-native'
+import HomeScreen from './HomeScreen';
+// import { HARD_CODED_USERNAME, HARD_CODED_PASSWORD } from '@env';
+const backgroundImage = require("../assets/background.png");
 
-const { width } = Dimensions.get('window'); // Get the screen width
 
-// Dummy values for messages
-const messages = [
-    {
-        id: '1',
-        text: 'Hi I would like to make an offer for this car?',
-        sender: 'Aquasama',
-        productName: 'Ferrari 458 GT3',
-        lastMessage: 'I am good. How about you?',
-        profilePic: require('../assets/Aquasama.png'), // Import or provide the image source
-        price: '$53K',
-        condition: 'used/9mths',
-        productImage: require('../assets/product.png'), // Import or provide the product image source
-        date: '2 hrs ago',
-    },
-    {
-        id: '2',
-        text: 'Hi I would like to make an offer for this car?',
-        sender: 'eLoin',
-        productName: 'Telsa Model S',
-        lastMessage: 'Are u able to give me a discount?',
-        price: '$50K',
-        condition: 'new/1mth',
-        profilePic: require('../assets/eLoin.png'), // Import or provide the image source
-        productImage: require('../assets/product2.png'), // Import or provide the product image source
-        date: '4 hrs ago',
-    },
-    // Add more message objects as needed
-];
+const getFonts = () =>
+    Font.loadAsync({
+        roboto: require("../assets/fonts/Roboto-Regular.ttf"),
+        robotobold: require("../assets/fonts/Roboto-Bold.ttf"),
+    });
 
-const MessageList = () => {
-    const renderItem = ({ item }) => (
-        <TouchableOpacity onPress={() => handleItemClick(item)}>
-            <View style={styles.messageContainer}>
-                <View style={styles.column}>
-                    <Image source={item.profilePic} style={styles.profilePic} />
-                </View>
-                <View style={styles.middleColumn}>
-                    <Text style={styles.sender}>{item.sender}</Text>
-                    <Text style={styles.productName}>{item.productName}</Text>
-                    <Text numberOfLines={1} ellipsizeMode="tail" style={styles.lastMessage}>{item.lastMessage}</Text>
-                </View>
-                <View style={styles.productColumn}>
-                    <Text style={styles.date}>{item.date}</Text>
-                    <Image source={item.productImage} style={styles.productImage} />
-                </View>
-            </View>
-        </TouchableOpacity>
-    );
 
-    const navigation = useNavigation(); //Get the navigation object
-    const handleItemClick = (item) => {
-        navigation.navigate('ChatConversation', {
-            senderName: item.sender, productName: item.productName, profilePic: item.profilePic, productImage: item.productImage,
-            date: item.date, lastMessage: item.lastMessage, price: item.price, condition: item.condition
-        });
-    };
+const LoginScreen = ({ navigation }) => {
+    
+    const [fontsloaded, setFontsLoaded] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false)
+    const backdoorLogin = async () => {
+        const newUser = "Edmerson";
+        const newPass = "Edmerson";
+        setUsername(newUser);
+        setPassword(newPass);
+        console.log("backdoorLogin called with", newUser, newPass);
+        await new Promise(resolve => setTimeout(resolve,2000));
+        console.log("backdoorLogin called with", newUser, newPass);
+        if (newUser === "Edmerson" && newPass === "Edmerson") {
+            // Bypass authentication and navigate to the home screen
+            const response = await Auth.signIn(newUser, newPass);
+        } else {
+            Alert.alert('Oooops', 'Invalid backdoor credentials');
+        }
+}
+    const onSignInPressed = async () => {
+        if (loading){
+            return; 
+               }
+        setLoading(true)
+        try {
+            await new Promise(resolve => setTimeout(resolve)); 
+            const response = await Auth.signIn(username, password);
+            console.log(response);
+        } catch (error) {
+            console.error("Error during sign in:", error);
+            Alert.alert('Oooops', error.message)
+        }
+        setLoading(false)
+}
+    if (fontsloaded) {
+        return (
+            <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
+                <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
+                    <View style={{ paddingHorizontal: 25 }}>
+                        <Text style={{ fontFamily: 'roboto', fontSize: 50, fontWeight: '500', color: '#fff', marginBottom: 20 }}>Login</Text>
 
-    return (
-        <View style={styles.container}>
-            <FlatList
-                data={messages}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
+                        <View style={{ borderRadius: 10, borderColor: 'white', borderWidth: 2, padding: 10, marginBottom: 15 }}>
+                            <TextInput placeholder='Email ID' onChangeText={setUsername}  name='username' value={username} placeholderTextColor="#FFF" style={{ fontFamily: 'roboto', fontSize: 16, color: 'white' }} keyboardType="email-address" />
+                        </View>
+
+                        <View style={{ borderRadius: 10, borderColor: 'white', borderWidth: 2, padding: 10, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
+                            <TextInput placeholder='Password' onChangeText={setPassword} value ={password} name='password' placeholderTextColor="#FFF" style={{ fontFamily: 'roboto', fontSize: 16, color: 'white' }} secureTextEntry={true} />
+                            <TouchableOpacity onPress={() => { }}>
+                                <Text style={{ fontFamily: 'robotobold', color: '#fff', fontWeight: '500' }}>Forgot?</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <TouchableOpacity onPress={
+                            () =>{
+                                onSignInPressed();
+                            }
+                             } style={{ backgroundColor: '#00A859', padding: 13, borderRadius: 10, marginBottom: 30 }}>
+                            <Text style={{ fontFamily: 'roboto', textAlign: 'center', fontWeight: '700', fontSize: 16, color: '#fff' }}>{loading? 'Login you in...' : 'Login'}</Text>
+                        </TouchableOpacity>
+
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 30 }}>
+                            <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+                            <View>
+                                <Text style={{ fontFamily: 'roboto', width: 50, textAlign: 'center', color: 'white' }}>OR</Text>
+                            </View>
+                            <View style={{ flex: 1, height: 1, backgroundColor: 'white' }} />
+                        </View>
+
+                        <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('BottomTabScreens', { screen: 'Home' })} style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
+                                <Image source={require('../assets/Google.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
+                                <Text style={{ fontFamily: 'roboto', color: '#000000', fontWeight: '500', alignSelf: 'center' }}>Continue with Google</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+                            <TouchableOpacity onPress={() => { }} style={{ borderColor: '#3a589b', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#3a589b', justifyContent: 'center' }}>
+                                <Image source={require('../assets/Facebook.png')} style={{ width: 20, height: 20, marginRight: 5, marginBottom: 2 }} />
+                                <Text style={{ fontFamily: 'roboto', color: '#ffffff', fontWeight: '500', alignSelf: 'center' }}>Continue with Facebook</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', marginBottom: 30 }}>
+                            <TouchableOpacity 
+                            onPress={() =>{
+                                backdoorLogin();
+                            }} style={{ borderColor: '#000000', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: 340, flexDirection: 'row', backgroundColor: '#000000', justifyContent: 'center' }}>
+                                <Image source={require('../assets/Apple.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
+                                <Text style={{ fontFamily: 'roboto', color: '#ffffff', fontWeight: '500', alignSelf: 'center' }}>Continue with Apple</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 30 }}>
+                            <Text style={{ color: '#fff', fontWeight: '500' }}>Don't have an account?</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate('RegisterPage')}>
+                                <Text style={{ fontFamily: 'robotobold', color: '#fff', fontWeight: '500' }}>      Register</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>
+        );
+    } else {
+        return (
+            <AppLoading startAsync={getFonts}
+                onFinish={() => {
+                    setFontsLoaded(true);
+                }}
+                onError={console.warn}
             />
-        </View>
-    );
+        );
+    }
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    messageContainer: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        width: width,
-        paddingHorizontal: 5,
-        marginTop: 5,
-        marginBottom: 5, // Increased spacing between messages
-        backgroundColor: 'white', // Set the background color to white
-        ...Platform.select({
-            android: {
-                elevation: 5, // Add elevation for Android shadow
-            },
-            ios: {
-                shadowColor: 'black', // Set shadow color for iOS
-                shadowOffset: { width: 0, height: 10 }, // Set shadow offset
-                shadowOpacity: 0.2, // Set shadow opacity
-                shadowRadius: 2, // Set shadow radius
-            },
-        }),
-    },
-    column: {
-        width: 50,
-    },
-    middleColumn: {
-        flex: 1, // Adjust the flex value to make the middle column longer
-        marginLeft: 10,
-    },
-
-    productColumn: {
-        width: 70,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-    },
-    profilePic: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        marginTop: 2,
-        marginRight: 16,
-    },
-    sender: {
-        fontSize: 18,
-        color: 'gray',
-        fontWeight: 'bold',
-        marginBottom: 8, // Add margin to create spacing
-    },
-    productName: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black', // Adjust text color for product name
-        marginBottom: 8, // Add margin to create spacing
-    },
-    lastMessage: {
-        fontSize: 16,
-        color: 'gray', // Adjust text color for last message
-    },
-    date: {
-        fontSize: 14,
-        textAlign: 'right', // Align the date text to the right
-        color: 'gray',
-    },
-    productImage: {
-        width: 65, // Adjust the width of the product image
-        height: 65, // Adjust the height of the product image
-        marginTop: 8, // Add spacing between date and product image
-        alignSelf: 'flex-end', // Align the product image to the right
-    },
-});
-
-export default MessageList;
+//Change line 72 to Registration
+export default LoginScreen

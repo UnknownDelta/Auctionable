@@ -364,6 +364,8 @@ Ke 5.000000 5.000000 5.000000
 Ni 1.450000
 d 1.000000
 illum 2
+<<<<<<< HEAD
+=======
 # Blender MTL File: 'C-A.blend'
 # Material Count: 33
 
@@ -1096,3 +1098,4 @@ Ke 5.000000 5.000000 5.000000
 Ni 1.450000
 d 1.000000
 illum 2
+>>>>>>> 8af98be8b404cede98a37949f72f7a43f83c4d0b

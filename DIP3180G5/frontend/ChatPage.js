@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import ChatList from '../frontend/ChatList';
+import ListingScreen from '../frontend/listing-screen';
 import HomeScreen from '../frontend/HomeScreen';
 import ProfileScreen from '../frontend/ProfileScreen';
 import WishlistScreen from '../frontend/WishlistPage';
@@ -71,8 +72,24 @@ export default function Chat() {
             />
         );
     }
+    if (fontsloaded) {
+        return (
+            <ChatScreen />
+        );
+    } else {
+        return (
+            <Apploading
+                startAsync={getFonts}
+                onFinish={() => {
+                    setFontsLoaded(true);
+                }}
+                onError={console.warn}
+            />
+        );
+    }
 
 }
+
 
 const styles = StyleSheet.create({
     container: {

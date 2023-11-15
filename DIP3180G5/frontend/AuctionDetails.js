@@ -169,6 +169,58 @@ const BidTabContent = () => {
   );
 };
 
+const handleTermsAndConditionsClick = ({ visible, onClose }) => {
+  return (
+    <Modal animationType="fade" transparent={true} visible={visible}>
+      <View style={styles.modalContainer2}>
+        <View style={styles.modalContent2}>
+          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+            <Text style={styles.closeButtonText}>X</Text>
+          </TouchableOpacity>
+          <Text style={styles.modalTitle2}>Terms and Conditions</Text>
+          <ScrollView style={styles.scrollContainer}>
+            <Text>1. Only bidders who have been verified, accepted</Text>
+            <Text>   our terms and conditions, and executed the</Text>
+            <Text>   Bidding Agreement are contractually binding</Text>
+            <Text>2. All bids are contractually binding.</Text>
+            <Text>3. General application users are able to view the</Text>
+            <Text>   highest bid only. Registered bidders are able to</Text>
+            <Text>   see all bids</Text>
+            <Text>4. Any bid placeed within 3 minutes of closing</Text>
+            <Text>   extends the closing by another 3 minutes. There</Text>
+            <Text>   is no limit to this extension.</Text>
+            <Text>5. All auctions, unless otherwise stated, shall be</Text>
+            <Text>   conducted in Singapore dollars.</Text>
+            <Text>6. All auctions shall be subject to a minimum price</Text>
+            <Text>   determined by Auctionable and any bid of a</Text>
+            <Text>   value less than such minimum price will be</Text>
+            <Text>   declined</Text>
+            <Text>7. The increase in each bid will be regulated by</Text>
+            <Text>   Auctionable.</Text>
+            <Text>8. All auctions are subject to a reserve price and</Text>
+            <Text>   Auctionable shall have the right at any time at</Text>
+            <Text>   its discretion to withdraw the property from the </Text>
+            <Text>   Online Auction without disclosing the reserve</Text>
+            <Text>   price.</Text>
+            <Text>9. Any vendor reserves the right of bidding itself or</Text>
+            <Text>   by its agents as often as it shall please.</Text>
+            <Text>10. Where the reserve price has been met, the</Text>
+            <Text>    vehicle will be sold to the highest bidder at the</Text>
+            <Text>    end of the auction period</Text>
+            <Text>11. In the event of a dispute in respect of any bid,</Text>
+            <Text>    Auctionable reserves the right to re-open</Text>
+            <Text>    bidding or determine which bidder submitted</Text>
+            <Text>    the Successful Bid.</Text>
+            <Text>12. All prices, offers and bids, unless stated</Text>
+            <Text>    otherwise, exclude applicable duties, taxes and</Text>
+            <Text>    levies including without limitation stamp duty.</Text>
+          </ScrollView>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
 const ButtonSection = ({ handleBidButtonClick }) => {
   return (
     <View style={{ flex: 1, padding: 16 }}>
@@ -225,8 +277,30 @@ const ButtonSection = ({ handleBidButtonClick }) => {
 
 const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
+  const [modalVisible2, setModalVisible2] = useState(false);
+
+
+   // Function to open the first modal
+   const handleFirstModalClick = () => {
+    setModalVisible(true);
+  };
+
   const closeModal = () => {
     setModalVisible(false);
+  };
+
+  // Function to open the second modal (Terms and Conditions)
+  const handleTermsAndConditionsClick = () => {
+    // Close the first modal
+    setModalVisible(false);
+    // Open the second modal
+    setModalVisible2(true);
+  };
+
+  // Function to close the second modal (Terms and Conditions)
+  const closeModal2 = () => {
+    setModalVisible2(false);
+    setModalVisible(true);
   };
 
   return (
@@ -284,6 +358,66 @@ const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
                 <Text style={styles.modalButtonText}>Cancel/Edit</Text>
               </TouchableOpacity>
             </View>
+            <View style={styles.termsAndConditions}>
+              <Text style={styles.termsText}>
+                By confirming bidding, you agree with our{" "}
+                <TouchableOpacity onPress={handleTermsAndConditionsClick}>
+                  <Text style={styles.termsLink}>Terms and Conditions</Text>
+                </TouchableOpacity>
+              </Text>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal animationType="fade" transparent={true} visible={modalVisible2}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity style={styles.closeButton} onPress={closeModal2}>
+              <Text style={styles.closeButtonText}>X</Text>
+            </TouchableOpacity>
+            <Text style={styles.modalTitle2}>Terms and Conditions</Text>
+            <ScrollView style={styles.scrollContainer}>
+            <Text>1.   Only bidders who have been verified, </Text>
+            <Text>       accepted our terms and conditions, and</Text>
+            <Text>       executed the Bidding Agreement are</Text>
+            <Text>       contractually binding</Text>
+            <Text>2.   All bids are contractually binding.</Text>
+            <Text>3.   General application users are able to view</Text>
+            <Text>       the highest bid only. Registered bidders </Text>
+            <Text>       are able to see all bids</Text>
+            <Text>4.   Any bid placeed within 3 minutes of</Text>
+            <Text>       closing extends the closing by another 3</Text>
+            <Text>       minutes. There is no limit to this</Text>
+            <Text>       extension.</Text>
+            <Text>5.   All auctions, unless otherwise stated,</Text>
+            <Text>       shall be conducted in Singapore dollars.</Text>
+            <Text>6.   All auctions shall be subject to a</Text>
+            <Text>       minimum price determined by</Text>
+            <Text>       Auctionable and any bid of a value less</Text>
+            <Text>       than such minimum price will be declined</Text>
+            <Text>7.   The increase in each bid will be regulated </Text>
+            <Text>       by Auctionable.</Text>
+            <Text>8.   All auctions are subject to a reserve price</Text>
+            <Text>       and Auctionable shall have the right at</Text>
+            <Text>       any time at its discretion to withdraw the </Text>
+            <Text>       property from the Online Auction without</Text>
+            <Text>       disclosing the reserve price.</Text>
+            <Text>9.   Any vendor reserves the right of bidding</Text>
+            <Text>       itself or by its agents as often as it shall</Text>
+            <Text>       please.</Text>
+            <Text>10. Where the reserve price has been met,</Text>
+            <Text>       the vehicle will be sold to the highest</Text>
+            <Text>       bidder at the end of the auction period</Text>
+            <Text>11. In the event of a dispute in respect of any</Text>
+            <Text>       bid, Auctionable reserves the right to</Text>
+            <Text>       re-open bidding or determine which</Text>
+            <Text>       bidder submitted the Successful Bid.</Text>
+            <Text>12. All prices, offers and bids, unless stated</Text>
+            <Text>       otherwise, exclude applicable duties,</Text>
+            <Text>       taxes and levies including without</Text>
+            <Text>       limitation stamp duty.</Text>
+            </ScrollView>
           </View>
         </View>
       </Modal>
@@ -611,6 +745,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 20,
     borderRadius: 10,
+    margin:20,
   },
   modalMessage: {
     fontSize: 18,
@@ -649,6 +784,54 @@ const styles = StyleSheet.create({
     backgroundColor: "#DB0A0A",
     paddingVertical: 7, // Increase vertical padding to make the button taller
     paddingHorizontal: 12,
+  },
+
+  termsAndConditions: {
+    alignItems: "center",
+    marginTop: 10,
+  },
+  termsText: {
+    fontSize: 12,
+    textAlign: "center",
+  },
+  termsLink: {
+    color: "#0077B5",
+    fontSize:12,
+    textDecorationLine: "underline",
+  },
+
+  modalContainer2: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
+  modalContent2: {
+    backgroundColor: "white",
+    padding: 20,
+    margin:20,
+    borderRadius: 10,
+  },
+  closeButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    backgroundColor: "transparent",
+    zIndex: 1,
+  },
+  closeButtonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#0077B5",
+  },
+  modalTitle2: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#0077B5",
+  },
+  scrollContainer: {
+    maxHeight: 500, // Adjust the maximum height as needed
   },
 });
 
