@@ -7,7 +7,7 @@ import {
   Animated,
   ImageBackground,
 } from "react-native";
-import React, { useState,useRef ,useEffect} from "react";
+import React, { useState, useRef, useEffect} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoadingPage from "./frontend/LoadingPage";
@@ -21,6 +21,7 @@ import RegisterPage from "./frontend/RegistrationScreen";
 import DetailsPage from "./frontend/DetailsScreen";
 import WishlistPage from "./frontend/WishlistPage";
 import createListPage from "./frontend/create-listing-screen";
+import SettingsPage from "./frontend/AllListing";
 import ProfilePage from "./frontend/ProfileScreen";
 import AuctionListPage from "./frontend/AuctionList";
 import AuctionDetailsPage from "./frontend/AuctionDetails";
@@ -147,10 +148,14 @@ function BottomTabScreens({route}) {
               iconName = "ios-home";
             } else if (route.name === "Profile") {
               iconName = "ios-person";
+            } else if (route.name === "Profile") {
+              iconName = "ios-person";
             } else if (route.name === "Listing") {
               return <CustomListingTabIcon color={color} size={size} />;
             } else if (route.name === "Chat") {
               iconName = "ios-chatbubbles";
+            } else if (route.name === "Auction") {
+              return <CustomListingTabIconAuction color={color} size={size} />;
             } else if (route.name === "Auction") {
               return <CustomListingTabIconAuction color={color} size={size} />;
             }
@@ -239,8 +244,10 @@ function BottomTabScreens({route}) {
               backgroundColor: "#0077B5",
               position: "absolute",
               bottom: 48, //48
+              bottom: 48, //48
               //left: 50,
               borderRadius: 20,
+              transform: [{ translateX: tabOffsetValue}],
               transform: [{ translateX: tabOffsetValue}],
             }}
           />
@@ -249,71 +256,6 @@ function BottomTabScreens({route}) {
     </View>
   );
 }
-
-
-const Tab = createBottomTabNavigator();
-
-const getFonts = () =>
-  Font.loadAsync({
-    Roboto_LightItalic: require("./assets/fonts/Roboto-LightItalic.ttf"),
-    RobotoCondensed_Regular: require("./assets/fonts/RobotoCondensed-Regular.ttf"),
-  });
-
-const CustomListingTabIcon = ({ color, size }) => {
-  return (
-    <Image
-      source={require("./assets/listingIcon.png")}
-      style={{ width: size, height: size, tintColor: color }}
-    />
-  );
-};
-
-const CustomListingTabIconAuction = ({ color, size }) => {
-  return (
-    <Image
-      source={require("./assets/auction_logo.png")}
-      style={{ width: size, height: size, tintColor: color }}
-    />
-  );
-};
-
-const tabLabelStyle = {
-  fontFamily: "RobotoCondensed_Regular", // Use the correct font family name
-  fontSize: 13,
-};
-
-function getWidth() {
-  let width = Dimensions.get("window").width;
-  return width / 5;
-}
-
-const GradientText = (props) => {
-  return (
-    <MaskedView maskElement={<Text {...props} />}>
-      <LinearGradient
-        colors={["#0077B5", "#00A859"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-      >
-        <Text {...props} style={[props.style, { opacity: 0 }]} />
-      </LinearGradient>
-    </MaskedView>
-  );
-};
-
-const ProfileHeader = () => {
-  return (
-    <View style={{ flexDirection: "row", alignItems: "center" }}>
-      <Image
-        source={require("./assets/Aquasama.png")}
-        style={{ width: 40, height: 40, borderRadius: 20 }}
-      />
-      <GradientText style={{ marginLeft: 10, fontSize: 20 }}>
-        Insert Name
-      </GradientText>
-    </View>
-  );
-};
 
 const Stack = createStackNavigator();
 
@@ -349,6 +291,7 @@ function HomeStack() {
     >
       <Stack.Screen name="HomePage" component={HomePage} />
       <Stack.Screen name="DetailsPage" component={DetailsPage} />
+      <Stack.Screen name="SettingsPage" component={SettingsPage} />
       <Stack.Screen
         name="WishlistPage"
         component={WishlistPage}
