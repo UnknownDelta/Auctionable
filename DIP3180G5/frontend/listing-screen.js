@@ -1,4 +1,5 @@
 import React , {useState} from 'react'
+import React , {useState} from 'react'
 import { SafeAreaView, View, Text, FlatList, StyleSheet, Image, ImageBackground } from 'react-native'
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
@@ -9,7 +10,15 @@ import { useNavigation } from "@react-navigation/native";
 import { Dimensions } from 'react-native';
 
 const backgroundImage = require('../assets/background3.png');
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { FontAwesome } from 'react-native-vector-icons'; // or any other icon library
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+import { Dimensions } from 'react-native';
 
+const backgroundImage = require('../assets/background3.png');
+
+const TopTab = createMaterialTopTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
 const getFonts = () =>
@@ -17,6 +26,94 @@ const getFonts = () =>
     roboto: require("../assets/fonts/Roboto-Regular.ttf")
   });
 
+const CurrentTabContent = () => {
+
+const [fontsloaded, setFontsLoaded] = useState(false);
+const people = [
+  { 
+    name: 'Mercedes-Benz S-Class', 
+    key: '1', 
+    imageSource: require("../assets/mercedes.jpg"),
+    condition: 'Used',
+    price: 10000
+  },
+  { 
+    name: 'BMW 3 Series', 
+    key: '2',
+    imageSource: require("../assets/bmw.png"),
+    condition: 'New',
+    price: 15000
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '3',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '4',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '5',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '6',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '7',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '8',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '9',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '10',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '11',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
+  { 
+    name: 'Ford Mustang', 
+    key: '12',
+    imageSource: require("../assets/ford.jpg"),
+    condition: 'New',
+    price: 7500
+  },
 const CurrentTabContent = () => {
 
 const navigation = useNavigation();
@@ -350,6 +447,7 @@ const PastTabContent = () => {
 const styles = StyleSheet.create({
   pinkBox: {
     backgroundColor: 'white',
+    backgroundColor: 'white',
     padding: 10,
     marginVertical: 10,
     borderRadius: 8,
@@ -379,11 +477,27 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 5, // Adjust this value to position the button as desired
     right: 5, // Adjust this value to position the button as desired
+  editButtonContainer: {
+    position: 'absolute',
+    bottom: 5, // Adjust this value to position the button as desired
+    right: 5, // Adjust this value to position the button as desired
     backgroundColor: 'transparent',
   },
   editButtonText: {
     color: 'blue',
+  editButtonText: {
+    color: 'blue',
   },
+  plusButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: 'blue',
+    borderRadius: 50, // Increase the border radius to make it larger
+    width: 55, // Adjust the width and height as needed
+    height: 55,
+    alignItems: 'center',
+    justifyContent: 'center',
   plusButton: {
     position: 'absolute',
     bottom: 20,

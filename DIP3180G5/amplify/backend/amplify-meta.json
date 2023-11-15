@@ -1,0 +1,140 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-authentication-staging-144230-authRole",
+      "UnauthRoleArn": "arn:aws:iam::170507994784:role/amplify-authentication-staging-144230-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::170507994784:role/amplify-authentication-staging-144230-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-authentication-staging-144230-deployment",
+      "UnauthRoleName": "amplify-authentication-staging-144230-unauthRole",
+      "StackName": "amplify-authentication-staging-144230",
+      "StackId": "arn:aws:cloudformation:us-east-1:170507994784:stack/amplify-authentication-staging-144230/134f73d0-66b2-11ee-9e0f-12fd9622a7ff",
+      "AmplifyAppId": "d2iahtsnpq2mkz"
+    }
+  },
+  "auth": {
+    "Authentication": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 7,
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [
+          "EMAIL",
+          "PREFERRED_USERNAME",
+          "PHONE_NUMBER"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "output": {
+        "CreatedSNSRole": "arn:aws:iam::170507994784:role/snse16392d6144230-staging",
+        "UserPoolId": "us-east-1_EvPsJySSS",
+        "AppClientIDWeb": "4qjvsp5mu1cs94dlt4n1vv79vv",
+        "AppClientID": "5gafpgvs0mpvcsek5du2e0glua",
+        "IdentityPoolId": "us-east-1:28b5d7d2-4334-4ba2-8777-14b0668dda57",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:170507994784:userpool/us-east-1_EvPsJySSS",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "UserPoolName": "Authentication"
+      },
+      "lastPushTimeStamp": "2023-10-31T19:18:38.960Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/auth/Authentication-cloudformation-template.json",
+        "logicalId": "authAuthentication"
+      }
+    }
+  },
+  "function": {
+    "AuctionAPI": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2023-10-31T19:16:10.858Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-10-31T19:16:11.882Z",
+      "distZipFilename": "AuctionAPI-79536c5464664d556741-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+        "s3Key": "amplify-builds/AuctionAPI-79536c5464664d556741-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/AuctionAPI-cloudformation-template.json",
+        "logicalId": "functionAuctionAPI"
+      },
+      "lastPushTimeStamp": "2023-10-31T19:18:45.776Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::170507994784:role/authenticationLambdaRole535efc57-staging",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:170507994784:function:AuctionAPI-staging",
+        "Name": "AuctionAPI-staging",
+        "LambdaExecutionRole": "authenticationLambdaRole535efc57-staging"
+      },
+      "lastPushDirHash": "Mw/3ui6AAQSC1Xzn7SHt9TUcYLU="
+    },
+    "lamdaBackend": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2023-10-31T19:16:15.962Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-10-31T19:16:16.735Z",
+      "distZipFilename": "lamdaBackend-37436f6e36676a4b3879-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+        "s3Key": "amplify-builds/lamdaBackend-37436f6e36676a4b3879-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/lamdaBackend-cloudformation-template.json",
+        "logicalId": "functionlamdaBackend"
+      },
+      "lastPushTimeStamp": "2023-10-31T19:18:45.776Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::170507994784:role/authenticationLambdaRole94577db1-staging",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:170507994784:function:lamdaBackend-staging",
+        "Name": "lamdaBackend-staging",
+        "LambdaExecutionRole": "authenticationLambdaRole94577db1-staging"
+      },
+      "lastPushDirHash": "+22sn7moNH07iWttae55gqT7iIU="
+    },
+    "authentication64447f17": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [],
+      "lastBuildTimeStamp": "2023-10-31T19:16:28.802Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-10-31T19:16:29.702Z",
+      "distZipFilename": "authentication64447f17-4f334f597074672f3633-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
+        "s3Key": "amplify-builds/authentication64447f17-4f334f597074672f3633-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-authentication-staging-144230-deployment/amplify-cfn-templates/function/authentication64447f17-cloudformation-template.json",
+        "logicalId": "functionauthentication64447f17"
+      },
+      "lastPushTimeStamp": "2023-10-31T19:18:45.776Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::170507994784:role/authenticationLambdaRole85023e38-staging",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:170507994784:function:authentication64447f17-staging",
+        "Name": "authentication64447f17-staging",
+        "LambdaExecutionRole": "authenticationLambdaRole85023e38-staging"
+      },
+      "lastPushDirHash": "8Vzky1VeeuiQKqOIXGsQXhL64co="
+    }
+  },
+  "api": {}
+}

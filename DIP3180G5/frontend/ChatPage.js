@@ -12,9 +12,18 @@ import ProfileScreen from '../frontend/ProfileScreen';
 import WishlistScreen from '../frontend/WishlistPage';
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
+import * as Font from "expo-font";
+import Apploading from "expo-app-loading";
 
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
+
+const getFonts = () =>
+    Font.loadAsync({
+        Roboto_LightItalic: require("../assets/fonts/Roboto-LightItalic.ttf"),
+        RobotoCondensed_Regular: require("../assets/fonts/RobotoCondensed-Regular.ttf"),
+    });
+
 
 const getFonts = () =>
     Font.loadAsync({
@@ -56,6 +65,7 @@ function ChatScreen() {
 export default function Chat() {
 
     const [fontsloaded, setFontsLoaded] = useState(false);
+    const [fontsloaded, setFontsLoaded] = useState(false);
 
     if (fontsloaded) {
         return (
@@ -72,6 +82,23 @@ export default function Chat() {
             />
         );
     }
+    if (fontsloaded) {
+        return (
+            <ChatScreen />
+        );
+    } else {
+        return (
+            <Apploading
+                startAsync={getFonts}
+                onFinish={() => {
+                    setFontsLoaded(true);
+                }}
+                onError={console.warn}
+            />
+        );
+    }
+
+}
 
 }
 
