@@ -13,27 +13,27 @@
 ```
 [
     {
-        "_id": "652f8b52567e4097cdafec57",
-        "brand": "Toyota",
-        "model": "Corolla",
-        "colour": "Silver",
-        "fuel_type": "Petrol",
-        "price": 1000,
-        "description": "Droved 1000 km",
-        "years_used": 2,
-        "registration_date": "12-12-2019",
+        "_id": "654b35785043e64ab92e859b",
+        "brand": "Ford",
+        "model": "Mustang",
+        "colour": "Red",
+        "fuel_type": "Gasoline",
+        "mileage": 52000,
+        "price": 140000,
+        "description": "Looking to sell this retro car",
+        "years_used": 15,
+        "registration_date": "12-10-2008",
         "category": "car",
-        "new_used": true,
+        "new_used": false,
         "images": [
-            "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            "https://di-uploads-pod41.dealerinspire.com/andersonfordofclinton/uploads/2019/09/2020-Ford-Mustang-MLP-Hero.png",
+            "https://di-uploads-pod41.dealerinspire.com/andersonfordofclinton/uploads/2019/09/2020-Ford-Mustang-MLP-Hero.png"
         ],
         "seller": "65389826e5bccac6ac77cac7",
         "sold": false,
-        "createdAt": "2023-10-18T07:37:54.975Z",
-        "updatedAt": "2023-10-18T07:37:54.975Z",
-        "__v": 0,
-        "mileage": 1000
+        "createdAt": "2023-11-08T07:15:04.235Z",
+        "updatedAt": "2023-11-08T07:15:04.235Z",
+        "__v": 0
     }
 ]
 
@@ -54,27 +54,27 @@
 ```
 [
     {
-        "_id": "652f8b52567e4097cdafec57",
-        "brand": "Toyota",
-        "model": "Corolla",
-        "colour": "Silver",
-        "fuel_type": "Petrol",
-        "price": 1000,
-        "description": "Droved 1000 km",
-        "years_used": 2,
-        "registration_date": "12-12-2019",
+        "_id": "654b35ff5043e64ab92e859f",
+        "brand": "Jeep",
+        "model": "Wrangler",
+        "colour": "Green",
+        "fuel_type": "Hybrid",
+        "mileage": 100,
+        "price": 350000,
+        "description": "Offroader",
+        "years_used": 1,
+        "registration_date": "12-10-2022",
         "category": "car",
-        "new_used": true,
+        "new_used": false,
         "images": [
-            "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            "https://medias.fcacanada.ca/jellies/renditions/2023/800x510/CC23_JLJL72_2TB_PGG_APA_XXX_XXX_XXX.1aaa5d21f651dcfd23d94bcacebe5ded.png",
+            "https://medias.fcacanada.ca/jellies/renditions/2023/800x510/CC23_JLJL72_2TB_PGG_APA_XXX_XXX_XXX.1aaa5d21f651dcfd23d94bcacebe5ded.png"
         ],
         "seller": "65389826e5bccac6ac77cac7",
         "sold": false,
-        "createdAt": "2023-10-18T07:37:54.975Z",
-        "updatedAt": "2023-10-18T07:37:54.975Z",
-        "__v": 0,
-        "mileage": 1000
+        "createdAt": "2023-11-08T07:17:19.397Z",
+        "updatedAt": "2023-11-08T07:17:19.397Z",
+        "__v": 0
     }
 ]
 ```
@@ -104,7 +104,7 @@
 
 **Example Output:**
 
-*Output is in Frontend*
+*No Output*
 
 <img src="flowcharts/createcar.png"/>
 
@@ -119,7 +119,31 @@
 
 **Example Output:**
 
-*To Be Filled*
+```
+    {
+        "_id": "654b35bb5043e64ab92e859d",
+        "brand": "Tesla",
+        "model": "Model 3",
+        "colour": "Blue",
+        "fuel_type": "Electric",
+        "mileage": 3300,
+        "price": 100000,
+        "description": "Mostly Good",
+        "years_used": 2,
+        "registration_date": "12-10-2021",
+        "category": "car",
+        "new_used": false,
+        "images": [
+            "https://cdn.mos.cms.futurecdn.net/VXc2ZjzWGGKGSLAymgeHZ.jpg",
+            "https://cdn.mos.cms.futurecdn.net/VXc2ZjzWGGKGSLAymgeHZ.jpg"
+        ],
+        "seller": "65389826e5bccac6ac77cac7",
+        "sold": true,
+        "createdAt": "2023-11-08T07:16:11.764Z",
+        "updatedAt": "2023-11-08T07:16:11.764Z",
+        "__v": 0
+    }
+```
 
 <img src="flowcharts/pastcars.png">
 
@@ -146,7 +170,7 @@
 
 **Example Output:**
 
-*Output is in Frontend*
+*No Output*
 
 <img src = "flowcharts/updatecar.png"/>
 
@@ -168,7 +192,7 @@
         "_id": "6538be90304e0545985b39f1",
         "item_id": "6538bdfb304e0545985b39ed",
         "user_id": "65389826e5bccac6ac77cac7",
-        "bid_price": 1500,
+        "bid_price": 415000,
         "createdAt": "2023-10-25T07:06:56.666Z",
         "updatedAt": "2023-10-25T07:06:56.666Z",
         "__v": 0
@@ -190,6 +214,6 @@
 
 **Example Output:**
 
-*Output is in Frontend*
+*No Output*
 
 <img src="flowcharts/createtransaction.png"/>

@@ -1,4 +1,4 @@
-# Learn more  https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
 # dependencies
 node_modules/
@@ -58,3 +58,4 @@ amplifytools.xcconfig
 #amplify-do-not-edit-end
 DIP3180G5/node_modules
 assets/fonts/
+node_modules

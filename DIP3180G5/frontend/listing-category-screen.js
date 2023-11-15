@@ -24,7 +24,7 @@ function MyListingsHeader() {
                     <TouchableOpacity onPress={() => navigation.navigate('createListPage')} style={styles.button}>
                         <Image source={require('../assets/sell.png')} style={styles.buttonImage} resizeMode="contain"/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity onPress={() => navigation.navigate('CreateAuctionScreen')} style={styles.button}>
                         <Image source={require('../assets/auction.png')} style={styles.buttonImage} resizeMode="contain"/>
                     </TouchableOpacity>
                   </View>

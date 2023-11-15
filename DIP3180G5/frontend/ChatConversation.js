@@ -72,16 +72,20 @@ const ChatScreen = () => {
                 wrapperStyle={{
                     right: {
                         backgroundColor: '#0077B5',
+                        backgroundColor: '#0077B5',
                     },
                     left: {
+                        backgroundColor: '#ccc',
                         backgroundColor: '#ccc',
                     },
                 }}
                 textStyle={{
                     right: {
                         color: '#fff',
+                        color: '#fff',
                     },
                     left: {
+                        color: '#000',
                         color: '#000',
                     },
                 }}
@@ -124,7 +128,6 @@ const ChatScreen = () => {
 const CustomHeader = ({ senderName, profilePic }) => {
     console.log('Sender Name:', senderName);
     console.log('Sender Avatar:', profilePic);
-
     return (
         <View style={{ alignItems: 'center' }}>
             <View style={{ alignItems: 'center' }}>
@@ -164,3 +167,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
