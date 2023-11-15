@@ -104,7 +104,7 @@
 
 **Example Output:**
 
-*Output is in Frontend*
+*No Output*
 
 <img src="flowcharts/createcar.png"/>
 
@@ -170,7 +170,7 @@
 
 **Example Output:**
 
-*Output is in Frontend*
+*No Output*
 
 <img src = "flowcharts/updatecar.png"/>
 
@@ -214,6 +214,6 @@
 
 **Example Output:**
 
-*Output is in Frontend*
+*No Output*
 
 <img src="flowcharts/createtransaction.png"/>
