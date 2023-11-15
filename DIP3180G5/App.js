@@ -72,7 +72,7 @@ const CustomListingTabIconAuction = ({ color, size }) => {
 };
 
 const tabLabelStyle = {
-  fontFamily: "RobotoCondensed_Regular", // Use the correct font family name
+  fontFamily: "RobotoCondensed_Regular",
   fontSize: 13,
 };
 

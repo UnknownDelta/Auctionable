@@ -35,7 +35,6 @@ const carController = {
     
         res.status(200).json(soldItems)
     },
-    
     createItem: async (req, res) =>{
         const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
     
@@ -60,7 +59,6 @@ const carController = {
             console.log(error.message)
         }
     },
-
     updateItem: async(req, res) =>{
         const {id} = req.params
     
