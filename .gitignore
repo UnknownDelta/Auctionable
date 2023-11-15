@@ -58,3 +58,4 @@ amplifytools.xcconfig
 #amplify-do-not-edit-end
 DIP3180G5/node_modules
 assets/fonts/
+node_modules
