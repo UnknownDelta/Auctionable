@@ -7,6 +7,8 @@ import Navbar from './components/Navbar'
 import Profile from './pages/Profile'
 import CreateItems from './pages/CreateItems'
 import CreateUser from './pages/CreateUser'
+import TestImagePage from './pages/TestImagePage'
+import UpdateItems from './pages/UpdateItems'
 
 function App() {
   return (
@@ -33,6 +35,12 @@ function App() {
             />
             <Route path="/signup"
             element={<CreateUser />}
+            />
+            <Route path="/test"
+            element={<TestImagePage />}
+            />
+            <Route path="/update"
+            element={<UpdateItems />}
             />
           </Routes>
         </div>

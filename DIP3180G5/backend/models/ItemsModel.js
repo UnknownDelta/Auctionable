@@ -3,30 +3,44 @@ const mongoose = require('mongoose')
 const Schema= mongoose.Schema
 
 const itemSchema = new Schema({
-    name: {
+    brand:{
         type: String,
         required: true
     },
-    price:{
+    model:{
+        type: String,
+        required: true
+    },
+    colour:{
+        type: String,
+        required: true
+    },
+    fuel_type:{
+        type: String,
+        required: true
+    },
+    mileage:{
         type: Number,
         required: true
     },
-    description:{
-        type: String,
+    price:{
+        type:Number,
         required: true
     },
-    condition:{
+    description: {
         type: String,
-        enum: ['Factory New', 'Good', 'Decent', 'Poor', 'Bad'],
         required: true
     },
     years_used:{
         type: Number,
         required: true
     },
+    registration_date:{
+        type: String,
+        required: true
+    },
     category:{
         type: String,
-        emum:['Car', 'Motorbike', 'Van'],
         required: true
     },
     new_used:{
@@ -34,7 +48,7 @@ const itemSchema = new Schema({
         required: true
     },
     images:{
-        type: String,
+        type: [String],
         required: true
     },
     seller:{
@@ -43,10 +57,6 @@ const itemSchema = new Schema({
     },
     sold:{
         type: Boolean,
-        required: true
-    },
-    qty:{
-        type: Number,
         required: true
     }
 }, { timestamps: true })

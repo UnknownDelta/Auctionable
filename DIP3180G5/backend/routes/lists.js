@@ -1,29 +1,35 @@
+
 const express = require('express')
-//const Items = require('../models/ItemsModel')
-const {
-    createItem,
-    getItems,
-    getSoldItems,
-    updateItem
-} = require('../controllers/itemController')
+const router = express.Router();
+// Import your car controller
+const carController = require('../controllers/carController')
+const userController = require('../controllers/userController')
+const auctionCarController = require('../controllers/auctionController')
+const transactionController = require('../controllers/transactionController')
 
-const {
-    getUser,
-    createUser
-} = require('../controllers/userController')
+// car controller
+router.get('/', carController.getAllCars);
+router.get('/:id', carController.getCarDetails);
+router.get('/:seller/list', carController.getItems)
+router.get('/:seller/pastlist', carController.getSoldItems)
+router.post('/createlist', carController.createItem)
+router.patch('/updatelist/:id', carController.updateItem)
 
-const listing = express.Router()
+// user controller
+router.get('/user/:id', userController.getUser)
+router.post('/createuser', userController.createUser)
 
-listing.get('/:seller/list', getItems)
+// auction controller
+router.get('/auctions', auctionCarController.getAllAuctionCars)
+router.get('/auctions/:id', auctionCarController.getAuction) // get a single auction car
+router.post('/createauction', auctionCarController.createAuction)
+router.get('/auctions/:seller', auctionCarController.getAuctionItems) // get a list of auction cars posted by a specific seller
+router.get('/pastauctions/:seller', auctionCarController.getAuctionSoldItems) // get a list of sold auctions cars by a specific seller
+router.patch('/updateauction/:id', auctionCarController.updateAuctionItem) // this is to update the current highest bidder
 
-listing.get('/:seller/pastlist', getSoldItems)
+// transaction controller
+router.post('/createtransaction', transactionController.createTransaction) // changed
+router.get('/:item_id/transaction', transactionController.getTransaction) // changed, everyone's transactions for a specific auction car (use in leaderboard)
 
-listing.post('/createlist', createItem)
+module.exports = router;
 
-listing.patch('/updatelist/:id', updateItem)
-
-listing.post('/createuser', createUser)
-
-listing.get('/user/:id', getUser)
-
-module.exports = listing

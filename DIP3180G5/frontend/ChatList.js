@@ -51,7 +51,7 @@ const MessageList = () => {
                     <Image source={item.productImage} style={styles.productImage} />
                 </View>
             </View>
-        </TouchableOpacity >
+        </TouchableOpacity>
     );
 
     const navigation = useNavigation(); //Get the navigation object

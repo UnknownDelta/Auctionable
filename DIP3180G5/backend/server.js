@@ -1,29 +1,45 @@
-require('dotenv').config()
-const express = require('express')
-const mongoose = require('mongoose')
-const carRoutes = require('./routes/lists')
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+let server; // Variable to hold the server instance
 
-// initialize express.js
-const app = express()
+const startServer = () => {
+    const app = express();
+    const port = process.env.PORT;
 
-//middleware
-app.use(express.json())
+    app.use(express.json());
 
-app.use((req, res, next) => {
-    console.log(req.path, req.method)
-    next()
-})
+    app.use((req, res, next) => {
+        console.log(req.path, req.method);
+        next();
+    });
 
-// route
-app.use('/', carRoutes)
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => {
+            const carRoutes = require('./routes/lists');
+            app.use('/api/cars', carRoutes);
 
-// connect to db
-mongoose.connect(process.env.MONGO_URI)
-    .then(() =>{
-        app.listen(process.env.PORT, () => {
-            console.log('Connected to database and port', process.env.PORT)
+            server = app.listen(port, () => {
+                console.log('Connected to the database and listening on port', port);
+            });
         })
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
+const stopServer = () => {
+    if (server) {
+        server.close((err) => {
+            if (err) {
+                console.error('Error closing the server:', err);
+            }
+        });
+    }
+};
+
+if (require.main === module) {
+    startServer();
+}
+
+module.exports = { startServer, stopServer };
