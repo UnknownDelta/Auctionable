@@ -279,15 +279,14 @@ const HomeScreen = ({ navigation }) => {
               <View style={styles.container}>
                 <View style={styles.avatarContainer}>
                   <Image
-                    source={item.images}
+                    source={item.seller_image === "NA" ? require("../assets/appIcon.png") : {uri: item.seller_image}}
                     style={styles.avatar}
                   />
                 </View>
 
                 <View style={styles.sidecontentcontainer}>
                   <View>
-                    <Text>{item.category}</Text>
-                    <Text style={{ paddingTop: 5, color: "grey" }}>{item.seller}</Text>
+                    <Text style={{ paddingTop: 2, color: "black", fontSize: 20, height: 30, marginLeft: -20 }}>{item.seller_name}</Text>
                   </View>
                 </View>
                 <TouchableOpacity
@@ -453,12 +452,10 @@ const styles = StyleSheet.create({
   avatarContainer: {
     borderRadius: 16,
     height: 32,
-    width: 32,
+    width: 30,
     marginLeft: 15,
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "white",
-    marginTop: -10,
+    marginTop: -5,
   },
   avatar: {
     borderRadius: 25,
