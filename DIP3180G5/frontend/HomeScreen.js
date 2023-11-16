@@ -1,7 +1,7 @@
 // React Native Bottom Navigation
 // https://aboutreact.com/react-native-bottom-navigation/
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -23,6 +23,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import { Ionicons } from "@expo/vector-icons";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
+import { AllListingsDataConstants } from "./Constants.js";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -34,6 +35,29 @@ const getFonts = () =>
 
 const HomeScreen = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
+  const [AllListingsData, setAllListingsData] = useState(AllListingsDataConstants);
+  const fetchListingsData = async () => {
+    let response, data;
+    try {
+      response = await fetch(
+        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+        "http://localhost:4000/api/cars"
+      );
+      data = await response.json();
+      console.log("api: "+JSON.stringify(data));
+      if (data === undefined){
+        setAllListingsData(AllListingsDataConstants);
+      }
+      setAllListingsData(data); // Update the state with fetched data
+    } catch (error) {
+      console.log("response: "+JSON.stringify(data));
+      setAllListingsData(AllListingsDataConstants);
+    }
+  };
+
+  useEffect(() => {
+    fetchListingsData();
+  }, []);
   if (fontsloaded) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -85,7 +109,7 @@ const HomeScreen = ({ navigation }) => {
               paddingBottom: 5,
             }}
           >
-            Categories
+            Brands
           </Text>
         </View>
         <View
@@ -229,14 +253,14 @@ const HomeScreen = ({ navigation }) => {
           <View>
             <TouchableOpacity
               style={styles.productList}
-              onPress={() => navigation.navigate("DetailsPage")}
+              onPress={() => navigation.navigate("DetailsPage", { itemId: AllListingsData[0]._id })}
             >
               <Image
                 style={styles.image}
-                source={require("../assets/teslacar.jpeg")}
+                source={AllListingsData[0].images}
               />
               <View style={{ position: "absolute" }}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "87.7%"}}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "88.1%"}}>
                   <Text
                     style={{
                       marginTop: 120,
@@ -246,7 +270,7 @@ const HomeScreen = ({ navigation }) => {
                       color: "white",
                     }}
                   >
-                    Tesla Model X
+                    {AllListingsData[0].brand + " " + AllListingsData[0].model}
                   </Text>
                   <View
                     style={{
@@ -347,72 +371,73 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
           <TouchableOpacity
-            style={styles.productList}
-            onPress={() => navigation.navigate("DetailsPage")}
-          >
-            <Image
-              style={styles.image}
-              source={require("../assets/bentleycar.jpg")}
-            />
-            <View style={{ position: "absolute" }}>
-              <View style={{ flexDirection: "row", justifyContent: "space-between", width: "82.4%" }}>
-                <Text
-                  style={{
-                    marginTop: 120,
-                    paddingLeft: 10,
-                    fontSize: 20,
-                    fontWeight: "bold",
-                    color: "white",
-                  }}
-                >
-                  Bently
-                </Text>
-                <View
-                  style={{
-                    fontSize: 20,
-                    marginTop: 21,
-                    color: "white",
-                    justifyContent: "flex-end",
-                    backgroundColor: "rgba(52, 52, 52, 0.8)",
-                    padding: 20,
-                    borderBottomRightRadius: 16,
-                    borderTopLeftRadius: 60,
-                  }}
-                >
-                  <View style={{ paddingBottom: 10 }}>
+              style={styles.productList}
+              onPress={() => navigation.navigate("DetailsPage", { itemId: AllListingsData[1]._id })}
+            >
+              <Image
+                style={styles.image}
+                source={AllListingsData[1].images}
+              />
+              <View style={{ position: "absolute" }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "87.7%"}}>
+                  <Text
+                    style={{
+                      marginTop: 120,
+                      paddingLeft: 10,
+                      fontSize: 20,
+                      fontWeight: "bold",
+                      color: "white",
+                    }}
+                  >
+                    {AllListingsData[1].brand + " " + AllListingsData[1].model}
+                  </Text>
+                  <View
+                    style={{
+                      fontSize: 20,
+                      marginTop: 21,
+
+                      color: "white",
+                      justifyContent: "flex-end",
+                      backgroundColor: "rgba(52, 52, 52, 0.8)",
+                      padding: 20,
+                      borderBottomRightRadius: 16,
+                      borderTopLeftRadius: 60,
+                    }}
+                  >
+                    <View style={{ paddingBottom: 10 }}>
+                      <Text style={{ color: "white", fontSize: 10 }}>
+                        Current Bid
+                      </Text>
+                      <Text
+                        style={{
+                          color: "white",
+                          fontFamily: "robotobold",
+                          fontSize: 20,
+                        }}
+                      >
+                        $5000
+                      </Text>
+                    </View>
+                    <View style={{ paddingBottom: 10, fontSize: 10 }}>
+                      <Text style={{ color: "white" }}>25 Bids</Text>
+                    </View>
                     <Text style={{ color: "white", fontSize: 10 }}>
-                      Current Bid
+                      Ending in
                     </Text>
                     <Text
                       style={{
                         color: "white",
                         fontFamily: "robotobold",
                         fontSize: 20,
+                        color: "red",
                       }}
                     >
-                      $5000
+                      20:12
                     </Text>
                   </View>
-                  <View style={{ paddingBottom: 10, fontSize: 10 }}>
-                    <Text style={{ color: "white" }}>25 Bids</Text>
-                  </View>
-                  <Text style={{ color: "white", fontSize: 10 }}>
-                    Ending in
-                  </Text>
-                  <Text
-                    style={{
-                      color: "white",
-                      fontFamily: "robotobold",
-                      fontSize: 20,
-                      color: "red",
-                    }}
-                  >
-                    20:12
-                  </Text>
                 </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     );
