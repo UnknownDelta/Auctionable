@@ -22,7 +22,7 @@ const carController = {
     },
     getCarDetails: async(req, res) =>{
         const {id} = req.params
-        const cars = await Car.find({_id : id}).sort({createdAt:-1})
+        const cars = await Items.find({_id : id}).sort({createdAt:-1})
         res.status(200).json(cars)
     },
     getSoldItems: async(req, res) =>{
