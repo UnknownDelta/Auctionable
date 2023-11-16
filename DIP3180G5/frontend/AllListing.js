@@ -206,23 +206,26 @@ const HomeScreen = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [active, setActive] = useState(false);
   const [selected, setSelected] = useState(false);
-  const [AllListingsData, setAllListingsData] = useState([]);
+  const [AllListingsData, setAllListingsData] = useState(AllListingsDataConstants);
   const handleClick = () => {
     setActive(!active);
   };
 
   const fetchListingsData = async () => {
+    let response, data;
     try {
-      const response = await fetch(
-        "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+      response = await fetch(
+        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+        "http://localhost:4000/api/cars"
       );
-      const data = await response.json();
-      console.log("HALO")
+      data = await response.json();
+      console.log("api: "+JSON.stringify(data));
       if (data === undefined){
         setAllListingsData(AllListingsDataConstants);
       }
       setAllListingsData(data); // Update the state with fetched data
     } catch (error) {
+      console.log("response: "+JSON.stringify(data));
       setAllListingsData(AllListingsDataConstants);
     }
   };
