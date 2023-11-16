@@ -274,7 +274,7 @@ const HomeScreen = ({ navigation }) => {
           {AllListingsData.map((item) => (
               <TouchableOpacity
               style={styles.productpage}
-              onPress={() => navigation.navigate("DetailsPage")}
+              onPress={() => navigation.navigate("DetailsPage", { itemId: item._id })}
             >
               <View style={styles.container}>
                 <View style={styles.avatarContainer}>
