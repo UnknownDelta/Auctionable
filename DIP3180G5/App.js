@@ -168,6 +168,7 @@ function BottomTabScreens({route}) {
           tabBarInactiveTintColor: "#BCE2F6",
           tabBarStyle: {
             backgroundColor: "white",
+            height: '10%'
           },
           tabBarLabelStyle: tabLabelStyle,
           tabBarLabel: ({ focused, color }) => {
@@ -240,12 +241,10 @@ function BottomTabScreens({route}) {
           <Animated.View
             style={{
               width: getWidth(),
-              height: 2,
+              height: 5,
               backgroundColor: "#0077B5",
-              position: "absolute",
-              bottom: 48, //48
-              bottom: 48, //48
-              //left: 50,
+              position: "relative",
+              bottom: 25, //48
               borderRadius: 20,
               transform: [{ translateX: tabOffsetValue}],
               transform: [{ translateX: tabOffsetValue}],
