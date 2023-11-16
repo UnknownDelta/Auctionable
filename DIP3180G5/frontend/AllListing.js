@@ -12,7 +12,7 @@ import {
   Image,
   Pressable,
   AppRegistry,
-  LogBox
+  LogBox, TextInput,
 } from "react-native";
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
@@ -241,21 +241,23 @@ const HomeScreen = ({ navigation }) => {
   if (fontsloaded) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flexDirection: "row", paddingBottom: 20, marginLeft: 25 }}>
-          <TouchableOpacity style={{ justifyContent: "flex-end" }}>
+        <View style={{ flexDirection: "row", justifyContent:"space-around", paddingBottom: 20, marginLeft: 25, marginRight: 25, alignItems: "center" }}>
+          <TouchableOpacity style={{ justifyContent: "flex-end", marginRight: 10}}>
             <Image
               style={{ height: 40, width: 40 }}
               source={require("../assets/appIcon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{ justifyContent: "flex-start" }}
-          ></TouchableOpacity>
+          <View style={{ flex: 4, justifyContent: "center", alignItems: "center", marginRight: 5}}>
+            <TextInput
+              placeholder="Search..."
+              style={{ borderWidth: 1, borderColor: "gray", borderRadius: 5, padding: 5, width: "100%", height: 35 }}
+            />
+          </View>
           <MaterialCommunityIcons
             name={"filter"}
             size={50}
             color={"#0077B5"}
-            style={{ marginLeft: 150 }}
             onPress={() => setShow(!show)}
           />
         </View>
