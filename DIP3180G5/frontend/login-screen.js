@@ -8,6 +8,8 @@ import {Alert} from 'react-native'
 import HomeScreen from './HomeScreen';
 // import { HARD_CODED_USERNAME, HARD_CODED_PASSWORD } from '@env';
 const backgroundImage = require("../assets/background.png");
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../store/actions/userActions';
 
 
 const getFonts = () =>
@@ -18,6 +20,17 @@ const getFonts = () =>
 
 
 const LoginScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
+
+    const handleLogin = () => {
+        const user = {
+          id: 1,
+          username: 'exampleUser',
+        };
+    
+        dispatch(loginSuccess(user));
+        navigation.navigate('BottomTabScreens', { screen: 'Home' });
+      };
     
     const [fontsloaded, setFontsLoaded] = useState(false);
     const [username, setUsername] = useState('');
@@ -88,7 +101,7 @@ const LoginScreen = ({ navigation }) => {
                         </View>
 
                         <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('BottomTabScreens', { screen: 'Home' })} style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: '100%', flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
+                            <TouchableOpacity onPress={handleLogin} style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: '100%', flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
                                 <Image source={require('../assets/Google.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
                                 <Text style={{ fontFamily: 'roboto', color: '#000000', fontWeight: '500', alignSelf: 'center' }}>Continue with Google</Text>
                             </TouchableOpacity>
@@ -133,5 +146,4 @@ const LoginScreen = ({ navigation }) => {
     }
 };
 
-//Change line 72 to Registration
-export default LoginScreen
+export default LoginScreen;

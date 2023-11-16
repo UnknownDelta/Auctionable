@@ -24,6 +24,7 @@ import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import { Ionicons } from "@expo/vector-icons";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import { AllListingsDataConstants } from "./Constants.js";
+import { useSelector } from 'react-redux';
 
 const getFonts = () =>
   Font.loadAsync({
@@ -34,6 +35,8 @@ const getFonts = () =>
   });
 
 const HomeScreen = ({ navigation }) => {
+  const user = useSelector((state) => state.user);
+  console.log("user: ", user);
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [AllListingsData, setAllListingsData] = useState(AllListingsDataConstants);
   const fetchListingsData = async () => {

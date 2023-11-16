@@ -44,6 +44,8 @@ import CostBreakdownPage from "./frontend/CostBreakdown";
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import NotificationMain from "./frontend/NotificationMain";
 import NotificationOutbid from "./frontend/NotificationOutbid";
+import { Provider } from 'react-redux';
+import store from './store';
 
 const Tab = createBottomTabNavigator();
 
@@ -373,59 +375,61 @@ export default function App() {
 
   if (fontsloaded) {
     return (
-      <WishlistProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="HomePage"
-            screenOptions={{ headerShown: false }}
-          >
-            <Stack.Screen
-              name="NonBottomTabScreens"
-              component={NonBottomTabScreens}
-            />
-            <Stack.Screen
-              name="BottomTabScreens"
-              component={BottomTabScreens}
-              screenOptions={{
-                headerTitleStyle: {
-                  fontSize: 20,
-                  fontWeight: "bold",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="ChatConversation"
-              component={ChatConversation}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="TransactionScreen"
-              component={TransactionScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="AuctionSuccessPage"
-              component={AuctionSuccessPage}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="CheckoutPage"
-              component={CheckoutPage}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="TransactionAuctionPage"
-              component={TransactionAuctionPage}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="CostBreakdownPage"
-              component={CostBreakdownPage}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </WishlistProvider>
+      <Provider store={store}>
+        <WishlistProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName="HomePage"
+              screenOptions={{ headerShown: false }}
+            >
+              <Stack.Screen
+                name="NonBottomTabScreens"
+                component={NonBottomTabScreens}
+              />
+              <Stack.Screen
+                name="BottomTabScreens"
+                component={BottomTabScreens}
+                screenOptions={{
+                  headerTitleStyle: {
+                    fontSize: 20,
+                    fontWeight: "bold",
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="ChatConversation"
+                component={ChatConversation}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="TransactionScreen"
+                component={TransactionScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="AuctionSuccessPage"
+                component={AuctionSuccessPage}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="CheckoutPage"
+                component={CheckoutPage}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="TransactionAuctionPage"
+                component={TransactionAuctionPage}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="CostBreakdownPage"
+                component={CostBreakdownPage}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </WishlistProvider>
+      </Provider>
     );
   } else {
     return (
