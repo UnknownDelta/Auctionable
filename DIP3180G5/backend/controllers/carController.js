@@ -36,10 +36,10 @@ const carController = {
         res.status(200).json(soldItems)
     },
     createItem: async (req, res) =>{
-        const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
+        const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller_id, seller_name, seller_image, sold} = req.body
     
         try {
-            const item_list = await Items.create({brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold})
+            const item_list = await Items.create({brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller_id, seller_name, seller_image, sold})
             res.status(200).json(item_list)
             // console.log(json(item_list))
         } catch (error) {
@@ -48,10 +48,10 @@ const carController = {
         }
     },
     createAuctionItem: async (req, res) =>{ // need change here
-        const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
+        const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller_id, seller_name, seller_image, sold} = req.body
     
         try {
-            const item_list = await Items.create({brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold})
+            const item_list = await Items.create({brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller_id, seller_name, seller_image, sold})
             res.status(200).json(item_list)
             // console.log(json(item_list))
         } catch (error) {

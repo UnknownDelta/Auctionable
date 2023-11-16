@@ -16,6 +16,12 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true
+    },
+
+    profile_picture: {
+        type: String,
+        default: 'NA',
+        required: true
     }
 }, { timestamps: true })
 
