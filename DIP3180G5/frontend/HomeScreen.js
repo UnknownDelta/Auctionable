@@ -47,7 +47,7 @@ const HomeScreen = ({ navigation }) => {
           <View style={{ flex: 4, justifyContent: "center", alignItems: "center", marginLeft: "5%"}}>
             <TextInput
               placeholder="Search..."
-              style={{ borderWidth: 1, borderColor: "gray", borderRadius: 5, padding: 5, width: "100%" }}
+              style={{ borderWidth: 1, borderColor: "gray", borderRadius: 5, padding: 5, width: "100%", height: 35 }}
             />
           </View>
           <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center", marginLeft: "5%"}} onPress={() => navigation.navigate("WishlistPage")}>
