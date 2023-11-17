@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useState, useEffect} from 'react'
 import { SafeAreaView, View, Text, FlatList, StyleSheet, Image, ImageBackground } from 'react-native'
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
@@ -7,20 +7,12 @@ import { FontAwesome } from 'react-native-vector-icons'; // or any other icon li
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { Dimensions } from 'react-native';
+import { useSelector } from 'react-redux';
 
 const backgroundImage = require('../assets/background3.png');
 
 const TopTab = createMaterialTopTabNavigator();
-
-const getFonts = () =>
-  Font.loadAsync({
-    roboto: require("../assets/fonts/Roboto-Regular.ttf"),
-  });
-
-const CurrentTabContent = () => {
-
-const [fontsloaded, setFontsLoaded] = useState(false);
-const people = [
+const myListings = [
   { 
     name: 'Mercedes-Benz S-Class', 
     key: '1', 
@@ -106,12 +98,48 @@ const people = [
     price: 7500
   },
 ];
+
+const getFonts = () =>
+  Font.loadAsync({
+    roboto: require("../assets/fonts/Roboto-Regular.ttf"),
+  });
+
+const CurrentTabContent = (mode) => {
+  const user = useSelector((state) => state.user);
+  const [myListingsData, setMyListingsData] = useState(myListings);
+  const [fontsloaded, setFontsLoaded] = useState(false);
+
+  const fetchListingsData = async () => {
+    let response, data;
+    try {
+      if (mode === "current"){
+        response = await fetch("http://localhost:4000/api/cars/"+user.id+"/list");
+      }
+      else
+      {
+        response = await fetch("http://localhost:4000/api/cars/"+user.id+"/pastlist");
+      }
+      data = await response.json();
+      console.log("api: "+JSON.stringify(data));
+      if (data === undefined){
+        setMyListingsData(myListings);
+      }
+      setMyListingsData(data); // Update the state with fetched data
+    } catch (error) {
+      console.log("response: "+JSON.stringify(data));
+      setMyListingsData(myListings);
+    }
+  };
+
+  useEffect(() => {
+    fetchListingsData();
+  }, []);
    
   if (fontsloaded) {
     return (
       <View style={{ backgroundColor: '#f7f7f7', flex: 1 }}>
         <FlatList 
-          data={people}
+          data={myListingsData}
           keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
             <View style={styles.pinkBox}>
