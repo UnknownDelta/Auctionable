@@ -390,11 +390,6 @@ function AuctionStack() {
     >
       <Stack.Screen name="AuctionListPage" component={AuctionListPage} />
       <Stack.Screen name="AuctionDetailsPage" component={AuctionDetailsPage} />
-      <Stack.Screen
-        name="ListingCategoryScreen"
-        component={ListingCategoryScreen}
-      />
-    </Stack.Navigator>
   );
 }
 
