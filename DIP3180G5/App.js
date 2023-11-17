@@ -378,6 +378,8 @@ function ListingStack() {
         name="ListingCategoryScreen"
         component={ListingCategoryScreen}
       />
+      <Stack.Screen name="CreateAuctionScreen" component={CreateAuctionScreen} />
+      <Stack.Screen name="ReviewListingScreen" component={ReviewListingScreen} />
     </Stack.Navigator>
   );
 }
@@ -390,6 +392,7 @@ function AuctionStack() {
     >
       <Stack.Screen name="AuctionListPage" component={AuctionListPage} />
       <Stack.Screen name="AuctionDetailsPage" component={AuctionDetailsPage} />
+    </Stack.Navigator>
   );
 }
 
@@ -416,6 +419,10 @@ function ProfileStack() {
       <Stack.Screen
         name="NotificationOutbid"
         component={NotificationOutbid}
+      />
+      <Stack.Screen
+        name="EditPasswordScreen"
+        component={ChangePassword}
       />
     </Stack.Navigator>
   );
