@@ -24,8 +24,11 @@ const LoginScreen = ({ navigation }) => {
 
     const handleLogin = () => {
         const user = {
-          id: 1,
-          username: 'exampleUser',
+          _id: "65389826e5bccac6ac77cac7",
+          name: "Bryan",
+          contact_number: 12345678,
+          email: "bryan@email.com",
+          profile_picture: "https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg"
         };
     
         dispatch(loginSuccess(user));
