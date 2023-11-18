@@ -11,18 +11,6 @@ const itemSchema = new Schema({
         type: String,
         required: true
     },
-    colour:{
-        type: String,
-        required: true
-    },
-    fuel_type:{
-        type: String,
-        required: true
-    },
-    mileage:{
-        type: Number,
-        required: true
-    },
     price:{
         type:Number,
         required: true
@@ -31,20 +19,8 @@ const itemSchema = new Schema({
         type: String,
         required: true
     },
-    years_used:{
-        type: Number,
-        required: true
-    },
     registration_date:{
         type: String,
-        required: true
-    },
-    category:{
-        type: String,
-        required: true
-    },
-    new_used:{
-        type: Boolean,
         required: true
     },
     images:{
