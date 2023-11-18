@@ -234,9 +234,9 @@ const CurrentTabContent = (mode) => {
           renderItem={({ item }) => (
             <View style={styles.pinkBox}>
               <Image source={item.images} style={[styles.personImage, { alignSelf: 'center', objectFit: 'contain' }]} />
-              <Text style={styles.listingText}>{item.model}</Text>
+              <Text style={styles.listingText}>{item.brand + " " + item.model}</Text>
               <Text style={styles.listingText}>registered in {getYear(item.registration_date)}</Text>
-              <Text style={styles.listingText}>{item.price}</Text>
+              <Text style={styles.listingText}>${item.price}</Text>
               <View style={styles.editButtonContainer}>
                 <TouchableOpacity onPress={() => handleEdit(item.key)}>
                   <Text style={styles.editButtonText}>Edit</Text>
