@@ -17,7 +17,8 @@ const carController = {
     },
     getItems: async(req, res) =>{
         const {seller} = req.params
-        const itemList = await Items.find({seller : seller}).sort({createdAt:-1})
+        console.log(seller);
+        const itemList = await Items.find({seller_id : seller, sold: false}).sort({createdAt:-1})
         res.status(200).json(itemList)
     },
     getCarDetails: async(req, res) =>{
@@ -27,7 +28,8 @@ const carController = {
     },
     getSoldItems: async(req, res) =>{
         const {seller} = req.params
-        const soldItems = await Items.find({seller: seller, sold: true}).sort({createdAt:-1})
+        console.log(seller);
+        const soldItems = await Items.find({seller_id: seller, sold: true}).sort({createdAt:-1})
     
         if (!soldItems) {
             return res.status(400).json({error: 'No previous items'})

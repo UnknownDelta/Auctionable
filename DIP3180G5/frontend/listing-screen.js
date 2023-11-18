@@ -13,90 +13,175 @@ const backgroundImage = require('../assets/background3.png');
 
 const TopTab = createMaterialTopTabNavigator();
 const myListings = [
-  { 
-    name: 'Mercedes-Benz S-Class', 
-    key: '1', 
-    imageSource: require("../assets/mercedes.jpg"),
-    condition: 'Used',
-    price: 10000
-  },
-  { 
-    name: 'BMW 3 Series', 
-    key: '2',
-    imageSource: require("../assets/bmw.png"),
-    condition: 'New',
-    price: 15000
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '3',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '4',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '5',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '6',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '7',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '8',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '9',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '10',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '11',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
-  { 
-    name: 'Ford Mustang', 
-    key: '12',
-    imageSource: require("../assets/ford.jpg"),
-    condition: 'New',
-    price: 7500
-  },
+  {
+    "_id": "6557b8e553639d4c7d494f83",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "price": 10000,
+    "description": "Cool",
+    "registration_date": "01-03-2022",
+    "images": [
+    "file:///Users/macintosh/Library/Developer/CoreSimulator/Devices/621DAD1F-CCB7-4C98-B0DF-CC2E5CE99A65/data/Containers/Data/Application/FB630D03-1EF2-4F2C-B69C-ED5875711B11/Library/Caches/ExponentExperienceData/%2540anonymous%252FDIP3180G5-0d08495d-86bd-457f-84e8-9dc03cefa668/ImagePicker/C629E2BB-4106-42EA-9E79-1D5AB350D668.jpg",
+    "plus"
+    ],
+    "seller_id": "65389826e5bccac6ac77cac7",
+    "seller_name": "Bryan",
+    "seller_image": "https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg",
+    "sold": false,
+    "createdAt": "2023-11-17T19:03:01.161Z",
+    "updatedAt": "2023-11-17T19:03:01.161Z",
+    "__v": 0
+    },
+    {
+    "_id": "654b35ff5043e64ab92e859f",
+    "brand": "Jeep",
+    "model": "Wrangler",
+    "colour": "Green",
+    "fuel_type": "Hybrid",
+    "mileage": 100,
+    "price": 350000,
+    "description": "Experience the thrill of the open road with our used Jeep Wrangler! This iconic off-road marvel, with its rugged design and four-wheel-drive capability, is ready for your next adventure. Immerse yourself in the freedom of removable doors and roof, embracing the outdoors like never before. This well-maintained Wrangler boasts a powerful engine, ensuring a reliable and exhilarating ride. With a durable yet comfortable interior, it seamlessly combines style and functionality. Priced to sell, this Jeep Wrangler is your ticket to unparalleled exploration. Don't miss out on the chance to own a piece of off-road history – contact us today!",
+    "years_used": 1,
+    "registration_date": "12-10-2022",
+    "category": "car",
+    "new_used": false,
+    "images": [
+    "https://medias.fcacanada.ca/jellies/renditions/2023/800x510/CC23_JLJL72_2TB_PGG_APA_XXX_XXX_XXX.1aaa5d21f651dcfd23d94bcacebe5ded.png",
+    "https://medias.fcacanada.ca/jellies/renditions/2023/800x510/CC23_JLJL72_2TB_PGG_APA_XXX_XXX_XXX.1aaa5d21f651dcfd23d94bcacebe5ded.png"
+    ],
+    "sold": false,
+    "createdAt": "2023-11-08T07:17:19.397Z",
+    "updatedAt": "2023-11-08T07:17:19.397Z",
+    "__v": 0,
+    "seller_id": "65389826e5bccac6ac77cac7",
+    "seller_image": "NA",
+    "seller_name": "Samantha"
+    },
+    {
+    "_id": "654b35bb5043e64ab92e859d",
+    "brand": "Tesla",
+    "model": "Model 3",
+    "colour": "Blue",
+    "fuel_type": "Electric",
+    "mileage": 3300,
+    "price": 100000,
+    "description": "Mostly Good",
+    "years_used": 2,
+    "registration_date": "12-10-2021",
+    "category": "car",
+    "new_used": false,
+    "images": [
+    "https://cdn.mos.cms.futurecdn.net/VXc2ZjzWGGKGSLAymgeHZ.jpg",
+    "https://cdn.mos.cms.futurecdn.net/VXc2ZjzWGGKGSLAymgeHZ.jpg"
+    ],
+    "sold": true,
+    "createdAt": "2023-11-08T07:16:11.764Z",
+    "updatedAt": "2023-11-08T07:16:11.764Z",
+    "__v": 0,
+    "seller_id": "65389826e5bccac6ac77cac7",
+    "seller_image": "NA",
+    "seller_name": "Joanne"
+    },
+    {
+    "_id": "654b35785043e64ab92e859b",
+    "brand": "Ford",
+    "model": "Mustang",
+    "colour": "Red",
+    "fuel_type": "Gasoline",
+    "mileage": 52000,
+    "price": 140000,
+    "description": "Looking to sell this retro car",
+    "years_used": 15,
+    "registration_date": "12-10-2008",
+    "category": "car",
+    "new_used": false,
+    "images": [
+    "https://di-uploads-pod41.dealerinspire.com/andersonfordofclinton/uploads/2019/09/2020-Ford-Mustang-MLP-Hero.png",
+    "https://di-uploads-pod41.dealerinspire.com/andersonfordofclinton/uploads/2019/09/2020-Ford-Mustang-MLP-Hero.png"
+    ],
+    "sold": false,
+    "createdAt": "2023-11-08T07:15:04.235Z",
+    "updatedAt": "2023-11-08T07:15:04.235Z",
+    "__v": 0,
+    "seller_id": "65389826e5bccac6ac77cac7",
+    "seller_image": "https://cdn-icons-png.flaticon.com/512/9131/9131529.png",
+    "seller_name": "AJ"
+    },
+    {
+    "_id": "654b351f5043e64ab92e8599",
+    "brand": "Honda",
+    "model": "Civic",
+    "colour": "Black",
+    "fuel_type": "Electric",
+    "mileage": 8000,
+    "price": 165000,
+    "description": "In Pristine Condition",
+    "years_used": 4,
+    "registration_date": "25-11-2019",
+    "category": "car",
+    "new_used": false,
+    "images": [
+    "https://65e81151f52e248c552b-fe74cd567ea2f1228f846834bd67571e.ssl.cf1.rackcdn.com/ldm-images/2019-Honda-Civic-CRYSTAL_BLACK_PEARL.png",
+    "https://65e81151f52e248c552b-fe74cd567ea2f1228f846834bd67571e.ssl.cf1.rackcdn.com/ldm-images/2019-Honda-Civic-CRYSTAL_BLACK_PEARL.png"
+    ],
+    "sold": true,
+    "createdAt": "2023-11-08T07:13:35.791Z",
+    "updatedAt": "2023-11-08T07:13:35.791Z",
+    "__v": 0,
+    "seller_id": "65389826e5bccac6ac77cac7",
+    "seller_image": "NA",
+    "seller_name": "Max"
+    },
+    {
+    "_id": "654b34d65043e64ab92e8597",
+    "brand": "Toyota",
+    "model": "Camry",
+    "colour": "White",
+    "fuel_type": "Gasoline",
+    "mileage": 50,
+    "price": 150000,
+    "description": "Unleash the driving pleasure in our used Toyota Camry! This sedan exemplifies a perfect fusion of elegance and performance. Enjoy a smooth and responsive ride, complemented by the Camry's refined exterior and spacious, comfortable interior. With advanced safety features and cutting-edge technology, this Camry ensures both peace of mind and an enjoyable driving experience. Its fuel efficiency makes it ideal for both city cruising and long journeys. Meticulously inspected and competitively priced, our used Toyota Camry is your ticket to a sophisticated yet practical driving experience. Elevate your daily commute – inquire now and make this stylish sedan yours!",
+    "years_used": 1,
+    "registration_date": "25-11-2022",
+    "category": "car",
+    "new_used": false,
+    "images": [
+    "https://www.toyota.com.sg/showroom/new-models/-/media/5149a2d0b2474799b3ce2477b5dcac66.png",
+    "https://www.toyota.com.sg/showroom/new-models/-/media/5149a2d0b2474799b3ce2477b5dcac66.png"
+    ],
+    "sold": true,
+    "createdAt": "2023-11-08T07:12:22.153Z",
+    "updatedAt": "2023-11-08T07:12:22.153Z",
+    "__v": 0,
+    "seller_id": "65389826e5bccac6ac77cac7",
+    "seller_image": "https://cdn-icons-png.flaticon.com/512/3607/3607444.png",
+    "seller_name": "Edmerson"
+    },
+    {
+    "_id": "652f8b52567e4097cdafec57",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "colour": "Silver",
+    "fuel_type": "Petrol",
+    "price": 105000,
+    "description": "Are you looking for a reliable and stylish car that will turn heads on the road? Look no further! Our Toyota Corolla is the perfect choice for you. With its sleek design and powerful engine, this car is built to impress. It offers a smooth and comfortable ride, making every journey a pleasure. Whether you’re driving in the city or on the highway, this car will deliver an exceptional experience. Safety is our top priority. Equipped with advanced safety features such as airbag and seatbelt, you can have peace of mind knowing that you and your loved ones are protected. Not only is this car reliable and safe, but it also offers great fuel efficiency. Say goodbye to frequent trips to the gas station and hello to more savings in your pocket. But don’t just take our word for it. Come down to our showroom and take this beauty for a test drive. Experience the thrill of driving this exceptional car and see for yourself why it’s the perfect fit for you. Don’t miss out on this amazing opportunity. Contact us today to schedule a test drive and make this car yours!",
+    "years_used": 2,
+    "registration_date": "12-12-2019",
+    "category": "car",
+    "new_used": true,
+    "images": [
+    "https://media.ed.edmunds-media.com/toyota/corolla/2023/oem/2023_toyota_corolla_sedan_xse_fq_oem_1_1600.jpg",
+    "https://media.ed.edmunds-media.com/toyota/corolla/2023/oem/2023_toyota_corolla_sedan_xse_fq_oem_1_1600.jpg"
+    ],
+    "sold": false,
+    "createdAt": "2023-10-18T07:37:54.975Z",
+    "updatedAt": "2023-10-18T07:37:54.975Z",
+    "__v": 0,
+    "mileage": 1000,
+    "seller_id": "65389826e5bccac6ac77cac7",
+    "seller_image": "https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg",
+    "seller_name": "Bryan"
+    }
 ];
 
 const getFonts = () =>
@@ -111,13 +196,14 @@ const CurrentTabContent = (mode) => {
 
   const fetchListingsData = async () => {
     let response, data;
+    console.log(mode);
     try {
-      if (mode === "current"){
-        response = await fetch("http://localhost:4000/api/cars/"+user.id+"/list");
+      if (mode.mode === "current"){
+        response = await fetch("http://localhost:4000/api/cars/"+user._id+"/list");
       }
       else
       {
-        response = await fetch("http://localhost:4000/api/cars/"+user.id+"/pastlist");
+        response = await fetch("http://localhost:4000/api/cars/"+user._id+"/pastlist");
       }
       data = await response.json();
       console.log("api: "+JSON.stringify(data));
@@ -130,10 +216,14 @@ const CurrentTabContent = (mode) => {
       setMyListingsData(myListings);
     }
   };
+  const getYear = (date) => {
+    if (!date) return date;
+    return date.split("-")[2];
+  };
 
   useEffect(() => {
     fetchListingsData();
-  }, []);
+  }, [mode]);
    
   if (fontsloaded) {
     return (
@@ -143,9 +233,9 @@ const CurrentTabContent = (mode) => {
           keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
             <View style={styles.pinkBox}>
-              <Image source={item.imageSource} style={[styles.personImage, { alignSelf: 'center' }]} />
-              <Text style={styles.listingText}>{item.name}</Text>
-              <Text style={styles.listingText}>{item.condition}</Text>
+              <Image source={item.images} style={[styles.personImage, { alignSelf: 'center', objectFit: 'contain' }]} />
+              <Text style={styles.listingText}>{item.model}</Text>
+              <Text style={styles.listingText}>registered in {getYear(item.registration_date)}</Text>
               <Text style={styles.listingText}>{item.price}</Text>
               <View style={styles.editButtonContainer}>
                 <TouchableOpacity onPress={() => handleEdit(item.key)}>
@@ -232,18 +322,10 @@ function ListingScreen() {
             <Text style={{ fontSize: 25, fontWeight: 'bold', marginLeft: 10}}>My Listings</Text>
           </View>
           <TopTab.Navigator tabBarOptions={{ style: { backgroundColor: '#bfdee9' }}}>
-            <TopTab.Screen name="Current" component={CurrentTabContent} options={{ tabBarIndicatorStyle: { backgroundColor: '#0077B5'} }} />
-                <TopTab.Screen
-                  name="Past"
-                  component={CurrentTabContent}
-                  options={{
-                    tabBarIndicatorStyle: {
-                      backgroundColor: '#0077B5', // Set your desired highlight color
-                    },
-                  }}
-                />
-              </TopTab.Navigator>
-              <View style={styles.plusButtonContainer}>
+            <TopTab.Screen name="Current" component={() => <CurrentTabContent mode="current" />} options={{ tabBarIndicatorStyle: { backgroundColor: '#0077B5'} }} />
+            <TopTab.Screen name="Past" component={() => <CurrentTabContent mode="past" />} options={{tabBarIndicatorStyle: {backgroundColor: '#0077B5'}}} />
+          </TopTab.Navigator>
+          <View style={styles.plusButtonContainer}>
             <TouchableOpacity
               style={styles.plusButton}
               onPress={() => navigation.navigate('ListingCategoryScreen')}
