@@ -20,9 +20,9 @@ const auctionCarController = {
         res.status(200).json(auctionList)
     },
     createAuction: async (req, res) =>{
-        const {brand, model, colour, fuel_type, mileage, buyout_price, starting_bid, ending_time, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
+        const {brand, model, colour, fuel_type, mileage, buyout_price, starting_bid, ending_time, description, years_used, registration_date, category, new_used, images, seller, sold, reserve_price} = req.body
         try {
-            const auctionList = await Auction.create({brand, model, colour, fuel_type, mileage, buyout_price, starting_bid, ending_time, description, years_used, registration_date, category, new_used, images, seller, sold})
+            const auctionList = await Auction.create({brand, model, colour, fuel_type, mileage, buyout_price, starting_bid, ending_time, description, years_used, registration_date, category, new_used, images, seller, sold, reserve_price})
             res.status(200).json(auctionList)
             console.log(json(auctionList))
         } catch (error) {

@@ -1,7 +1,7 @@
 // React Native Bottom Navigation
 // https://aboutreact.com/react-native-bottom-navigation/
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -10,10 +10,9 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
-  Button,
-  ImageBackground,
   Pressable,
   AppRegistry,
+  LogBox, TextInput,
 } from "react-native";
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
@@ -22,7 +21,10 @@ import MaterialCommunityIcons from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import { Slider, RangeSlider } from "@react-native-assets/slider";
+import { AllListingsDataConstants } from "./Constants.js";
 import "react-range-slider-input";
+
+LogBox.ignoreAllLogs();
 
 const ContentComponent = () => {
   return (
@@ -188,6 +190,11 @@ const ContentComponent = () => {
   );
 };
 
+const getYear = (date) => {
+  return date.split("-")[2];
+};
+
+
 const getFonts = () =>
   Font.loadAsync({
     roboto: require("../assets/fonts/Roboto-Regular.ttf"),
@@ -199,28 +206,58 @@ const AuctionList = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [active, setActive] = useState(false);
   const [selected, setSelected] = useState(false);
+  const [AllListingsData, setAllListingsData] = useState(AllListingsDataConstants);
   const handleClick = () => {
     setActive(!active);
   };
 
+  const fetchListingsData = async () => {
+    let response, data;
+    try {
+      response = await fetch(
+        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+        "http://localhost:4000/api/cars/auctions"
+      );
+      data = await response.json();
+      console.log("api: "+JSON.stringify(data));
+      if (data === undefined){
+        setAllListingsData(AllListingsDataConstants);
+      }
+      setAllListingsData(data); // Update the state with fetched data
+    } catch (error) {
+      console.log("response: "+JSON.stringify(data));
+      setAllListingsData(AllListingsDataConstants);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch data when the component mounts
+    fetchListingsData();
+    console.log(AllListingsData);
+    // Load fonts and set fontsLoaded to true
+    getFonts().then(() => setFontsLoaded(true));
+  }, []);
+
   if (fontsloaded) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flexDirection: "row", paddingBottom: 20, marginLeft: 25 }}>
-          <TouchableOpacity style={{ justifyContent: "flex-end" }}>
+        <View style={{ flexDirection: "row", justifyContent:"space-around", paddingBottom: 20, marginLeft: 25, marginRight: 25, alignItems: "center" }}>
+          <TouchableOpacity style={{ justifyContent: "flex-end", marginRight: 10}}>
             <Image
               style={{ height: 40, width: 40 }}
               source={require("../assets/appIcon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{ justifyContent: "flex-start" }}
-          ></TouchableOpacity>
+          <View style={{ flex: 4, justifyContent: "center", alignItems: "center", marginRight: 5}}>
+            <TextInput
+              placeholder="Search..."
+              style={{ borderWidth: 1, borderColor: "gray", borderRadius: 5, padding: 5, width: "100%", height: 35 }}
+            />
+          </View>
           <MaterialCommunityIcons
             name={"filter"}
             size={50}
             color={"#0077B5"}
-            style={{ marginLeft: 150 }}
             onPress={() => setShow(!show)}
           />
         </View>
@@ -235,22 +272,23 @@ const AuctionList = ({ navigation }) => {
             {show && <ContentComponent />}
           </View>
           <ScrollView style={styles.scrollView}>
-            <TouchableOpacity
+
+          {AllListingsData.map((item) => (
+              <TouchableOpacity
               style={styles.productpage}
-              onPress={() => navigation.navigate("AuctionDetailsPage")}
+              onPress={() => {navigation.navigate("AuctionDetailsPage", { itemId: item._id })}}
             >
               <View style={styles.container}>
                 <View style={styles.avatarContainer}>
                   <Image
-                    source={require("../assets/car.png")}
+                    source={item.seller_image === "NA" ? require("../assets/appIcon.png") : {uri: item.seller_image}}
                     style={styles.avatar}
                   />
                 </View>
 
                 <View style={styles.sidecontentcontainer}>
                   <View>
-                    <Text>Car</Text>
-                    <Text style={{ paddingTop: 5, color: "grey" }}>Owner</Text>
+                    <Text style={{ paddingTop: 2, color: "black", fontSize: 20, height: 30, marginLeft: -20 }}>{item.seller_name}</Text>
                   </View>
                 </View>
                 <TouchableOpacity
@@ -262,13 +300,13 @@ const AuctionList = ({ navigation }) => {
               </View>
               <View style={{ paddingTop: 50 }}>
                 <Image
-                  source={require("../assets/teslacar.jpeg")}
+                  source={item.images}
                   style={{ height: 180, width: "100%", paddingTop: 10 }}
                 ></Image>
               </View>
               <View style={styles.productList}>
-                <Text style={styles.name}>Tesla X</Text>
-                <Text style={{ paddingTop: 5, color: "grey" }}>$20000</Text>
+                <Text style={styles.name}>{item.brand + " " + item.model}</Text>
+                <Text style={{ paddingTop: 5, color: "grey" }}>${item.price}</Text>
               </View>
               <TouchableOpacity
                 style={{
@@ -285,65 +323,11 @@ const AuctionList = ({ navigation }) => {
                     paddingRight: 20,
                   }}
                 >
-                  used/9 months
+                  registered in {getYear(item.registration_date)}
                 </Text>
               </TouchableOpacity>
             </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.productpage}
-              onPress={() => navigation.navigate("AuctionDetailsPage")}
-            >
-              <View style={styles.container}>
-                <View style={styles.avatarContainer}>
-                  <Image
-                    source={require("../assets/car.png")}
-                    style={styles.avatar}
-                  />
-                </View>
-
-                <View style={styles.sidecontentcontainer}>
-                  <View>
-                    <Text>Car</Text>
-                    <Text style={{ paddingTop: 5, color: "grey" }}>Owner</Text>
-                  </View>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "flex-end",
-                  }}
-                ></TouchableOpacity>
-              </View>
-              <View style={{ paddingTop: 50 }}>
-                <Image
-                  source={require("../assets/fordcar.jpg")}
-                  style={{ height: 180, width: "100% ", paddingTop: 10 }}
-                ></Image>
-              </View>
-              <View style={styles.productList}>
-                <Text style={styles.name}>Ford X</Text>
-                <Text style={{ paddingTop: 5, color: "grey" }}>$2069000</Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "grey",
-                    flexDirection: "row",
-                    alignItems: "flex-end",
-                    marginTop: -20,
-                    paddingRight: 20,
-                  }}
-                >
-                  used/9 months
-                </Text>
-              </View>
-            </TouchableOpacity>
+          ))}
           </ScrollView>
         </SafeAreaView>
       </SafeAreaView>
@@ -470,12 +454,10 @@ const styles = StyleSheet.create({
   avatarContainer: {
     borderRadius: 16,
     height: 32,
-    width: 32,
+    width: 30,
     marginLeft: 15,
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "white",
-    marginTop: -10,
+    marginTop: -5,
   },
   avatar: {
     borderRadius: 25,
@@ -549,5 +531,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
 });
-export default AuctionList;
 AppRegistry.registerComponent("SliderExample", () => SliderExample);
+
+export default AuctionList;

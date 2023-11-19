@@ -13,16 +13,15 @@ import {
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import CountDown from "react-native-countdown-component";
 import { useNavigation } from "@react-navigation/native";
-import ConfettiCannon from 'react-native-confetti-cannon';
-import * as Animatable from 'react-native-animatable';
 import { Table, Row, Rows } from 'react-native-table-component';
+import { useRoute } from '@react-navigation/native';
+import { AppState } from 'react-native';
 
 
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
-const ImageSection = () => {
+const ImageSection = (itemId) => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Image
@@ -45,7 +44,7 @@ const tableDataSample = {
 };
 
 const itemConstant = {
-  "_id": "6538bdfb304e0545985b39ed",
+  "_id": "655a12abf52baefc4c9f5f42",
   "brand": "BMW",
   "model": "M5",
   "colour": "Black",
@@ -53,8 +52,9 @@ const itemConstant = {
   "mileage": 20000,
   "buyout_price": 550000,
   "starting_bid": 400000,
+  "reserve_price": 500000,
   "ending_time": "11-11-2011|10:24:30",
-  "description": "A old car",
+  "description": "The BMW M5 2011 is an epitome of automotive excellence, combining luxury and high-performance seamlessly. This iconic sports sedan boasts a powerful 4.4-liter V8 engine, delivering an exhilarating driving experience with 560 horsepower and lightning-quick acceleration. Its sophisticated design showcases a perfect blend of elegance and aggression, featuring aerodynamic enhancements, distinctive M styling, and luxurious interiors.",
   "years_used": 3,
   "registration_date": "10-9-2008",
   "category": "Car",
@@ -63,29 +63,20 @@ const itemConstant = {
   "https://imgd.aeplcdn.com/370x208/n/jz5684a_1522493.jpg?q=80",
   "https://imgd.aeplcdn.com/370x208/n/jz5684a_1522493.jpg?q=80"
   ],
-  "seller": "65389826e5bccac6ac77cac7",
+  "seller_id": "65389826e5bccac6ac77cac7",
+  "seller_name": "Bryan",
+  "seller_image": "https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg",
   "sold": false,
-  "createdAt": "2023-10-25T07:04:27.564Z",
-  "updatedAt": "2023-10-25T07:04:27.564Z",
+  "highestBidder": "654b39525043e64ab92e85bd",
+  "createdAt": "2023-11-19T13:50:35.073Z",
+  "updatedAt": "2023-11-19T13:50:35.073Z",
   "__v": 0
   }
 
-const DetailTabContent = () => {
-  const [data, setData] = useState(itemConstant);
-  const fetchItemDetails = async () => {
-    try {
-      const response = await fetch(
-        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
-        "http://localhost:4000/api/cars/auctions/6538bdfb304e0545985b39ed"
-      );
-      const dataJSON = await response.json();
-      const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
-      setData(parsedData); // Update the state with fetched data
-    } catch (error) {
-      console.log(error)
-      setData(itemConstant);
-    }
-  };
+const DetailTabContent = (itemId) => {
+  const [data, setData] = useState(itemId.route.params.itemId);
+  console.log("itemId in DetailTabContent: ", itemId)
+  console.log("data in DetailTabContent:", data);
   function calculateDuration(dateString) {
     const parts = dateString.split('-');
     const inputDate = new Date(parts[2], parts[1] - 1, parts[0]);
@@ -118,10 +109,6 @@ const DetailTabContent = () => {
     }
     return difference;
   }
-  useEffect(() => {
-    // Fetch data when the component mounts
-    fetchItemDetails();
-  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -185,33 +172,14 @@ const TableTwo = () => {
       </View>
   );
 }
-const BidTabContent = () => {
-  const navigation = useNavigation();
+const BidTabContent = (itemId) => {
   const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
   const [highestBid, setHighestBid] = useState(53000); // Initialize the highest bid state
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
-  const [data, setData] = useState(itemConstant);
-
-  const fetchItemDetails = async () => {
-    try {
-      const response = await fetch(
-        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
-        "http://localhost:4000/api/cars/auctions/6538bdfb304e0545985b39ed"
-      );
-      const dataJSON = await response.json();
-      const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
-      setData(parsedData); // Update the state with fetched data
-      setHighestBid(parsedData.starting_bid);
-      console.log(parsedData);
-    } catch (error) {
-      console.log(error)
-      setData(itemConstant);
-    }
-  };
-  useEffect(() => {
-    // Fetch data when the component mounts
-    fetchItemDetails();
-  }, []);
+  const [data, setData] = useState(itemId.route.params.itemId);
+  console.log("itemId in BidTabContent: ", data)
+  console.log("itemId in BidTabContent: ",itemId.route.params.itemId);
+  console.log(data)
 
   const closeModal = () => {
     setModalVisible(false);
@@ -417,7 +385,7 @@ const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
 
   return (
     <View style={{ flex: 1, padding: 16, alignItems: "center" }}>
-      <CountDown
+      {/* <CountDown
         until={60 * 10 + 30}
         size={20}
         onFinish={() => alert("Finished")}
@@ -426,7 +394,7 @@ const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
         timeToShow={["H", "M", "S"]}
         timeLabels={{ h: "HH", m: "MM", s: "SS" }}
         style={{ marginTop: -20 }}
-      />
+      /> */}
       <View
         style={{
           flexDirection: "row",
@@ -555,56 +523,56 @@ const first = sortedBids[0];
 const second = sortedBids[1];
 const third = sortedBids[2];
 
-const Podium = ({ animation, showFirst, showSecond, showThird }) => {
-  const rectangleHeight1 = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 160], 
-  });
-  const rectangleHeight2 = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 130], 
-  });
-  const rectangleHeight3 = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 100],
-  });
+// const Podium = ({ animation, showFirst, showSecond, showThird }) => {
+//   const rectangleHeight1 = animation.interpolate({
+//     inputRange: [0, 1],
+//     outputRange: [0, 160], 
+//   });
+//   const rectangleHeight2 = animation.interpolate({
+//     inputRange: [0, 1],
+//     outputRange: [0, 130], 
+//   });
+//   const rectangleHeight3 = animation.interpolate({
+//     inputRange: [0, 1],
+//     outputRange: [0, 100],
+//   });
 
-  return (
-    <View style={styles.containers}>
-        <View style={styles.rectanglesContainer}>
-          <Animated.View
-            style={[styles.rectangle2, { height: rectangleHeight2 }]}
-          />
-          <Animated.View
-            style={[styles.rectangle1, styles.shadow, { height: rectangleHeight1 }]}
-          />
-          <Animated.View
-            style={[styles.rectangle3, { height: rectangleHeight3 }]}
-          />
-        </View>
-        <View style={styles.horizontalLine} />
-        {showThird && (
-        <View style={styles.thirdBidInfo}>
-          <Text style={styles.textWithCustomFont}>{third.name}</Text>
-          <Text style={styles.textWithCustomFont}>{third.amount}</Text>
-        </View>
-        )}
-        {showSecond && (
-          <View style={styles.secondBidInfo}>
-            <Text style={styles.textWithCustomFont}>{second.name}</Text>
-            <Text style={styles.textWithCustomFont}>{second.amount}</Text>
-          </View>
-        )}
-        {showFirst && (
-          <View style={styles.firstBidInfo}>
-            <Text style={styles.textWithCustomFont}>{first.name}</Text>
-            <Text style={styles.textWithCustomFont}>{first.amount}</Text>
-          </View>
-        )}
+//   return (
+//     <View style={styles.containers}>
+//         <View style={styles.rectanglesContainer}>
+//           <Animated.View
+//             style={[styles.rectangle2, { height: rectangleHeight2 }]}
+//           />
+//           <Animated.View
+//             style={[styles.rectangle1, styles.shadow, { height: rectangleHeight1 }]}
+//           />
+//           <Animated.View
+//             style={[styles.rectangle3, { height: rectangleHeight3 }]}
+//           />
+//         </View>
+//         <View style={styles.horizontalLine} />
+//         {showThird && (
+//         <View style={styles.thirdBidInfo}>
+//           <Text style={styles.textWithCustomFont}>{third.name}</Text>
+//           <Text style={styles.textWithCustomFont}>{third.amount}</Text>
+//         </View>
+//         )}
+//         {showSecond && (
+//           <View style={styles.secondBidInfo}>
+//             <Text style={styles.textWithCustomFont}>{second.name}</Text>
+//             <Text style={styles.textWithCustomFont}>{second.amount}</Text>
+//           </View>
+//         )}
+//         {showFirst && (
+//           <View style={styles.firstBidInfo}>
+//             <Text style={styles.textWithCustomFont}>{first.name}</Text>
+//             <Text style={styles.textWithCustomFont}>{first.amount}</Text>
+//           </View>
+//         )}
 
-    </View>
-  );
-};
+//     </View>
+//   );
+// };
 
 const RankList = ({ data }) => {
 
@@ -621,49 +589,49 @@ const OtherSection = () => {
   const [showSecond, setShowSecond] = useState(false);
   const [showThird, setShowThird] = useState(false);
 
-  useEffect(() => {
-    Animated.timing(animation, {
-      toValue: 1, 
-      duration: 1000, 
-      easing: Easing.linear, 
-      useNativeDriver: false, 
-    }).start(() => {
-      setTimeout(() => {
-        setShowThird(true);
-      }, 500);
-    });
-  }, []);
+  // useEffect(() => {
+  //   Animated.timing(animation, {
+  //     toValue: 1, 
+  //     duration: 1000, 
+  //     easing: Easing.linear, 
+  //     useNativeDriver: false, 
+  //   }).start(() => {
+  //     setTimeout(() => {
+  //       setShowThird(true);
+  //     }, 500);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    if (showThird) {
-      // Trigger the second action after a 1 second delay
-      setTimeout(() => {
-        setShowSecond(true);
-      }, 1000);
-    }
-  }, [showThird]);
+  // useEffect(() => {
+  //   if (showThird) {
+  //     // Trigger the second action after a 1 second delay
+  //     setTimeout(() => {
+  //       setShowSecond(true);
+  //     }, 1000);
+  //   }
+  // }, [showThird]);
 
-  useEffect(() => {
-    if (showSecond) {
-      // Trigger the third action after a 1 second delay
-      setTimeout(() => {
-        setShowFirst(true);
-      }, 1000);
-    }
-  }, [showSecond]);
+  // useEffect(() => {
+  //   if (showSecond) {
+  //     // Trigger the third action after a 1 second delay
+  //     setTimeout(() => {
+  //       setShowFirst(true);
+  //     }, 1000);
+  //   }
+  // }, [showSecond]);
 
-  useEffect(() => {
-    if (showFirst) {
-      setTimeout(() => {
-        setIsConfettiActive(true);
-      }, 0); // Setting a minimal delay to show the crown instantly when showFirst is true
+  // useEffect(() => {
+  //   if (showFirst) {
+  //     setTimeout(() => {
+  //       setIsConfettiActive(true);
+  //     }, 0); // Setting a minimal delay to show the crown instantly when showFirst is true
   
-      // Set the confetti to turn off after a delay
-      setTimeout(() => {
-        setIsConfettiActive(false);
-      }, 5000); // Keep it active for 5 seconds
-    }
-  }, [showFirst]);  
+  //     // Set the confetti to turn off after a delay
+  //     setTimeout(() => {
+  //       setIsConfettiActive(false);
+  //     }, 5000); // Keep it active for 5 seconds
+  //   }
+  // }, [showFirst]);  
   
   return (
       <View style={styles.containers}>
@@ -687,26 +655,61 @@ const OtherSection = () => {
     );
 };
 
-const ContentSection = () => {
+const ContentSection = (params) => {
+  console.log("params in ContentSection: ",params.params);
+  let itemId = params.params;
   return (
     <View style={{ flex: 2 }}>
       <TopTab.Navigator>
-        <TopTab.Screen name="Detail" component={DetailTabContent} />
-        <TopTab.Screen name="Bids" component={BidTabContent} />
-        <TopTab.Screen name="Leaderboard" component={OtherSection} />
+        <TopTab.Screen name="Detail" component={DetailTabContent} initialParams={{ itemId }} />
+        <TopTab.Screen name="Bids" component={BidTabContent} initialParams={{ itemId }}/>
+        <TopTab.Screen name="Leaderboard" component={OtherSection} initialParams={{ itemId }}/>
       </TopTab.Navigator>
     </View>
   );
 };
 
 const ThreeTabScreen = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { itemId } = route.params;
+  const [data, setData] = useState(itemConstant);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
+
+  useEffect(() => {
+    const fetchItemDetails = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/cars/auctions/id=" + itemId
+        );
+        const dataJSON = await response.json();
+        const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
+        setData(parsedData);
+        setIsLoading(false); // Set loading state to false when data is fetched
+      } catch (error) {
+        console.log("Error fetching item details:", error);
+        setData(itemConstant);
+        setIsLoading(false); // Set loading state to false on error
+      }
+    };
+
+    fetchItemDetails();
+  }, [itemId]); // Include itemId as a dependency
+
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      <ImageSection />
-      <ContentSection />
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          <ImageSection params={data} />
+          <ContentSection params={data} />
+        </>
+      )}
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   tablecontainer:{
