@@ -194,6 +194,10 @@ const getYear = (date) => {
   return date.split("-")[2];
 };
 
+const commaNumber = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 
 const getFonts = () =>
   Font.loadAsync({
@@ -306,7 +310,7 @@ const AuctionList = ({ navigation }) => {
               </View>
               <View style={styles.productList}>
                 <Text style={styles.name}>{item.brand + " " + item.model}</Text>
-                <Text style={{ paddingTop: 5, color: "grey" }}>${item.price}</Text>
+                <Text style={{ paddingTop: 5, color: "grey" }}>starts from ${commaNumber(item.starting_bid)}</Text>
               </View>
               <TouchableOpacity
                 style={{
