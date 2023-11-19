@@ -94,7 +94,7 @@ const DetailsScreen = () => {
     try {
       const response = await fetch(
         // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
-        "http://localhost:4000/api/cars/"+itemId
+        "http://localhost:4000/api/cars/id="+itemId
       );
       const dataJSON = await response.json();
       const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
