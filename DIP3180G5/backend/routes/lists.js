@@ -21,9 +21,9 @@ router.post('/createuser', userController.createUser)
 
 // auction controller
 router.get('/auctions', auctionCarController.getAllAuctionCars)
-router.get('/auctions/:id', auctionCarController.getAuction) // get a single auction car
+router.get('/auctions/id=:id', auctionCarController.getAuction) // get a single auction car
 router.post('/createauction', auctionCarController.createAuction)
-router.get('/auctions/:seller', auctionCarController.getAuctionItems) // get a list of auction cars posted by a specific seller
+router.get('/auctions/seller=:seller', auctionCarController.getAuctionItems) // get a list of auction cars posted by a specific seller
 router.get('/pastauctions/:seller', auctionCarController.getAuctionSoldItems) // get a list of sold auctions cars by a specific seller
 router.patch('/updateauction/:id', auctionCarController.updateAuctionItem) // this is to update the current highest bidder
 
