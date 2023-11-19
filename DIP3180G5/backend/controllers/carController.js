@@ -1,6 +1,5 @@
 // const { json } = require('express') // i dont think need this line here right
 const Items = require('../models/ItemsModel')
-const AuctionItems = require('../models/ItemsModel') // change here
 const mongoose = require('mongoose')
 
 const carController = {
