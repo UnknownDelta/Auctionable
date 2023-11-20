@@ -12,7 +12,7 @@ import {
 
 import ConfettiCannon from "react-native-confetti-cannon"; // Import the ConfettiCannon library
 
-const TransactionScreen = ({ navigation }) => {
+const TransactionScreen = ({ navigation, itemName, image }) => {
   const [isConfettiActive, setConfettiActive] = React.useState(false);
   useEffect(() => {
     // Trigger confetti animation when the component mounts
@@ -35,12 +35,12 @@ const TransactionScreen = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.container}>
           <Text style={styles.message}>Congratulations!</Text>
-          <Text style={styles.message}>You own 2021 Toyota Camry</Text>
+          <Text style={styles.message}>You own BMW M5</Text>
           <View style={styles.appIconContainer}>
-            <Image
-              source={require("../assets/teslacar-removebg.png")}
-              style={styles.appIcon}
-            />
+          <Image
+            source={{ uri: "https://imgd.aeplcdn.com/370x208/n/jz5684a_1522493.jpg?q=80" }}
+            style={styles.appIcon}
+          />
           </View>
 
           <View style={styles.buttonContainer}>

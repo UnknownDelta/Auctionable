@@ -86,7 +86,7 @@ const AuctionScreen = () => {
     setSelectedItems([]);
     setQuantities({});
 
-    navigation.navigate("TransactionScreen");
+    navigation.navigate("TransactionAuctionPage");
   };
 
   const EmptyWishlistMessage = () => (
@@ -396,7 +396,7 @@ const CheckoutScreen = () => {
     setSelectedItems([]);
     setQuantities({});
 
-    navigation.navigate("TransactionAuction");
+    navigation.navigate("TransactionScreen");
   };
 
   const EmptyWishlistMessage = () => (
