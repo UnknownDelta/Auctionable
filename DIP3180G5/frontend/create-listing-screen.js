@@ -517,7 +517,7 @@ function CreateListingScreen() {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: 'ListingScreen' }],
+          routes: [{ name: 'ListingPage' }],
         })
       );
     };
