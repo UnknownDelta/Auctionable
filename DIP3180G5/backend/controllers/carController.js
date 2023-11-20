@@ -17,17 +17,19 @@ const carController = {
     },
     getItems: async(req, res) =>{
         const {seller} = req.params
-        const itemList = await Items.find({seller : seller}).sort({createdAt:-1})
+        console.log(seller);
+        const itemList = await Items.find({seller_id : seller, sold: false}).sort({createdAt:-1})
         res.status(200).json(itemList)
     },
     getCarDetails: async(req, res) =>{
         const {id} = req.params
-        const cars = await Car.find({_id : id}).sort({createdAt:-1})
+        const cars = await Items.find({_id : id}).sort({createdAt:-1})
         res.status(200).json(cars)
     },
     getSoldItems: async(req, res) =>{
         const {seller} = req.params
-        const soldItems = await Items.find({seller: seller, sold: true}).sort({createdAt:-1})
+        console.log(seller);
+        const soldItems = await Items.find({seller_id: seller, sold: true}).sort({createdAt:-1})
     
         if (!soldItems) {
             return res.status(400).json({error: 'No previous items'})
@@ -36,10 +38,11 @@ const carController = {
         res.status(200).json(soldItems)
     },
     createItem: async (req, res) =>{
-        const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
+        const {brand, model, price, description, registration_date, images, seller_id, seller_name, seller_image, sold} = req.body
     
         try {
-            const item_list = await Items.create({brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold})
+            const item_list = await Items.create({brand, model, price, description, registration_date, images, seller_id, seller_name, seller_image, sold})
+            console.log("item_list", item_list)
             res.status(200).json(item_list)
             // console.log(json(item_list))
         } catch (error) {
@@ -48,10 +51,10 @@ const carController = {
         }
     },
     createAuctionItem: async (req, res) =>{ // need change here
-        const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold} = req.body
+        const {brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller_id, seller_name, seller_image, sold} = req.body
     
         try {
-            const item_list = await Items.create({brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller, sold})
+            const item_list = await Items.create({brand, model, colour, fuel_type, mileage, price, description, years_used, registration_date, category, new_used, images, seller_id, seller_name, seller_image, sold})
             res.status(200).json(item_list)
             // console.log(json(item_list))
         } catch (error) {

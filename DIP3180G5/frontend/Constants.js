@@ -1,4 +1,4 @@
-export const AllListingsData = [
+export const AllListingsDataConstants = [
     {
       category: "Car",
       seller: "Seller",

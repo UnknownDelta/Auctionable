@@ -26,15 +26,17 @@
         ],
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 7
+          "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL",
-          "PREFERRED_USERNAME",
-          "PHONE_NUMBER"
+          "EMAIL"
         ],
-        "socialProviders": [],
-        "usernameAttributes": [],
+        "socialProviders": [
+          "GOOGLE"
+        ],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "verificationMechanisms": [
           "EMAIL"
         ]

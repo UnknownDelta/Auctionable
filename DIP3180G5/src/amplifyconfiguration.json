@@ -1,33 +1,48 @@
 {
   "aws_project_region": "us-east-1",
-  "aws_cognito_identity_pool_id": "us-east-1:28b5d7d2-4334-4ba2-8777-14b0668dda57",
-  "aws_cognito_region": "us-east-1",
-  "aws_user_pools_id": "us-east-1_EvPsJySSS",
-  "aws_user_pools_web_client_id": "4qjvsp5mu1cs94dlt4n1vv79vv",
-  "oauth": {},
-  "aws_cognito_username_attributes": [],
-  "aws_cognito_social_providers": [],
-  "aws_cognito_signup_attributes": [
-    "EMAIL",
-    "PREFERRED_USERNAME",
-    "PHONE_NUMBER"
-  ],
-  "aws_cognito_mfa_configuration": "OFF",
-  "aws_cognito_mfa_types": [
-    "SMS"
-  ],
-  "aws_cognito_password_protection_settings": {
-    "passwordPolicyMinLength": 7,
-    "passwordPolicyCharacters": []
-  },
-  "aws_cognito_verification_mechanisms": [
-    "EMAIL"
-  ],
   "aws_cloud_logic_custom": [
     {
       "name": "api5607ff3e",
       "endpoint": "https://m5hv6wc6l4.execute-api.us-east-1.amazonaws.com/staging",
       "region": "us-east-1"
     }
+  ],
+  "aws_cognito_identity_pool_id": "us-east-1:aa8d32d3-c350-475f-8921-565278edad98",
+  "aws_cognito_region": "us-east-1",
+  "aws_user_pools_id": "us-east-1_ToI6h7j9e",
+  "aws_user_pools_web_client_id": "2bf9rs8rh1uk9enp1ous1uqurb",
+  "oauth": {
+    "domain": "8bxuhrfcztb1-staging.auth.us-east-1.amazoncognito.com",
+    "scope": [
+      "phone",
+      "email",
+      "openid",
+      "profile",
+      "aws.cognito.signin.user.admin"
+    ],
+    "redirectSignIn": "DIP3180G5://,DIP3180G5://",
+    "redirectSignOut": "DIP3180G5://,DIP3180G5://",
+    "responseType": "code"
+  },
+  "federationTarget": "COGNITO_USER_POOLS",
+  "aws_cognito_username_attributes": [
+    "EMAIL"
+  ],
+  "aws_cognito_social_providers": [
+    "GOOGLE"
+  ],
+  "aws_cognito_signup_attributes": [
+    "EMAIL"
+  ],
+  "aws_cognito_mfa_configuration": "OFF",
+  "aws_cognito_mfa_types": [
+    "SMS"
+  ],
+  "aws_cognito_password_protection_settings": {
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": []
+  },
+  "aws_cognito_verification_mechanisms": [
+    "EMAIL"
   ]
 }

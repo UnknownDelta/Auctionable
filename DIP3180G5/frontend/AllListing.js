@@ -12,7 +12,7 @@ import {
   Image,
   Pressable,
   AppRegistry,
-  LogBox
+  LogBox, TextInput,
 } from "react-native";
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
@@ -206,23 +206,26 @@ const HomeScreen = ({ navigation }) => {
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [active, setActive] = useState(false);
   const [selected, setSelected] = useState(false);
-  const [AllListingsData, setAllListingsData] = useState([]);
+  const [AllListingsData, setAllListingsData] = useState(AllListingsDataConstants);
   const handleClick = () => {
     setActive(!active);
   };
 
   const fetchListingsData = async () => {
+    let response, data;
     try {
-      const response = await fetch(
-        "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+      response = await fetch(
+        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+        "http://localhost:4000/api/cars"
       );
-      const data = await response.json();
-      console.log("HALO")
+      data = await response.json();
+      console.log("api: "+JSON.stringify(data));
       if (data === undefined){
         setAllListingsData(AllListingsDataConstants);
       }
       setAllListingsData(data); // Update the state with fetched data
     } catch (error) {
+      console.log("response: "+JSON.stringify(data));
       setAllListingsData(AllListingsDataConstants);
     }
   };
@@ -238,21 +241,23 @@ const HomeScreen = ({ navigation }) => {
   if (fontsloaded) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flexDirection: "row", paddingBottom: 20, marginLeft: 25 }}>
-          <TouchableOpacity style={{ justifyContent: "flex-end" }}>
+        <View style={{ flexDirection: "row", justifyContent:"space-around", paddingBottom: 20, marginLeft: 25, marginRight: 25, alignItems: "center" }}>
+          <TouchableOpacity style={{ justifyContent: "flex-end", marginRight: 10}}>
             <Image
               style={{ height: 40, width: 40 }}
               source={require("../assets/appIcon.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{ justifyContent: "flex-start" }}
-          ></TouchableOpacity>
+          <View style={{ flex: 4, justifyContent: "center", alignItems: "center", marginRight: 5}}>
+            <TextInput
+              placeholder="Search..."
+              style={{ borderWidth: 1, borderColor: "gray", borderRadius: 5, padding: 5, width: "100%", height: 35 }}
+            />
+          </View>
           <MaterialCommunityIcons
             name={"filter"}
             size={50}
             color={"#0077B5"}
-            style={{ marginLeft: 150 }}
             onPress={() => setShow(!show)}
           />
         </View>
@@ -271,20 +276,19 @@ const HomeScreen = ({ navigation }) => {
           {AllListingsData.map((item) => (
               <TouchableOpacity
               style={styles.productpage}
-              onPress={() => navigation.navigate("DetailsPage")}
+              onPress={() => navigation.navigate("DetailsPage", { itemId: item._id })}
             >
               <View style={styles.container}>
                 <View style={styles.avatarContainer}>
                   <Image
-                    source={item.images}
+                    source={item.seller_image === "NA" ? require("../assets/appIcon.png") : {uri: item.seller_image}}
                     style={styles.avatar}
                   />
                 </View>
 
                 <View style={styles.sidecontentcontainer}>
                   <View>
-                    <Text>{item.category}</Text>
-                    <Text style={{ paddingTop: 5, color: "grey" }}>{item.seller}</Text>
+                    <Text style={{ paddingTop: 2, color: "black", fontSize: 20, height: 30, marginLeft: -20 }}>{item.seller_name}</Text>
                   </View>
                 </View>
                 <TouchableOpacity
@@ -450,12 +454,10 @@ const styles = StyleSheet.create({
   avatarContainer: {
     borderRadius: 16,
     height: 32,
-    width: 32,
+    width: 30,
     marginLeft: 15,
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "white",
-    marginTop: -10,
+    marginTop: -5,
   },
   avatar: {
     borderRadius: 25,

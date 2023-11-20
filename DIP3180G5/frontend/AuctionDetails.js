@@ -19,6 +19,7 @@ import ConfettiCannon from 'react-native-confetti-cannon';
 import * as Animatable from 'react-native-animatable';
 import { Table, Row, Rows } from 'react-native-table-component';
 
+
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 const ImageSection = () => {
@@ -43,7 +44,84 @@ const tableDataSample = {
   ]
 };
 
+const itemConstant = {
+  "_id": "6538bdfb304e0545985b39ed",
+  "brand": "BMW",
+  "model": "M5",
+  "colour": "Black",
+  "fuel_type": "Hybrid",
+  "mileage": 20000,
+  "buyout_price": 550000,
+  "starting_bid": 400000,
+  "ending_time": "11-11-2011|10:24:30",
+  "description": "A old car",
+  "years_used": 3,
+  "registration_date": "10-9-2008",
+  "category": "Car",
+  "new_used": false,
+  "images": [
+  "https://imgd.aeplcdn.com/370x208/n/jz5684a_1522493.jpg?q=80",
+  "https://imgd.aeplcdn.com/370x208/n/jz5684a_1522493.jpg?q=80"
+  ],
+  "seller": "65389826e5bccac6ac77cac7",
+  "sold": false,
+  "createdAt": "2023-10-25T07:04:27.564Z",
+  "updatedAt": "2023-10-25T07:04:27.564Z",
+  "__v": 0
+  }
+
 const DetailTabContent = () => {
+  const [data, setData] = useState(itemConstant);
+  const fetchItemDetails = async () => {
+    try {
+      const response = await fetch(
+        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+        "http://localhost:4000/api/cars/auctions/6538bdfb304e0545985b39ed"
+      );
+      const dataJSON = await response.json();
+      const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
+      setData(parsedData); // Update the state with fetched data
+    } catch (error) {
+      console.log(error)
+      setData(itemConstant);
+    }
+  };
+  function calculateDuration(dateString) {
+    const parts = dateString.split('-');
+    const inputDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    const currentDate = new Date();
+    const timeDifference = currentDate - inputDate;
+    console.log("inputDate: "+inputDate);
+    console.log("currentDate: "+currentDate);
+    console.log("timeDifference: "+timeDifference);
+    let difference = "";
+    let monthsDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+    let yearDifference = 0;
+    if (monthsDifference>11){
+      yearDifference = Math.floor(monthsDifference/12);
+      monthsDifference = monthsDifference%12;
+      if (yearDifference === 1)
+        difference = yearDifference + " year";
+      else
+        difference = yearDifference + " years";
+      if (monthsDifference === 1)
+        difference = difference + " " + monthsDifference + " month";
+      else
+        difference = difference + " " + monthsDifference + " month";
+    }
+    else
+    {
+      if (monthsDifference === 1)
+        difference = monthsDifference + " month";
+      else
+        difference = monthsDifference + " month";
+    }
+    return difference;
+  }
+  useEffect(() => {
+    // Fetch data when the component mounts
+    fetchItemDetails();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -51,24 +129,24 @@ const DetailTabContent = () => {
           style={{ flexDirection: "row", alignItems: "center", marginTop: 30 }}
         >
           <Image
-            source={require("../assets/Aquasama.png")}
+            source={data.seller_image === "NA" ? require("../assets/appIcon.png") : {uri: data.seller_image}}
             style={{ width: 50, height: 50, borderRadius: 25 }}
           />
           <Text style={{ marginLeft: 10, fontSize: 20, fontWeight: "bold" }}>
-            Aquasama
+            {data.seller_name}
           </Text>
         </View>
         <Text style={{ fontSize: 18, marginTop: 20 }}>
-          <Text style={{ fontWeight: "bold" }}>Name:</Text> Tesla Model X
+          <Text style={{ fontWeight: "bold" }}>Name:</Text> {data.brand + " " + data.model}
         </Text>
         <Text style={{ fontSize: 18, marginTop: 20 }}>
-          <Text style={{ fontWeight: "bold" }}>Base Price:</Text> $53,000
+          <Text style={{ fontWeight: "bold" }}>Starting Bid:</Text> ${data.starting_bid}
         </Text>
         <Text style={{ fontSize: 18, marginTop: 20 }}>
-          <Text style={{ fontWeight: "bold" }}>Condition:</Text> used/9 mnths
+          <Text style={{ fontWeight: "bold" }}>Condition:</Text> used for {calculateDuration(data.registration_date)}
         </Text>
         <Text style={{ fontSize: 18, marginTop: 20 }}>
-          <Text style={{ fontWeight: "bold" }}>Description:</Text> {"\n"}Testing
+          <Text style={{ fontWeight: "bold", textAlign: 'justify' }}>Description:</Text> {data.description}
         </Text>
       </View>
     </View>
@@ -112,6 +190,28 @@ const BidTabContent = () => {
   const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
   const [highestBid, setHighestBid] = useState(53000); // Initialize the highest bid state
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
+  const [data, setData] = useState(itemConstant);
+
+  const fetchItemDetails = async () => {
+    try {
+      const response = await fetch(
+        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+        "http://localhost:4000/api/cars/auctions/6538bdfb304e0545985b39ed"
+      );
+      const dataJSON = await response.json();
+      const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
+      setData(parsedData); // Update the state with fetched data
+      setHighestBid(parsedData.starting_bid);
+      console.log(parsedData);
+    } catch (error) {
+      console.log(error)
+      setData(itemConstant);
+    }
+  };
+  useEffect(() => {
+    // Fetch data when the component mounts
+    fetchItemDetails();
+  }, []);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -127,10 +227,16 @@ const BidTabContent = () => {
 
   const handleConfirmBid = () => {
     // Add the current bid amount on top of the highest bid
-    const newHighestBid = highestBid + bidAmount;
+    let newHighestBid = highestBid;
+    if (bidAmount>newHighestBid) {
+      newHighestBid = bidAmount;
+    }
     setHighestBid(newHighestBid);
     closeModal();
     navigation.navigate("AuctionSuccessPage");
+  };
+  const commaNumber = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   return (
     <View style={{ flex: 1, padding: 18, backgroundColor: "white" }}>
@@ -138,7 +244,7 @@ const BidTabContent = () => {
         <View style={{ flex: 1, alignItems: "flex-start" }}>
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>Highest Bid:</Text>
           <Text style={{ fontSize: 30, color: "grey" }}>
-            $<Text style={{ color: "black" }}>{highestBid}</Text>
+            $<Text style={{ color: "black" }}>{commaNumber(highestBid)}</Text>
           </Text>
         </View>
         <View style={{ flex: 1, alignItems: "flex-end" }}>
@@ -148,9 +254,15 @@ const BidTabContent = () => {
             Buy Out Price:
           </Text>
           <Text style={{ fontSize: 30, textAlign: "right", color: "grey" }}>
-            $<Text style={{ color: "black" }}>73,500</Text>
+            $<Text style={{ color: "black" }}>{commaNumber(data.buyout_price)}</Text>
           </Text>
         </View>
+      </View>
+      <View style={{ marginTop: 30, alignItems: "center" }}>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Reserve Price</Text>
+        <Text style={{ fontSize: 30, color: "grey" }}>
+          $<Text style={{ color: "black" }}>{commaNumber(data.reserve_price)}</Text>
+        </Text>
       </View>
       <View style={{ marginTop: 30, alignItems: "center" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>Your Bid:</Text>
@@ -472,23 +584,23 @@ const Podium = ({ animation, showFirst, showSecond, showThird }) => {
         </View>
         <View style={styles.horizontalLine} />
         {showThird && (
-  <View style={styles.thirdBidInfo}>
-    <Text style={styles.textWithCustomFont}>{third.name}</Text>
-    <Text style={styles.textWithCustomFont}>{third.amount}</Text>
-  </View>
-)}
-{showSecond && (
-  <View style={styles.secondBidInfo}>
-    <Text style={styles.textWithCustomFont}>{second.name}</Text>
-    <Text style={styles.textWithCustomFont}>{second.amount}</Text>
-  </View>
-)}
-{showFirst && (
-  <View style={styles.firstBidInfo}>
-    <Text style={styles.textWithCustomFont}>{first.name}</Text>
-    <Text style={styles.textWithCustomFont}>{first.amount}</Text>
-  </View>
-)}
+        <View style={styles.thirdBidInfo}>
+          <Text style={styles.textWithCustomFont}>{third.name}</Text>
+          <Text style={styles.textWithCustomFont}>{third.amount}</Text>
+        </View>
+        )}
+        {showSecond && (
+          <View style={styles.secondBidInfo}>
+            <Text style={styles.textWithCustomFont}>{second.name}</Text>
+            <Text style={styles.textWithCustomFont}>{second.amount}</Text>
+          </View>
+        )}
+        {showFirst && (
+          <View style={styles.firstBidInfo}>
+            <Text style={styles.textWithCustomFont}>{first.name}</Text>
+            <Text style={styles.textWithCustomFont}>{first.amount}</Text>
+          </View>
+        )}
 
     </View>
   );
@@ -556,19 +668,19 @@ const OtherSection = () => {
   return (
       <View style={styles.containers}>
         
-        <Podium animation={animation} showFirst={showFirst} showSecond={showSecond} showThird={showThird} isConfettiActive={isConfettiActive}/>
+        {/* <Podium animation={animation} showFirst={showFirst} showSecond={showSecond} showThird={showThird} isConfettiActive={isConfettiActive}/>
         {showFirst && (
                 <Image
                 source={require('../assets/crown.png')}
                 style={styles.crownImage}
               />
-      )}
+      )} */}
         
-        <Animatable.View animation="fadeOut" duration={2000} delay={6000} style={styles.confettiContainer}>
+        {/* <Animatable.View animation="fadeOut" duration={2000} delay={6000} style={styles.confettiContainer}>
           {isConfettiActive && (
             <ConfettiCannon count={200} origin={{ x: 200, y: 1000 }} fadeOut={true} fadeOutDelay={3000} />
           )}
-        </Animatable.View>
+        </Animatable.View> */}
         <TableTwo/>
 
       </View>
@@ -730,7 +842,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    paddingLeft: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   content: {
     padding: 16,

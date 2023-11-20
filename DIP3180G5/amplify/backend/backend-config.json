@@ -1,5 +1,20 @@
 {
-  "api": {},
+  "api": {
+    "api5607ff3e": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "AuctionAPI"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "Authentication": {
       "customAuth": false,
@@ -11,15 +26,17 @@
         ],
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 7
+          "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL",
-          "PREFERRED_USERNAME",
-          "PHONE_NUMBER"
+          "EMAIL"
         ],
-        "socialProviders": [],
-        "usernameAttributes": [],
+        "socialProviders": [
+          "GOOGLE"
+        ],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "verificationMechanisms": [
           "EMAIL"
         ]

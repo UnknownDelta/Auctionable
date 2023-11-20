@@ -63,7 +63,15 @@ const auctionSchema = new Schema({
         type: [String],
         required: true
     },
-    seller:{
+    seller_id:{
+        type: String,
+        required: true
+    },
+    seller_name:{
+        type: String,
+        required: true
+    },
+    seller_image:{
         type: String,
         required: true
     },

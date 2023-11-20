@@ -19,6 +19,7 @@ import MaterialCommunityIconss from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import { useWishlist } from "../frontend/WishlistContext"; // Import the useWishlist hook
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from '@react-navigation/native';
 
 const getFonts = () =>
   Font.loadAsync({
@@ -27,23 +28,44 @@ const getFonts = () =>
     robotobold: require("../assets/fonts/Roboto-Bold.ttf"),
   });
 
+  const itemConstant = {
+    "_id": "652f8b52567e4097cdafec57",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "colour": "Silver",
+    "fuel_type": "Petrol",
+    "price": 105000,
+    "description": "Droved 1000 km",
+    "years_used": 2,
+    "registration_date": "12-12-2019",
+    "category": "car",
+    "new_used": true,
+    "images": [
+    "https://media.ed.edmunds-media.com/toyota/corolla/2023/oem/2023_toyota_corolla_sedan_xse_fq_oem_1_1600.jpg",
+    "https://media.ed.edmunds-media.com/toyota/corolla/2023/oem/2023_toyota_corolla_sedan_xse_fq_oem_1_1600.jpg"
+    ],
+    "sold": false,
+    "createdAt": "2023-10-18T07:37:54.975Z",
+    "updatedAt": "2023-10-18T07:37:54.975Z",
+    "__v": 0,
+    "mileage": 1000,
+    "seller_id": "65389826e5bccac6ac77cac7",
+    "seller_image": "https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg",
+    "seller_name": "Bryan"
+  };
+
 const DetailsScreen = () => {
+  const [data, setData] = useState(itemConstant);
   const navigation = useNavigation();
+  const route = useRoute();
+  const { itemId } = route.params;
+  console.log(itemId);
   const handleChatNowPress = () => {
     navigation.navigate('Chat'); // Navigate to the "ChatConversation" screen
   };
   
   const handleAuctionButtonPress = () => {
     navigation.navigate('Auction'); // Navigate to the "AuctionListPage" screen
-  };
-
-  const item = {
-    id: "1",
-    itemName: "Tesla X", // Replace with the actual name of the item
-    itemPrice: "$2000", // Replace with the actual price of the item
-    itemCondition: "used/9 months",
-    itemPicture: require("../assets/teslacar.jpeg"),
-    checked: false, // Track the checked state
   };
 
   const [fontsloaded, setFontsLoaded] = useState(false);
@@ -56,40 +78,81 @@ const DetailsScreen = () => {
   } = useWishlist();
 
   const isItemInWishlist = () => {
-    return wishlistItems.some((wishlistItem) => wishlistItem.id === item.id);
+    return wishlistItems.some((wishlistItem) => wishlistItem.id === itemConstant.id);
   };
 
   const handleAddToWishlist = () => {
     if (isWishlistSelected) {
-      removeFromWishlist(item); // You may need to replace 'item' with your actual item
+      removeFromWishlist(itemConstant); // You may need to replace 'item' with your actual item
     } else {
-      addToWishlist(item); // You may need to replace 'item' with your actual item
+      addToWishlist(itemConstant); // You may need to replace 'item' with your actual item
     }
     toggleWishlist();
   };
 
-  // const fetchItemDetails = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
-  //     );
-  //     const data = await response.json();
-  //     setAllListingsData(data); // Update the state with fetched data
-  //   } catch (error) {
-  //     setAllListingsData(AllListingsDataConstants);
-  //   }
-  // };
+  const fetchItemDetails = async () => {
+    try {
+      const response = await fetch(
+        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+        "http://localhost:4000/api/cars/"+itemId
+      );
+      const dataJSON = await response.json();
+      const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
+      setData(parsedData); // Update the state with fetched data
+    } catch (error) {
+      console.log(error)
+      setData(itemConstant);
+    }
+  };
+
+  function calculateDuration(dateString) {
+    const parts = dateString.split('-');
+    const inputDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    const currentDate = new Date();
+    const timeDifference = currentDate - inputDate;
+    console.log("inputDate: "+inputDate);
+    console.log("currentDate: "+currentDate);
+    console.log("timeDifference: "+timeDifference);
+    let difference = "";
+    let monthsDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+    let yearDifference = 0;
+    if (monthsDifference>11){
+      yearDifference = Math.floor(monthsDifference/12);
+      monthsDifference = monthsDifference%12;
+      if (yearDifference === 1)
+        difference = yearDifference + " year";
+      else
+        difference = yearDifference + " years";
+      if (monthsDifference === 1)
+        difference = difference + " " + monthsDifference + " month";
+      else
+        difference = difference + " " + monthsDifference + " month";
+    }
+    else
+    {
+      if (monthsDifference === 1)
+        difference = monthsDifference + " month";
+      else
+        difference = monthsDifference + " month";
+    }
+    return difference;
+  }
+
+  useEffect(() => {
+    // Fetch data when the component mounts
+    fetchItemDetails();
+  }, []);
 
   if (fontsloaded) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Image
           style={styles.image}
-          source={require("../assets/teslacar.jpeg")}
+          source={data.images ? data.images : require("../assets/teslacar.jpeg")}
         />
         <View style={styles.infoContainer}>
-          <Text style={styles.name}>Tesla X</Text>
-          <Text style={styles.price}>$2000</Text>
+          <Text style={styles.name}>{data.brand + " " + data.model}</Text>
+          <Text style={styles.price}>${data.price}</Text>
           <TouchableOpacity
             style={{
               flexDirection: "row",
@@ -105,19 +168,18 @@ const DetailsScreen = () => {
                 marginTop: -20,
               }}
             >
-              used/9 months
+              used for {calculateDuration(data.registration_date)}
             </Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.container}>
           <View style={styles.side}>
-            <Image source={require("../assets/car.png")} style={styles.thumb} />
+            <Image source={data.seller_image === "NA" ? require("../assets/appIcon.png") : {uri: data.seller_image}} style={styles.thumb} />
           </View>
           <View style={styles.sidecontentcontainer}>
             <View>
-              <Text>Car</Text>
-              <Text style={{ paddingTop: 5, color: "grey" }}>Owner</Text>
+            <Text style={{ paddingTop: 2, color: "black", fontSize: 20, height: 30, marginLeft: -20 }}>{data.seller_name}</Text>
             </View>
           </View>
           <TouchableOpacity
@@ -149,33 +211,15 @@ const DetailsScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={{ flex: 1, paddingTop: 30, paddingLeft: 20 }}>
+        <View style={{ flex: 1, paddingTop: 30, paddingLeft: 20, paddingRight: 20 }}>
           <View
             style={{
               height: 200,
             }}
           >
             <ScrollView>
-              <Text>
-                Are you looking for a reliable and stylish car that will turn
-                heads on the road? Look no further! Our [insert car make and
-                model] is the perfect choice for you. With its sleek design and
-                powerful engine, this car is built to impress. It offers a
-                smooth and comfortable ride, making every journey a pleasure.
-                Whether you’re driving in the city or on the highway, this car
-                will deliver an exceptional experience. Safety is our top
-                priority. Equipped with advanced safety features such as [insert
-                safety feature 1] and [insert safety feature 2], you can have
-                peace of mind knowing that you and your loved ones are
-                protected. Not only is this car reliable and safe, but it also
-                offers great fuel efficiency. Say goodbye to frequent trips to
-                the gas station and hello to more savings in your pocket. But
-                don’t just take our word for it. Come down to our showroom and
-                take this beauty for a test drive. Experience the thrill of
-                driving this exceptional car and see for yourself why it’s the
-                perfect fit for you. Don’t miss out on this amazing opportunity.
-                Contact us today to schedule a test drive and make this car
-                yours!
+              <Text style={{ flex: 1, textAlign: "justify" }}>
+                {data.description}
               </Text>
             </ScrollView>
           </View>
