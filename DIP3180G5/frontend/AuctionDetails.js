@@ -269,6 +269,32 @@ const BidTabContent = ({itemId, data, handleHighestBid, highestBid}) => {
     } catch (error) {
       console.error('Error submitting form data:', error.message);
     }
+
+    const updatedItemData = {
+      ...data, // Copy existing item data
+      highestBidder: user._id, // Update the cart array
+      highestPrice: newHighestBid,
+    };
+
+  try {
+    // Make a PATCH request to update the item
+    const response = await fetch(`http://localhost:4000/api/cars/updateauction/id=${itemId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedItemData),
+    });
+
+    if (response.ok) {
+      console.log('Item added to cart successfully:', updatedItemData);
+      // You may want to update the local state or perform other actions
+    } else {
+      console.error('Failed to add item to cart:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error adding item to cart:', error.message);
+  }
   };
   const commaNumber = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
