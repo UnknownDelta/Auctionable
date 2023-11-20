@@ -71,3 +71,16 @@ We took inspiration from Carousell's accessibility and Carro's professional desi
 ## Conclusion and Recommendations
 The project, despite its challenges, successfully achieved its goals within a 14-week timeframe. Future recommendations include incorporating data analytics, cybersecurity protocols, and AI for vehicle recommendations.
 
+
+## Run Locally
+
+To this project run
+
+**1. Change directory(cd)/DIP3180G5**
+```bash
+  npm install
+```
+**2. To run application.**
+```bash
+  expo start
+```
