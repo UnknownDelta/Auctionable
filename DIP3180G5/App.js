@@ -48,8 +48,11 @@ import NotificationOutbid from "./frontend/NotificationOutbid";
 import ReviewListingScreen from "./frontend/review-listing-screen";
 import { Provider } from 'react-redux';
 import store from './store';
-
+import config from './src/aws-exports'
+import {Amplify} from 'aws-amplify';
+Amplify.configure(config);
 const Tab = createBottomTabNavigator();
+
 
 const getFonts = () =>
   Font.loadAsync({
@@ -114,7 +117,7 @@ const ProfileHeader = () => {
 };
 
 function BottomTabScreens({route}) {
-  console.log("Test log outside handleTabPress"); // Add this line
+  console.log("Test side handleTabPress"); // Add this line
   const isFocused = useIsFocused(); // Check if the screen is focused
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 
@@ -325,6 +328,8 @@ function ListingStack() {
         name="ListingCategoryScreen"
         component={ListingCategoryScreen}
       />
+      <Stack.Screen name="CreateAuctionScreen" component={CreateAuctionScreen} />
+      <Stack.Screen name="ReviewListingScreen" component={ReviewListingScreen} />
     </Stack.Navigator>
   );
 }
@@ -337,10 +342,6 @@ function AuctionStack() {
     >
       <Stack.Screen name="AuctionListPage" component={AuctionListPage} />
       <Stack.Screen name="AuctionDetailsPage" component={AuctionDetailsPage} />
-      <Stack.Screen
-        name="ListingCategoryScreen"
-        component={ListingCategoryScreen}
-      />
     </Stack.Navigator>
   );
 }
@@ -368,6 +369,10 @@ function ProfileStack() {
       <Stack.Screen
         name="NotificationOutbid"
         component={NotificationOutbid}
+      />
+      <Stack.Screen
+        name="EditPasswordScreen"
+        component={ChangePassword}
       />
     </Stack.Navigator>
   );

@@ -1,7 +1,7 @@
 {
   "identityPoolName": "testAuthIdentityPool",
   "allowUnauthenticatedIdentities": false,
-  "resourceNameTruncated": "authene16392d6",
+  "resourceNameTruncated": "authenbe2e959f",
   "userPoolName": "Authentication",
   "autoVerifiedAttributes": [
     "email"
@@ -12,33 +12,38 @@
   ],
   "smsAuthenticationMessage": "Your authentication code is {####}",
   "smsVerificationMessage": "Your verification code is {####}",
-  "emailVerificationSubject": "Verification code: {####}",
-  "emailVerificationMessage": "Verification code: {####}",
+  "emailVerificationSubject": "Your verification code",
+  "emailVerificationMessage": "Your verification code is {####}",
   "defaultPasswordPolicy": false,
-  "passwordPolicyMinLength": 7,
+  "passwordPolicyMinLength": 8,
   "passwordPolicyCharacters": [],
   "requiredAttributes": [
-    "email",
-    "preferred_username",
-    "phone_number"
+    "email"
   ],
   "aliasAttributes": [],
   "userpoolClientGenerateSecret": false,
   "userpoolClientRefreshTokenValidity": 30,
   "userpoolClientWriteAttributes": [],
   "userpoolClientReadAttributes": [],
-  "userpoolClientLambdaRole": "Authene16392d6_userpoolclient_lambda_role",
+  "userpoolClientLambdaRole": "Authenbe2e959f_userpoolclient_lambda_role",
   "userpoolClientSetAttributes": false,
-  "sharedId": "e16392d6",
+  "sharedId": "be2e959f",
   "resourceName": "Authentication",
   "authSelections": "identityPoolAndUserPool",
   "serviceName": "Cognito",
-  "useDefault": "manual",
+  "usernameAttributes": [
+    "email"
+  ],
+  "useDefault": "defaultSocial",
   "userPoolGroups": false,
   "userPoolGroupList": [],
   "adminQueries": false,
-  "thirdPartyAuth": false,
-  "authProviders": [],
+  "hostedUI": true,
+  "hostedUIDomainName": "8bxuhrfcztb1",
+  "authProvidersUserPool": [
+    "Google"
+  ],
+  "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
   "usernameCaseSensitive": false,
   "useEnabledMfas": true,
   "authRoleArn": {
@@ -54,5 +59,7 @@
     ]
   },
   "breakCircularDependency": true,
-  "dependsOn": []
+  "dependsOn": [],
+  "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"DIP3180G5://\",\"DIP3180G5://\"],\"LogoutURLs\":[\"DIP3180G5://\",\"DIP3180G5://\"]}",
+  "authProviders": []
 }

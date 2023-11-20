@@ -29,6 +29,9 @@
           "deploymentBucketName": "amplify-authentication-staging-144230-deployment",
           "s3Key": "amplify-builds/authentication64447f17-4f334f597074672f3633-build.zip"
         }
+      },
+      "api": {
+        "api5607ff3e": {}
       }
     }
   }
