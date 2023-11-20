@@ -22,7 +22,7 @@ import DetailsPage from "./frontend/DetailsScreen";
 import WishlistPage from "./frontend/WishlistPage";
 import createListPage from "./frontend/create-listing-screen";
 import createAuctionPage from "./frontend/create-auction-screen";
-import SettingsPage from "./frontend/AllListing";
+import AllListing from "./frontend/AllListing";
 import ProfilePage from "./frontend/ProfileScreen";
 import AuctionListPage from "./frontend/AuctionList";
 import AuctionDetailsPage from "./frontend/AuctionDetails";
@@ -294,7 +294,7 @@ function HomeStack() {
     >
       <Stack.Screen name="HomePage" component={HomePage} />
       <Stack.Screen name="DetailsPage" component={DetailsPage} />
-      <Stack.Screen name="SettingsPage" component={SettingsPage} />
+      <Stack.Screen name="AllListing" component={AllListing} />
       <Stack.Screen
         name="WishlistPage"
         component={WishlistPage}
