@@ -10,7 +10,7 @@ const messages = [
     {
         id: '1',
         text: 'Hi I would like to make an offer for this car?',
-        sender: 'Aquasama',
+        sender: 'Afiq',
         productName: 'Ferrari 458 GT3',
         lastMessage: 'I am good. How about you?',
         profilePic: require('../assets/Aquasama.png'), // Import or provide the image source
@@ -22,7 +22,7 @@ const messages = [
     {
         id: '2',
         text: 'Hi I would like to make an offer for this car?',
-        sender: 'eLoin',
+        sender: 'Max',
         productName: 'Telsa Model S',
         lastMessage: 'Are u able to give me a discount?',
         price: '$50K',
