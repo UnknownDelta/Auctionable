@@ -139,7 +139,7 @@ const DetailTabContent = ({itemId, data}) => {
   );
 };
 
-const TableTwo = ({itemId}) => {
+const TableTwo = ({itemId, handleHighestBid, highestBid}) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [data, setData] = useState(tableDataSample);
   console.log("itemId in TableTwo: ", itemId);
@@ -164,6 +164,8 @@ const TableTwo = ({itemId}) => {
           temp.push(row);
         }
         temp.sort((a, b) => b[2] - a[2]);
+        if (temp.length > 0)
+          handleHighestBid(temp[0][2]);
         for (let i = 0; i < parsedData.length; i++) {
           temp[i][0] = i+1;
           temp[i][2] = "$"+commaNumber(temp[i][2]);
@@ -178,9 +180,8 @@ const TableTwo = ({itemId}) => {
         setIsLoading(false); // Set loading state to false on error
       }
     };
-
     fetchItemDetails();
-  }, [itemId]); // Include itemId as a dependency
+  }, [highestBid]); // Include itemId as a dependency
   if (!isLoading){
   return (
     <View style={styles.containers}>
@@ -214,10 +215,9 @@ const TableTwo = ({itemId}) => {
       </View>
   );}
 }
-const BidTabContent = ({itemId, data}) => {
+const BidTabContent = ({itemId, data, handleHighestBid, highestBid}) => {
   const navigation = useNavigation();
   const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
-  const [highestBid, setHighestBid] = useState(53000); // Initialize the highest bid state
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
   const [isBidUnder, setIsBidUnder] = useState(false); // State to check if bid is under the minimum bid
   const user = useSelector((state) => state.user);
@@ -241,7 +241,7 @@ const BidTabContent = ({itemId, data}) => {
     if (bidAmount>newHighestBid) {
       newHighestBid = bidAmount;
     }
-    setHighestBid(newHighestBid);
+    handleHighestBid(newHighestBid);
     const dataToSubmit = {
       item_id: itemId,
       user_id: user._id,
@@ -589,7 +589,7 @@ const bids = [
 
 const sortedBids = bids.slice().sort((a, b) => b.amount - a.amount);
 
-const ContentSection = ({itemId, data}) => {
+const ContentSection = ({itemId, data, handleHighestBid, highestBid}) => {
   console.log("data in content section", data)
   return (
     <View style={{ flex: 2 }}>
@@ -598,10 +598,10 @@ const ContentSection = ({itemId, data}) => {
           {() => <DetailTabContent itemId={itemId} data={data} />}
         </TopTab.Screen>
         <TopTab.Screen name="Bids">
-          {() => <BidTabContent itemId={itemId} data={data} />}
+          {() => <BidTabContent itemId={itemId} data={data} handleHighestBid = {handleHighestBid} highestBid = {highestBid} />}
         </TopTab.Screen>
         <TopTab.Screen name="Leaderboard">
-          {() => <TableTwo itemId={itemId} data={data} />}
+          {() => <TableTwo itemId={itemId} data={data} handleHighestBid = {handleHighestBid} highestBid = {highestBid} />}
         </TopTab.Screen>
       </TopTab.Navigator>
     </View>
@@ -614,7 +614,11 @@ const ThreeTabScreen = () => {
   const { itemId } = route.params;
   const [data, setData] = useState(itemConstant);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [highestBid, setHighestBid] = useState(0);
 
+  const handleHighestBid = (bid) => {
+    setHighestBid(bid);
+  }
   useEffect(() => {
     const fetchItemDetails = async () => {
       try {
@@ -642,7 +646,7 @@ const ThreeTabScreen = () => {
       ) : (
         <>
           <ImageSection itemId = {itemId} data = {data}/>
-          <ContentSection itemId = {itemId} data = {data} />
+          <ContentSection itemId = {itemId} data = {data} handleHighestBid = {handleHighestBid} highestBid = {highestBid} />
         </>
       )}
     </View>
