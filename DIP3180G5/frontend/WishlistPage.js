@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux';
 const Tab = createMaterialTopTabNavigator();
 
 const AuctionScreen = () => {
+  const user = useSelector((state) => state.user);
   const [quantities, setQuantities] = useState({}); // Store quantities for each item
   const [selectedItems, setSelectedItems] = useState([]); // Track selected items
   const [showTransactionSuccess, setShowTransactionSuccess] = useState(false); // State for showing transaction success screen
@@ -35,22 +36,34 @@ const AuctionScreen = () => {
     setWishlistItems,
     updateWishlistItems,
   } = useWishlist();
+  const[data, setData] = useState(wishlistItems);
+  const fetchCartData = async () => {
+    let response, data;
+    try {
+      response = await fetch(
+        "http://localhost:4000/api/cars/"+user._id+"/auctionCart"
+      );
+      data = await response.json();
+      console.log("api: "+JSON.stringify(data));
+      if (data === undefined){
+        setData(AllListingsDataConstants);
+      }
+      data.map((item) => {
+        item["checked"] = false;
+      });
+      setData(data); // Update the state with fetched data
+    } catch (error) {
+      console.log("response: "+JSON.stringify(data));
+      setData(AllListingsDataConstants);
+    }
+  };
 
-  // Dummy data for testing
-  const [dummyWishlistItems, setDummyWishlistItems] = useState([
-    {
-      id: "1",
-      itemName: "Helmet Lightweight",
-      itemPrice: "$10",
-      itemCondition: "New",
-      itemPicture: require("../assets/helmet.png"),
-      checked: false, // Track the checked state
-    },
-    // Add more dummy items as needed
-  ]);
+  useEffect(() => {
+    fetchCartData();
+  }, []);
 
   const navigation = useNavigation();
-  console.log("wishlistItems", wishlistItems);
+  console.log("data", data);
 
   const showModal = () => {
     setModalVisible(true);
@@ -60,7 +73,7 @@ const AuctionScreen = () => {
     setModalVisible(false); //close it incase open
 
     // Get selected items
-    const selectedItemsList = wishlistItems.filter((item) =>
+    const selectedItemsList = data.filter((item) =>
       selectedItems.includes(item.id)
     );
 
@@ -82,63 +95,97 @@ const AuctionScreen = () => {
     </View>
   );
 
-  if (!wishlistItems || wishlistItems.length === 0) {
+  if (!data || data.length === 0) {
     return <EmptyWishlistMessage />;
   }
 
   const handleDeleteItem = (itemId) => {
     console.log("Deleting", itemId);
-    const item = wishlistItems.find((item) => item.id === itemId);
+    const item = data.find((item) => item.id === itemId);
 
     if (item) {
       removeFromWishlist(item);
     }
 
-    if (wishlistItems.length === 0) {
+    if (data.length === 0) {
       return <EmptyWishlistMessage />;
     }
   };
 
   const toggleCheckbox = (itemId) => {
     // Find the item you want to update in the wishlistItems
-    const updatedWishlist = wishlistItems.map((item) => {
-      if (item.id === itemId) {
+    const updatedWishlist = data.map((item) => {
+      if (item._id === itemId) {
         // Toggle the checked state for the item
         return { ...item, checked: !item.checked };
       }
       return item;
     });
 
-    // Update the wishlist
-    updateWishlistItems(updatedWishlist);
+    // // Update the wishlist
+    setData(updatedWishlist);
 
-    setSelectedItems((prevSelectedItems) => {
-      if (prevSelectedItems.includes(itemId)) {
-        return prevSelectedItems.filter((item) => item.id !== itemId);
-      } else {
-        return [...prevSelectedItems, itemId];
-      }
-    });
+    // setSelectedItems((prevSelectedItems) => {
+    //   if (prevSelectedItems.includes(itemId)) {
+    //     return prevSelectedItems.filter((item) => item.id !== itemId);
+    //   } else {
+    //     return [...prevSelectedItems, itemId];
+    //   }
+    // });
+    console.log("halo")
   };
 
   // Function to calculate the total price based on selected items
   const calculateTotalPrice = () => {
     let totalPrice = 0;
-    for (const itemId of selectedItems) {
-      const item = wishlistItems.find((item) => item.id === itemId);
-      if (item) {
-        const itemPrice = parseFloat(item.itemPrice.replace("$", ""));
-        const itemQuantity = quantities[itemId] || 1;
-        totalPrice += itemPrice * itemQuantity;
-      }
+    data.map((item) =>{
+      if (item.checked)
+        totalPrice += item.price;
+    })
+    return totalPrice; // Format total price to 2 decimal places
+  };
+
+  function calculateDuration(dateString) {
+    const parts = dateString.split('-');
+    const inputDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    const currentDate = new Date();
+    const timeDifference = currentDate - inputDate;
+    console.log("inputDate: "+inputDate);
+    console.log("currentDate: "+currentDate);
+    console.log("timeDifference: "+timeDifference);
+    let difference = "";
+    let monthsDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+    let yearDifference = 0;
+    if (monthsDifference>11){
+      yearDifference = Math.floor(monthsDifference/12);
+      monthsDifference = monthsDifference%12;
+      if (yearDifference === 1)
+        difference = yearDifference + " year";
+      else
+        difference = yearDifference + " years";
+      if (monthsDifference === 1)
+        difference = difference + " " + monthsDifference + " month";
+      else
+        difference = difference + " " + monthsDifference + " month";
     }
-    return totalPrice.toFixed(2); // Format total price to 2 decimal places
+    else
+    {
+      if (monthsDifference === 1)
+        difference = monthsDifference + " month";
+      else
+        difference = monthsDifference + " month";
+    }
+    return difference;
+  }
+  const commaNumber = (x) => {
+    if (x === undefined) return x;
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={wishlistItems}
+        data={data}
         keyExtractor={(item, index) => `${item.itemName}-${index}`}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
@@ -146,7 +193,7 @@ const AuctionScreen = () => {
               <CheckBox
                 size={17}
                 checked={item.checked}
-                onPress={() => toggleCheckbox(item.id)}
+                onPress={() => toggleCheckbox(item._id)}
                 iconType="material-community"
                 checkedIcon="checkbox-marked"
                 uncheckedIcon="checkbox-blank-outline"
@@ -154,12 +201,12 @@ const AuctionScreen = () => {
                 label=""
                 containerStyle={styles.checkboxContainer} // Add this line to apply custom styles
               />
-              <Image source={item.itemPicture} style={styles.itemImage} />
+              <Image source={item.images} style={styles.itemImage} />
               <View style={styles.itemTextContainer}>
                 <Text style={styles.itemText}>
-                  <Text style={{ fontWeight: "bold" }}>{item.itemName}</Text>
+                  <Text style={{ fontWeight: "bold" }}>{item.brand + " " + item.model}</Text>
                 </Text>
-                <Text style={styles.itemText}>{item.itemCondition}</Text>
+                <Text style={styles.itemText}>{calculateDuration(item.registration_date)}</Text>
                 <Text style={styles.itemText}>
                   <Text
                     style={{
@@ -168,9 +215,8 @@ const AuctionScreen = () => {
                       fontSize: 16,
                     }}
                   >
-                    {item.itemPrice}
-                  </Text>{" "}
-                  each
+                    {"$"+commaNumber(item.price)}
+                  </Text>
                 </Text>
               </View>
 
@@ -188,10 +234,10 @@ const AuctionScreen = () => {
         )}
       />
 
-<View style={styles.checkoutContainer}>
+      <View style={styles.checkoutContainer}>
         <TouchableOpacity
           style={styles.checkoutButton}
-          onPress={() => navigation.navigate("CostBreakdownPage")}
+          onPress={() => showModal()}
         >
           <View
             style={{
@@ -202,7 +248,7 @@ const AuctionScreen = () => {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
-              ${calculateTotalPrice()}
+              {"$"+commaNumber(calculateTotalPrice())+".00"}
             </Text>
             <View
               style={{
@@ -221,6 +267,67 @@ const AuctionScreen = () => {
           </View>
         </TouchableOpacity>
       </View>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalMessage}> Confirmation</Text>
+            <Text style={styles.modalSubMessage2}>
+              {" "}
+              You are about to pay{" "}
+              <Text style={{ color: "#0077B5" }}>${calculateTotalPrice()}</Text>
+            </Text>
+            <Text style={styles.modalSubMessage}>Payment Method:</Text>
+            <View style={styles.modalButtonContainer}>
+              <TouchableOpacity
+                style={styles.modalButton1}
+                onPress={() => {
+                  handleCheckout();
+                  setModalVisible(false);
+                }}
+              >
+                <Image
+                  style={{ alignSelf: "center", width: 35, height: 25 }}
+                  source={require("../assets/mastercard.png")}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton1}
+                onPress={() => {
+                  handleCheckout();
+                  setModalVisible(false);
+                }}
+              >
+                <Image
+                  style={{ alignSelf: "center", width: 50, height: 15 }}
+                  source={require("../assets/VISA.png")}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton1}
+                onPress={() => {
+                  handleCheckout();
+                  setModalVisible(false);
+                }}
+              >
+                <Image
+                  style={{ alignSelf: "center", width: 60, height: 15 }}
+                  source={require("../assets/paypal.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              style={styles.modalButton2}
+              onPress={() => {
+                setModalVisible(false);
+              }}
+            >
+              <Text style={styles.modalButtonText}>
+                Let me review my cart again
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
