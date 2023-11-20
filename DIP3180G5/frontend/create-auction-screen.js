@@ -40,13 +40,18 @@ const DropdownComponent = () => {
   const [brand, setBrand] = useState(null);
   const [model, setModel] = useState(null);
   const [image, setImage] = useState(null);
-  const [price, setPrice] = useState(null);
   const [description, setDescription] = useState(null);
   const [registration_date, setRegistration_date] = useState(new Date());
+  const [buyoutPrice, setBuyoutPrice] = useState(0);
+  const [startingBid, setStartingBid] = useState(0);
+  const [reservePrice, setReservePrice] = useState(null);
+  const [endingTime, setEndingTime] = useState(new Date());
+
   const seller_id = user._id;
   const seller_name = user.name;
   const seller_image = user.profile_picture;
   const sold = false;
+  const highestBidder = "NA";
 
   const [isBrandValid, setIsBrandValid] = useState(true);
   const [isModelValid, setIsModelValid] = useState(true);
@@ -148,7 +153,7 @@ const DropdownComponent = () => {
       return;
     }
 
-    if (!price) {
+    if (!buyoutPrice) {
       setIsPriceValid(false);
       return;
     }
@@ -157,6 +162,7 @@ const DropdownComponent = () => {
       setIsDescriptionValid(false);
       return;
     }
+
 
     // Clear validation messages
     setIsBrandValid(true);
@@ -168,19 +174,23 @@ const DropdownComponent = () => {
     const dataToSubmit = {
       brand,
       model,
-      price,
+      buyout_price: buyoutPrice,
+      starting_bid: startingBid,
+      reserve_price: reservePrice,
+      ending_time: endingTime,
       description,
       registration_date,
       images: icons.map((icon) => icon.name),
-      sold,
       seller_id,
       seller_name,
       seller_image,
+      sold,
+      highestBidder
     };
 
     try {
       console.log(dataToSubmit);
-      const response = await fetch('http://localhost:4000/api/cars/createlist', {
+      const response = await fetch('http://localhost:4000/api/cars/createauction', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -280,31 +290,6 @@ const DropdownComponent = () => {
             marginTop: 20,
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
-            <FontAwesome name="dollar" size={16} color="black" style={{ marginRight: 8 }} />
-            <TextInput
-              placeholder="Price"
-              placeholderTextColor="#000"
-              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
-              keyboardType="numeric"
-              returnKeyType="done"
-              value={price}
-              onChangeText={(text) => setPrice(text)} // Update the 'price' state with the input text
-            />
-          </View>
-        </View>
-        <View
-          style={{
-            borderRadius: 8,
-            borderColor: 'black',
-            borderWidth: 0.5,
-            padding: 16,
-            paddingHorizontal: 8,
-            marginTop: 4,
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
             <TextInput
               placeholder="Registration Data (DD-MM-YYYY)"
               placeholderTextColor="#000"
@@ -342,19 +327,107 @@ const DropdownComponent = () => {
             onChangeText={(text) => setDescription(text)}
           />
         </View>
+        <View
+          style={{
+            borderRadius: 8,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            padding: 16,
+            paddingHorizontal: 8,
+            marginTop: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
+            <FontAwesome name="dollar" size={16} color="black" style={{ marginRight: 8 }} />
+            <TextInput
+              placeholder="Starting Bid"
+              placeholderTextColor="#000"
+              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
+              keyboardType="numeric"
+              returnKeyType="done"
+              value={startingBid}
+              onChangeText={(text) => setStartingBid(text)} // Update the 'price' state with the input text
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            borderRadius: 8,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            padding: 16,
+            paddingHorizontal: 8,
+            marginTop: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
+            <FontAwesome name="dollar" size={16} color="black" style={{ marginRight: 8 }} />
+            <TextInput
+              placeholder="Reserve Price"
+              placeholderTextColor="#000"
+              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
+              keyboardType="numeric"
+              returnKeyType="done"
+              value={reservePrice}
+              onChangeText={(text) => setReservePrice(text)} // Update the 'price' state with the input text
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            borderRadius: 8,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            padding: 16,
+            paddingHorizontal: 8,
+            marginTop: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
+            <FontAwesome name="dollar" size={16} color="black" style={{ marginRight: 8 }} />
+            <TextInput
+              placeholder="Buyout Price"
+              placeholderTextColor="#000"
+              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
+              keyboardType="numeric"
+              returnKeyType="done"
+              value={buyoutPrice}
+              onChangeText={(text) => setBuyoutPrice(text)} // Update the 'price' state with the input text
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            borderRadius: 8,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            padding: 16,
+            paddingHorizontal: 8,
+            marginTop: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
+            <TextInput
+              placeholder="End Time (HH:MM:SS)"
+              placeholderTextColor="#000"
+              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
+              keyboardType="numeric"
+              returnKeyType="done"
+              value={endingTime}
+              onChangeText={(text) => setEndingTime(text)} // Update the 'price' state with the input text
+            />
+          </View>
+        </View>
         <TouchableOpacity
-          onPress={() => handleSubmission({
-            brand,
-            model,
-            price,
-            description,
-            registration_date,
-            images: icons.map((icon) => icon.name),
-            sold,
-            seller_id,
-            seller_name,
-            seller_image,
-          })}
+          onPress={handleSubmission}
           style={{ backgroundColor: '#0077b3', padding: 13, borderRadius: 8, marginTop: 20 }}
         >
           <Text
