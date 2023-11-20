@@ -140,7 +140,7 @@ const AuctionScreen = () => {
     let totalPrice = 0;
     data.map((item) =>{
       if (item.checked)
-        totalPrice += item.price;
+        totalPrice += item.highestPrice;
     })
     return totalPrice; // Format total price to 2 decimal places
   };
@@ -215,7 +215,7 @@ const AuctionScreen = () => {
                       fontSize: 16,
                     }}
                   >
-                    {"$"+commaNumber(item.price)}
+                    {"$"+commaNumber(item.highestPrice)}
                   </Text>
                 </Text>
               </View>
@@ -396,7 +396,7 @@ const CheckoutScreen = () => {
     setSelectedItems([]);
     setQuantities({});
 
-    navigation.navigate("TransactionScreen");
+    navigation.navigate("TransactionAuction");
   };
 
   const EmptyWishlistMessage = () => (
