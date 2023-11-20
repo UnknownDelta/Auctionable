@@ -21,19 +21,19 @@ import { AppState } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
-const ImageSection = (itemId) => {
+const ImageSection = (params) => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Image
-        source={require("../assets/teslacar.jpeg")}
-        style={{ width: "100%", height: "100%" }}
+        source={params.params.images}
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
         resizeMode="cover"
       />
     </View>
   );
 };
 const tableDataSample = {
-  tableHead: ['Pos.', 'Name', 'Amount', 'Date', 'Time' ],
+  tableHead: ['Position', 'Name', 'Amount'],
   widthArr: [50,80, 80, 100, 100,],
   tableData: [['#1','Alice', '100', '2023-10-25', '10:00 AM'],
   ['#2','Bob', '90','2023-10-25', '10:00 AM'],
@@ -140,37 +140,76 @@ const DetailTabContent = (itemId) => {
   );
 };
 
-const TableTwo = () => {
+const TableTwo = (itemId) => {
+  const [isLoading, setIsLoading] = React.useState(true);
   const [data, setData] = React.useState(tableDataSample);
+  let itemID = itemId.route.params.itemId._id;
+  console.log("table two itemID: ",itemID);
+  useEffect(() => {
+    const fetchItemDetails = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/cars/"+itemID+"/transaction"
+        );
+        const dataJSON = await response.json();
+        const parsedData = JSON.parse(JSON.stringify(dataJSON));
+        let temp = [], sortedtemp = [];
+        for (let i = 0; i < parsedData.length; i++) {
+          let row = [];
+          row.push(i+1);
+          row.push(parsedData[i].user_id);
+          row.push(parsedData[i].bid_price);
+          temp.push(row);
+        }
+        temp.sort((a, b) => b[2] - a[2]);
+        for (let i = 0; i < parsedData.length; i++) {
+          temp[i][0] = i+1;
+        } 
+        setData(temp);
+        console.log(temp);
+        console.log("parsed Data in Table Two: ",parsedData);
+        setIsLoading(false); // Set loading state to false when data is fetched
+      } catch (error) {
+        console.log("Error fetching item details:", error);
+        setData(itemConstant);
+        setIsLoading(false); // Set loading state to false on error
+      }
+    };
+
+    fetchItemDetails();
+  }, [itemId]); // Include itemId as a dependency
+  if (!isLoading){
   return (
-      <View style={styles.tablecontainer}>
-          <ScrollView horizontal={false}>
-              <View>
-                  <Table borderStyle={{ borderWidth: 0, }}>
-                      <Row
-                          data={data.tableHead}
-                          widthArr={data.widthArr}
-                          style={styles.head}
-                          textStyle={styles.headText}
-                      />
-                  </Table>
-                  <ScrollView>
-                      <Table borderStyle={{ borderWidth: 0,}}>
-                          {data.tableData.map((rowData, index) => (
-                              <Row
-                                  key={index}
-                                  data={rowData}
-                                  widthArr={data.widthArr}
-                                  style={styles.rowSection}
-                                  textStyle={styles.text}
-                              />
-                          ))}
-                      </Table>
-                  </ScrollView>
-              </View>
-          </ScrollView>
+    <View style={styles.containers}>
+        <View style={styles.tablecontainer}>
+            <ScrollView horizontal={false}>
+                <View>
+                    <Table borderStyle={{ borderWidth: 0, }}>
+                        <Row
+                            data={tableDataSample.tableHead}
+                            widthArr={data.widthArr}
+                            style={styles.head}
+                            textStyle={styles.headText}
+                        />
+                    </Table>
+                    <ScrollView>
+                        <Table borderStyle={{ borderWidth: 0,}}>
+                            {data.map((rowData, index) => (
+                                <Row
+                                    key={index}
+                                    data={rowData}
+                                    widthArr={data.widthArr}
+                                    style={styles.rowSection}
+                                    textStyle={styles.text}
+                                />
+                            ))}
+                        </Table>
+                    </ScrollView>
+                </View>
+            </ScrollView>
+        </View>
       </View>
-  );
+  );}
 }
 const BidTabContent = (itemId) => {
   const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
@@ -385,16 +424,6 @@ const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
 
   return (
     <View style={{ flex: 1, padding: 16, alignItems: "center" }}>
-      {/* <CountDown
-        until={60 * 10 + 30}
-        size={20}
-        onFinish={() => alert("Finished")}
-        digitStyle={{ backgroundColor: "#FFF" }}
-        digitTxtStyle={{ color: "red" }}
-        timeToShow={["H", "M", "S"]}
-        timeLabels={{ h: "HH", m: "MM", s: "SS" }}
-        style={{ marginTop: -20 }}
-      /> */}
       <View
         style={{
           flexDirection: "row",
@@ -519,141 +548,6 @@ const bids = [
 ];
 
 const sortedBids = bids.slice().sort((a, b) => b.amount - a.amount);
-const first = sortedBids[0];
-const second = sortedBids[1];
-const third = sortedBids[2];
-
-// const Podium = ({ animation, showFirst, showSecond, showThird }) => {
-//   const rectangleHeight1 = animation.interpolate({
-//     inputRange: [0, 1],
-//     outputRange: [0, 160], 
-//   });
-//   const rectangleHeight2 = animation.interpolate({
-//     inputRange: [0, 1],
-//     outputRange: [0, 130], 
-//   });
-//   const rectangleHeight3 = animation.interpolate({
-//     inputRange: [0, 1],
-//     outputRange: [0, 100],
-//   });
-
-//   return (
-//     <View style={styles.containers}>
-//         <View style={styles.rectanglesContainer}>
-//           <Animated.View
-//             style={[styles.rectangle2, { height: rectangleHeight2 }]}
-//           />
-//           <Animated.View
-//             style={[styles.rectangle1, styles.shadow, { height: rectangleHeight1 }]}
-//           />
-//           <Animated.View
-//             style={[styles.rectangle3, { height: rectangleHeight3 }]}
-//           />
-//         </View>
-//         <View style={styles.horizontalLine} />
-//         {showThird && (
-//         <View style={styles.thirdBidInfo}>
-//           <Text style={styles.textWithCustomFont}>{third.name}</Text>
-//           <Text style={styles.textWithCustomFont}>{third.amount}</Text>
-//         </View>
-//         )}
-//         {showSecond && (
-//           <View style={styles.secondBidInfo}>
-//             <Text style={styles.textWithCustomFont}>{second.name}</Text>
-//             <Text style={styles.textWithCustomFont}>{second.amount}</Text>
-//           </View>
-//         )}
-//         {showFirst && (
-//           <View style={styles.firstBidInfo}>
-//             <Text style={styles.textWithCustomFont}>{first.name}</Text>
-//             <Text style={styles.textWithCustomFont}>{first.amount}</Text>
-//           </View>
-//         )}
-
-//     </View>
-//   );
-// };
-
-const RankList = ({ data }) => {
-
-};
-
-const LeaderBoard = () => {
-
-  };
-
-const OtherSection = () => {
-  const [animation] = useState(new Animated.Value(0));
-  const [isConfettiActive, setIsConfettiActive] = useState(false);
-  const [showFirst, setShowFirst] = useState(false);
-  const [showSecond, setShowSecond] = useState(false);
-  const [showThird, setShowThird] = useState(false);
-
-  // useEffect(() => {
-  //   Animated.timing(animation, {
-  //     toValue: 1, 
-  //     duration: 1000, 
-  //     easing: Easing.linear, 
-  //     useNativeDriver: false, 
-  //   }).start(() => {
-  //     setTimeout(() => {
-  //       setShowThird(true);
-  //     }, 500);
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   if (showThird) {
-  //     // Trigger the second action after a 1 second delay
-  //     setTimeout(() => {
-  //       setShowSecond(true);
-  //     }, 1000);
-  //   }
-  // }, [showThird]);
-
-  // useEffect(() => {
-  //   if (showSecond) {
-  //     // Trigger the third action after a 1 second delay
-  //     setTimeout(() => {
-  //       setShowFirst(true);
-  //     }, 1000);
-  //   }
-  // }, [showSecond]);
-
-  // useEffect(() => {
-  //   if (showFirst) {
-  //     setTimeout(() => {
-  //       setIsConfettiActive(true);
-  //     }, 0); // Setting a minimal delay to show the crown instantly when showFirst is true
-  
-  //     // Set the confetti to turn off after a delay
-  //     setTimeout(() => {
-  //       setIsConfettiActive(false);
-  //     }, 5000); // Keep it active for 5 seconds
-  //   }
-  // }, [showFirst]);  
-  
-  return (
-      <View style={styles.containers}>
-        
-        {/* <Podium animation={animation} showFirst={showFirst} showSecond={showSecond} showThird={showThird} isConfettiActive={isConfettiActive}/>
-        {showFirst && (
-                <Image
-                source={require('../assets/crown.png')}
-                style={styles.crownImage}
-              />
-      )} */}
-        
-        {/* <Animatable.View animation="fadeOut" duration={2000} delay={6000} style={styles.confettiContainer}>
-          {isConfettiActive && (
-            <ConfettiCannon count={200} origin={{ x: 200, y: 1000 }} fadeOut={true} fadeOutDelay={3000} />
-          )}
-        </Animatable.View> */}
-        <TableTwo/>
-
-      </View>
-    );
-};
 
 const ContentSection = (params) => {
   console.log("params in ContentSection: ",params.params);
@@ -663,7 +557,7 @@ const ContentSection = (params) => {
       <TopTab.Navigator>
         <TopTab.Screen name="Detail" component={DetailTabContent} initialParams={{ itemId }} />
         <TopTab.Screen name="Bids" component={BidTabContent} initialParams={{ itemId }}/>
-        <TopTab.Screen name="Leaderboard" component={OtherSection} initialParams={{ itemId }}/>
+        <TopTab.Screen name="Leaderboard" component={TableTwo} initialParams={{ itemId }}/>
       </TopTab.Navigator>
     </View>
   );
@@ -713,15 +607,14 @@ const ThreeTabScreen = () => {
 
 const styles = StyleSheet.create({
   tablecontainer:{
-    width:400, justifyContent:'center', marginTop:-300, height:200,
+    width:400, justifyContent:'center', marginTop:-200,
   },
   containers: {    
-    justifyContent: 'center',
+    justifyContent: "flex-start",
     alignItems: 'center',
-   
     flexDirection: 'column',
     zIndex:-1,
-  paddingTop:280,
+    marginTop: 240
 },
   rowSection: { height: 60, backgroundColor: '#E7E6E1' },
   head: { height: 44, backgroundColor: 'darkblue' },
