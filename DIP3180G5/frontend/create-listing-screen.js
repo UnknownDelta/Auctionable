@@ -308,7 +308,7 @@ const DropdownComponent = () => {
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
             <TextInput
-              placeholder="Registration Data (DD-MM-YYYY)"
+              placeholder="Registration Date (DD-MM-YYYY)"
               placeholderTextColor="#000"
               style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
               keyboardType="numeric"
