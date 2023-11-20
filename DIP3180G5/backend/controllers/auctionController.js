@@ -30,6 +30,11 @@ const auctionCarController = {
             console.log(error.message)
         }
     },
+    getAuctionCart: async(req, res) =>{
+        const {buyer} = req.params
+        const auctionList = await Auction.find({highestBidder : buyer}).sort({createdAt:-1})
+        res.status(200).json(auctionList)
+    },
     getAuctionItems: async(req, res) =>{
         const {seller} = req.params
         const auctionList = await Auction.find({seller : seller}).sort({createdAt:-1})
