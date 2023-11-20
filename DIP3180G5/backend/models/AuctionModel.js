@@ -11,18 +11,6 @@ const auctionSchema = new Schema({
         type: String,
         required: true
     },
-    colour:{
-        type: String,
-        required: true
-    },
-    fuel_type:{
-        type: String,
-        required: true
-    },
-    mileage:{
-        type:Number,
-        required: true
-    },
     buyout_price:{
         type:Number,
         required: true
@@ -43,20 +31,8 @@ const auctionSchema = new Schema({
         type: String,
         required: true
     },
-    years_used:{
-        type: Number,
-        required: true
-    },
     registration_date:{
         type:String,
-        required: true
-    },
-    category:{
-        type: String,
-        required: true
-    },
-    new_used:{
-        type: Boolean,
         required: true
     },
     images:{
@@ -82,7 +58,7 @@ const auctionSchema = new Schema({
     highestBidder: {
         type: String, // id of highest bidder
         required: true
-    }
+    },
 
 }, { timestamps: true })
 
