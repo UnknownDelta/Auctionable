@@ -13,6 +13,11 @@ const transactionSchema = new Schema({
         required: true
     },
 
+    user_name: {
+        type: String,
+        required: true
+    },
+
     bid_price: {
         type: Number,
         required: true

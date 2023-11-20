@@ -10,10 +10,10 @@ const transactionController = {
         res.status(200).json(transactionList)
     },
     createTransaction: async (req, res) =>{
-        const {item_id, user_id, bid_price} = req.body
+        const {item_id, user_id, user_name, bid_price} = req.body
     
         try {
-            const transactionList = await Transaction.create({item_id, user_id, bid_price})
+            const transactionList = await Transaction.create({item_id, user_id, user_name, bid_price})
             res.status(200).json(transactionList)
             console.log(json(transactionList))
         } catch (error) {
