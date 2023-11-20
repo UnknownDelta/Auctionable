@@ -207,6 +207,10 @@ const HomeScreen = ({ navigation }) => {
   const [active, setActive] = useState(false);
   const [selected, setSelected] = useState(false);
   const [AllListingsData, setAllListingsData] = useState(AllListingsDataConstants);
+  const commaNumber = (x) => {
+    if (x === undefined) return x;
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   const handleClick = () => {
     setActive(!active);
   };
@@ -306,7 +310,7 @@ const HomeScreen = ({ navigation }) => {
               </View>
               <View style={styles.productList}>
                 <Text style={styles.name}>{item.brand + " " + item.model}</Text>
-                <Text style={{ paddingTop: 5, color: "grey" }}>${item.price}</Text>
+                <Text style={{ paddingTop: 5, color: "grey" }}>${commaNumber(item.price)}</Text>
               </View>
               <TouchableOpacity
                 style={{

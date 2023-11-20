@@ -144,6 +144,7 @@ const TableTwo = ({itemId, handleHighestBid, highestBid}) => {
   const [data, setData] = useState(tableDataSample);
   console.log("itemId in TableTwo: ", itemId);
   const commaNumber = (x) => {
+    if (x === undefined) return x;
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   useEffect(() => {
