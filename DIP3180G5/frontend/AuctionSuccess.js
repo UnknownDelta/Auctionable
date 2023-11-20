@@ -8,8 +8,11 @@ import {
   ImageBackground,
   SafeAreaView,
 } from "react-native";
+import { useRoute } from '@react-navigation/native';
 
 const AuctionSuccessScreen = ({ navigation }) => {
+  const route = useRoute();
+  const { itemId } = route.params;
   return (
     <ImageBackground
       source={require("../assets/background4.png")}
@@ -34,7 +37,7 @@ const AuctionSuccessScreen = ({ navigation }) => {
             <TouchableOpacity
               style={[styles.button, styles.buttonMargin]}
               onPress={() => {
-                navigation.navigate("AuctionDetailsPage");
+                navigation.navigate("AuctionDetailsPage", { itemId: itemId });
               }}
             >
               <Text style={styles.buttonText}>Continue</Text>

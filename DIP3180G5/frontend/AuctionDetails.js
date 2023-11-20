@@ -16,16 +16,16 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { useNavigation } from "@react-navigation/native";
 import { Table, Row, Rows } from 'react-native-table-component';
 import { useRoute } from '@react-navigation/native';
-import { AppState } from 'react-native';
+import { useSelector } from 'react-redux';
 
 
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
-const ImageSection = (params) => {
+const ImageSection = ({itemId, data}) => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Image
-        source={params.params.images}
+        source={data.images}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
         resizeMode="cover"
       />
@@ -73,10 +73,9 @@ const itemConstant = {
   "__v": 0
   }
 
-const DetailTabContent = (itemId) => {
-  const [data, setData] = useState(itemId.route.params.itemId);
-  console.log("itemId in DetailTabContent: ", itemId)
-  console.log("data in DetailTabContent:", data);
+const DetailTabContent = ({itemId, data}) => {
+  console.log("itemId in DetailTabContent: ", itemId);
+  console.log("data in DetailTabContent: ", data);
   function calculateDuration(dateString) {
     const parts = dateString.split('-');
     const inputDate = new Date(parts[2], parts[1] - 1, parts[0]);
@@ -140,22 +139,22 @@ const DetailTabContent = (itemId) => {
   );
 };
 
-const TableTwo = (itemId) => {
+const TableTwo = ({itemId}) => {
   const [isLoading, setIsLoading] = React.useState(true);
-  const [data, setData] = React.useState(tableDataSample);
+  const [data, setData] = useState(tableDataSample);
+  console.log("itemId in TableTwo: ", itemId);
   const commaNumber = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-  let itemID = itemId.route.params.itemId._id;
-  console.log("table two itemID: ",itemID);
   useEffect(() => {
     const fetchItemDetails = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/cars/"+itemID+"/transaction"
+          "http://localhost:4000/api/cars/"+itemId+"/transaction"
         );
         const dataJSON = await response.json();
         const parsedData = JSON.parse(JSON.stringify(dataJSON));
+        console.log("parsed Data in Table Two: ",parsedData);
         let temp = [], sortedtemp = [];
         for (let i = 0; i < parsedData.length; i++) {
           let row = [];
@@ -215,15 +214,13 @@ const TableTwo = (itemId) => {
       </View>
   );}
 }
-const BidTabContent = (itemId) => {
+const BidTabContent = ({itemId, data}) => {
+  const navigation = useNavigation();
   const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
   const [highestBid, setHighestBid] = useState(53000); // Initialize the highest bid state
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
   const [isBidUnder, setIsBidUnder] = useState(false); // State to check if bid is under the minimum bid
-  const [data, setData] = useState(itemId.route.params.itemId);
-  console.log("itemId in BidTabContent: ", data)
-  console.log("itemId in BidTabContent: ",itemId.route.params.itemId);
-  console.log(data)
+  const user = useSelector((state) => state.user);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -238,19 +235,43 @@ const BidTabContent = (itemId) => {
     setBidAmount(bidAmount + amount);
   };
 
-  const handleConfirmBid = () => {
+  const handleConfirmBid = async () => {
     // Add the current bid amount on top of the highest bid
     let newHighestBid = highestBid;
     if (bidAmount>newHighestBid) {
       newHighestBid = bidAmount;
     }
     setHighestBid(newHighestBid);
-    closeModal();
-    navigation.navigate("AuctionSuccessPage");
+    const dataToSubmit = {
+      item_id: itemId,
+      user_id: user._id,
+      user_name: user.name,
+      bid_price: bidAmount,
+    };
+    try {
+      console.log(dataToSubmit);
+      const response = await fetch('http://localhost:4000/api/cars/createtransaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSubmit),
+      });
+
+      if (response.ok) {
+        console.log('Form data submitted successfully:', dataToSubmit);
+        closeModal();
+        navigation.navigate("AuctionSuccessPage", { itemId: itemId });
+      } else {
+        console.error('Failed to submit form data:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting form data:', error.message);
+    }
   };
   const commaNumber = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
+  }
   return (
     <View style={{ flex: 1, padding: 18, backgroundColor: "white" }}>
       <View style={{ flexDirection: "row" }}>
@@ -568,15 +589,20 @@ const bids = [
 
 const sortedBids = bids.slice().sort((a, b) => b.amount - a.amount);
 
-const ContentSection = (params) => {
-  console.log("params in ContentSection: ",params.params);
-  let itemId = params.params;
+const ContentSection = ({itemId, data}) => {
+  console.log("data in content section", data)
   return (
     <View style={{ flex: 2 }}>
       <TopTab.Navigator>
-        <TopTab.Screen name="Detail" component={DetailTabContent} initialParams={{ itemId }} />
-        <TopTab.Screen name="Bids" component={BidTabContent} initialParams={{ itemId }}/>
-        <TopTab.Screen name="Leaderboard" component={TableTwo} initialParams={{ itemId }}/>
+        <TopTab.Screen name="Detail">
+          {() => <DetailTabContent itemId={itemId} data={data} />}
+        </TopTab.Screen>
+        <TopTab.Screen name="Bids">
+          {() => <BidTabContent itemId={itemId} data={data} />}
+        </TopTab.Screen>
+        <TopTab.Screen name="Leaderboard">
+          {() => <TableTwo itemId={itemId} data={data} />}
+        </TopTab.Screen>
       </TopTab.Navigator>
     </View>
   );
@@ -615,8 +641,8 @@ const ThreeTabScreen = () => {
         <Text>Loading...</Text>
       ) : (
         <>
-          <ImageSection params={data} />
-          <ContentSection params={data} />
+          <ImageSection itemId = {itemId} data = {data}/>
+          <ContentSection itemId = {itemId} data = {data} />
         </>
       )}
     </View>
