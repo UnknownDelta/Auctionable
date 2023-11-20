@@ -47,8 +47,11 @@ import NotificationOutbid from "./frontend/NotificationOutbid";
 import ReviewListingScreen from "./frontend/review-listing-screen";
 import { Provider } from 'react-redux';
 import store from './store';
-
+import config from './src/aws-exports'
+import {Amplify} from 'aws-amplify';
+Amplify.configure(config);
 const Tab = createBottomTabNavigator();
+
 
 const getFonts = () =>
   Font.loadAsync({
@@ -113,7 +116,7 @@ const ProfileHeader = () => {
 };
 
 function BottomTabScreens({route}) {
-  console.log("Test log outside handleTabPress"); // Add this line
+  console.log("Test side handleTabPress"); // Add this line
   const isFocused = useIsFocused(); // Check if the screen is focused
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 

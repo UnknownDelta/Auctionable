@@ -8,7 +8,18 @@ const backgroundImage = require('../assets/background3.png');
 function Settings() {
 
   const navigation = useNavigation();
-
+  const logout = async () => {
+    const revokeResponse = await revokeAsync(
+      {
+        clientId: clientId,
+        token: authTokens.refreshToken,
+      },
+      discoveryDocument
+    );
+    if (revokeResponse) {
+      setAuthTokens(null);
+    }
+  };
   const handleSignOut = () => {
     // Implement your sign-out logic here
     // For example, navigate to the sign-in screen or call a sign-out API
@@ -40,7 +51,7 @@ function Settings() {
           </TouchableOpacity>
 
         {/* Sign Out Button */}
-        <TouchableOpacity onPress={() => navigation.navigate('LoginPage')} style={{ marginTop: 20, backgroundColor: 'red', padding: 10, borderRadius: 5 }}>
+        <TouchableOpacity onPress={() =>  logout()} style={{ marginTop: 20, backgroundColor: 'red', padding: 10, borderRadius: 5 }}>
           <Text style={{ color: 'white', textAlign: 'center' }}>Sign Out</Text>
         </TouchableOpacity>
         </View>

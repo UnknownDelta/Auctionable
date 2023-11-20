@@ -3,13 +3,22 @@ import { View, Text, SafeAreaView, Button, TouchableOpacity,StyleSheet  } from '
 import { Auth } from 'aws-amplify';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CognitoAccessToken } from 'amazon-cognito-identity-js';
 
 const ProfileScreen = ({navigation}) => {
   const handleLogout = async () => {
     try {
       await Auth.signOut();
       console.log('Successfully signed out');  
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
+  };
+  const logout = async () => {
+    try {
+      await Auth.signOut();
+      navigation.navigate('LoginPage');
     } catch (error) {
       console.error('Error signing out: ', error);
     }
@@ -71,7 +80,7 @@ const ProfileScreen = ({navigation}) => {
             <Icon name="angle-right" size={20} color="#5D5B5B" style={styles.icon} />
           </TouchableOpacity>
           <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 30 }}>
-            <TouchableOpacity onPress={() => navigation.navigate('LoginPage')} style={{ backgroundColor: '#00A859', padding: 13, borderRadius: 10, marginBottom: 30, width: '80%', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => logout()} style={{ backgroundColor: '#00A859', padding: 13, borderRadius: 10, marginBottom: 30, width: '80%', alignItems: 'center' }}>
               <Text style={{ fontSize: 30, fontWeight: 700, color: 'white' }}>Log Out</Text>
             </TouchableOpacity>
           </View>

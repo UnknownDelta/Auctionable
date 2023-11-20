@@ -2,6 +2,7 @@
   "expo": {
     "name": "DIP3180G5",
     "slug": "DIP3180G5",
+    "scheme": "dip3180g5",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/appIcon.png",
@@ -15,13 +16,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.DIP3180G5"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.DIP3180G5"
     },
     "web": {
       "favicon": "./assets/favicon.png"
