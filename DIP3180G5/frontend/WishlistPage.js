@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   View,
@@ -18,6 +18,7 @@ import { CheckBox } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import TransactionSuccessScreen from "../frontend/TransactionScreen"; // Import the new component
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useSelector } from 'react-redux';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -225,6 +226,7 @@ const AuctionScreen = () => {
 };
 
 const CheckoutScreen = () => {
+  const user = useSelector((state) => state.user);
   const [quantities, setQuantities] = useState({}); // Store quantities for each item
   const [selectedItems, setSelectedItems] = useState([]); // Track selected items
   const [showTransactionSuccess, setShowTransactionSuccess] = useState(false); // State for showing transaction success screen
@@ -237,9 +239,34 @@ const CheckoutScreen = () => {
     setWishlistItems,
     updateWishlistItems,
   } = useWishlist();
+  const[data, setData] = useState(wishlistItems);
+  const fetchCartData = async () => {
+    let response, data;
+    try {
+      response = await fetch(
+        "http://localhost:4000/api/cars/"+user._id+"/cart"
+      );
+      data = await response.json();
+      console.log("api: "+JSON.stringify(data));
+      if (data === undefined){
+        setData(AllListingsDataConstants);
+      }
+      data.map((item) => {
+        item["checked"] = false;
+      });
+      setData(data); // Update the state with fetched data
+    } catch (error) {
+      console.log("response: "+JSON.stringify(data));
+      setData(AllListingsDataConstants);
+    }
+  };
+
+  useEffect(() => {
+    fetchCartData();
+  }, []);
 
   const navigation = useNavigation();
-  console.log("wishlistItems", wishlistItems);
+  console.log("data", data);
 
   const showModal = () => {
     setModalVisible(true);
@@ -249,7 +276,7 @@ const CheckoutScreen = () => {
     setModalVisible(false); //close it incase open
 
     // Get selected items
-    const selectedItemsList = wishlistItems.filter((item) =>
+    const selectedItemsList = data.filter((item) =>
       selectedItems.includes(item.id)
     );
 
@@ -271,63 +298,97 @@ const CheckoutScreen = () => {
     </View>
   );
 
-  if (!wishlistItems || wishlistItems.length === 0) {
+  if (!data || data.length === 0) {
     return <EmptyWishlistMessage />;
   }
 
   const handleDeleteItem = (itemId) => {
     console.log("Deleting", itemId);
-    const item = wishlistItems.find((item) => item.id === itemId);
+    const item = data.find((item) => item.id === itemId);
 
     if (item) {
       removeFromWishlist(item);
     }
 
-    if (wishlistItems.length === 0) {
+    if (data.length === 0) {
       return <EmptyWishlistMessage />;
     }
   };
 
   const toggleCheckbox = (itemId) => {
     // Find the item you want to update in the wishlistItems
-    const updatedWishlist = wishlistItems.map((item) => {
-      if (item.id === itemId) {
+    const updatedWishlist = data.map((item) => {
+      if (item._id === itemId) {
         // Toggle the checked state for the item
         return { ...item, checked: !item.checked };
       }
       return item;
     });
 
-    // Update the wishlist
-    updateWishlistItems(updatedWishlist);
+    // // Update the wishlist
+    setData(updatedWishlist);
 
-    setSelectedItems((prevSelectedItems) => {
-      if (prevSelectedItems.includes(itemId)) {
-        return prevSelectedItems.filter((item) => item.id !== itemId);
-      } else {
-        return [...prevSelectedItems, itemId];
-      }
-    });
+    // setSelectedItems((prevSelectedItems) => {
+    //   if (prevSelectedItems.includes(itemId)) {
+    //     return prevSelectedItems.filter((item) => item.id !== itemId);
+    //   } else {
+    //     return [...prevSelectedItems, itemId];
+    //   }
+    // });
+    console.log("halo")
   };
 
   // Function to calculate the total price based on selected items
   const calculateTotalPrice = () => {
     let totalPrice = 0;
-    for (const itemId of selectedItems) {
-      const item = wishlistItems.find((item) => item.id === itemId);
-      if (item) {
-        const itemPrice = parseFloat(item.itemPrice.replace("$", ""));
-        const itemQuantity = quantities[itemId] || 1;
-        totalPrice += itemPrice * itemQuantity;
-      }
+    data.map((item) =>{
+      if (item.checked)
+        totalPrice += item.price;
+    })
+    return totalPrice; // Format total price to 2 decimal places
+  };
+
+  function calculateDuration(dateString) {
+    const parts = dateString.split('-');
+    const inputDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    const currentDate = new Date();
+    const timeDifference = currentDate - inputDate;
+    console.log("inputDate: "+inputDate);
+    console.log("currentDate: "+currentDate);
+    console.log("timeDifference: "+timeDifference);
+    let difference = "";
+    let monthsDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+    let yearDifference = 0;
+    if (monthsDifference>11){
+      yearDifference = Math.floor(monthsDifference/12);
+      monthsDifference = monthsDifference%12;
+      if (yearDifference === 1)
+        difference = yearDifference + " year";
+      else
+        difference = yearDifference + " years";
+      if (monthsDifference === 1)
+        difference = difference + " " + monthsDifference + " month";
+      else
+        difference = difference + " " + monthsDifference + " month";
     }
-    return totalPrice.toFixed(2); // Format total price to 2 decimal places
+    else
+    {
+      if (monthsDifference === 1)
+        difference = monthsDifference + " month";
+      else
+        difference = monthsDifference + " month";
+    }
+    return difference;
+  }
+  const commaNumber = (x) => {
+    if (x === undefined) return x;
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={wishlistItems}
+        data={data}
         keyExtractor={(item, index) => `${item.itemName}-${index}`}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
@@ -335,7 +396,7 @@ const CheckoutScreen = () => {
               <CheckBox
                 size={17}
                 checked={item.checked}
-                onPress={() => toggleCheckbox(item.id)}
+                onPress={() => toggleCheckbox(item._id)}
                 iconType="material-community"
                 checkedIcon="checkbox-marked"
                 uncheckedIcon="checkbox-blank-outline"
@@ -343,12 +404,12 @@ const CheckoutScreen = () => {
                 label=""
                 containerStyle={styles.checkboxContainer} // Add this line to apply custom styles
               />
-              <Image source={item.itemPicture} style={styles.itemImage} />
+              <Image source={item.images} style={styles.itemImage} />
               <View style={styles.itemTextContainer}>
                 <Text style={styles.itemText}>
-                  <Text style={{ fontWeight: "bold" }}>{item.itemName}</Text>
+                  <Text style={{ fontWeight: "bold" }}>{item.brand + " " + item.model}</Text>
                 </Text>
-                <Text style={styles.itemText}>{item.itemCondition}</Text>
+                <Text style={styles.itemText}>{calculateDuration(item.registration_date)}</Text>
                 <Text style={styles.itemText}>
                   <Text
                     style={{
@@ -357,9 +418,8 @@ const CheckoutScreen = () => {
                       fontSize: 16,
                     }}
                   >
-                    {item.itemPrice}
-                  </Text>{" "}
-                  each
+                    {"$"+commaNumber(item.price)}
+                  </Text>
                 </Text>
               </View>
 
@@ -391,7 +451,7 @@ const CheckoutScreen = () => {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
-              ${calculateTotalPrice()}
+              {"$"+commaNumber(calculateTotalPrice())+".00"}
             </Text>
             <View
               style={{
@@ -501,6 +561,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   itemContainer: {
+    marginTop:10,
     marginBottom: 10,
     backgroundColor: "white",
     //paddingLeft: 10,
@@ -531,6 +592,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 0,
     borderRadius: 5,
+    objectFit: "contain",
   },
   itemTextContainer: {
     flex: 1,
