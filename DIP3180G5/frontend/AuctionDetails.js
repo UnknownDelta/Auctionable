@@ -143,6 +143,9 @@ const DetailTabContent = (itemId) => {
 const TableTwo = (itemId) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [data, setData] = React.useState(tableDataSample);
+  const commaNumber = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   let itemID = itemId.route.params.itemId._id;
   console.log("table two itemID: ",itemID);
   useEffect(() => {
@@ -157,13 +160,14 @@ const TableTwo = (itemId) => {
         for (let i = 0; i < parsedData.length; i++) {
           let row = [];
           row.push(i+1);
-          row.push(parsedData[i].user_id);
+          row.push(parsedData[i].user_name);
           row.push(parsedData[i].bid_price);
           temp.push(row);
         }
         temp.sort((a, b) => b[2] - a[2]);
         for (let i = 0; i < parsedData.length; i++) {
           temp[i][0] = i+1;
+          temp[i][2] = "$"+commaNumber(temp[i][2]);
         } 
         setData(temp);
         console.log(temp);
@@ -215,6 +219,7 @@ const BidTabContent = (itemId) => {
   const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
   const [highestBid, setHighestBid] = useState(53000); // Initialize the highest bid state
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
+  const [isBidUnder, setIsBidUnder] = useState(false); // State to check if bid is under the minimum bid
   const [data, setData] = useState(itemId.route.params.itemId);
   console.log("itemId in BidTabContent: ", data)
   console.log("itemId in BidTabContent: ",itemId.route.params.itemId);
@@ -226,6 +231,7 @@ const BidTabContent = (itemId) => {
 
   const resetBid = () => {
     setBidAmount(0); // Reset the bid amount to 0
+    setIsBidUnder(false); // Reset the bid under state to false
   };
 
   const handleBidButtonClick = (amount) => {
@@ -275,14 +281,17 @@ const BidTabContent = (itemId) => {
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>Your Bid:</Text>
         <Text style={{ fontSize: 10 }}>Select an amount to bid</Text>
         <Text style={{ fontSize: 30, color: "grey" }}>
-          $<Text style={{ color: "black" }}>{bidAmount}</Text>
+          $<Text style={{ color: "black" }}>{commaNumber(bidAmount)}</Text>
         </Text>
+        {isBidUnder && (<Text style={{ fontSize: 10, color: "red" }}>Invalid! Bid must be higher than the highest bid.</Text>)}
       </View>
       <ButtonSection handleBidButtonClick={handleBidButtonClick} />
       <LastSection
         resetBid={resetBid}
         handleConfirmBid={handleConfirmBid}
         bidAmount={bidAmount}
+        highestBid={highestBid}
+        setIsBidUnder={setIsBidUnder}
       />
     </View>
   );
@@ -394,7 +403,7 @@ const ButtonSection = ({ handleBidButtonClick }) => {
   );
 };
 
-const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
+const LastSection = ({ resetBid, handleConfirmBid, bidAmount, highestBid, setIsBidUnder }) => {
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
   const [modalVisible2, setModalVisible2] = useState(false);
 
@@ -422,6 +431,16 @@ const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
     setModalVisible(true);
   };
 
+  const handleSubmitBid = () => {
+    if (bidAmount > highestBid) {
+      setIsBidUnder(false);
+      setModalVisible(true);
+    }
+    else{
+      setIsBidUnder(true);
+    }
+  };
+
   return (
     <View style={{ flex: 1, padding: 16, alignItems: "center" }}>
       <View
@@ -432,7 +451,7 @@ const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
       >
         <TouchableOpacity
           style={styles.button}
-          onPress={() => setModalVisible(true)}
+          onPress={handleSubmitBid}
         >
           <Text style={styles.buttonText}>Submit Bid</Text>
         </TouchableOpacity>
