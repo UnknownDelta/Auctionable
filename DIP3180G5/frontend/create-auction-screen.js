@@ -185,7 +185,8 @@ const DropdownComponent = () => {
       seller_name,
       seller_image,
       sold,
-      highestBidder
+      highestBidder,
+      highestPrice: 0
     };
 
     try {
