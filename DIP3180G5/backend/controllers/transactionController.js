@@ -15,7 +15,7 @@ const transactionController = {
         try {
             const transactionList = await Transaction.create({item_id, user_id, user_name, bid_price})
             res.status(200).json(transactionList)
-            console.log(json(transactionList))
+            console.log(JSON.stringify(transactionList));
         } catch (error) {
             res.status(400).json({error: error.message})
             console.log(error.message)
