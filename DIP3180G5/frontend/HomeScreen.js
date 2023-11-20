@@ -25,6 +25,7 @@ import { Ionicons } from "@expo/vector-icons";
 import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunityIcons";
 import { AllListingsDataConstants } from "./Constants.js";
 import { useSelector } from 'react-redux';
+import { Auth } from 'aws-amplify';
 
 const getFonts = () =>
   Font.loadAsync({
@@ -37,6 +38,20 @@ const getFonts = () =>
 const HomeScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user);
   console.log("user: ", user);
+
+
+  const handleLogout = async () => {
+    try {
+      await Auth.signOut();
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'ProfileScreen' }],
+      });
+      console.log('Successfully signed out');  
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
+  }
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [AllListingsData, setAllListingsData] = useState(AllListingsDataConstants);
   const fetchListingsData = async () => {
@@ -65,10 +80,10 @@ const HomeScreen = ({ navigation }) => {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ flexDirection: "row", height: "10%", marginLeft: "5%"}}>
-          <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center" }}  onPress={handleLogout}>
             <Image
               style={{ height: 40, width: 40 }}
-              source={require("../assets/appIcon.png")}
+              source={require("../assets/appIcon.png")} 
             />
           </TouchableOpacity>
           <View style={{ flex: 4, justifyContent: "center", alignItems: "center", marginLeft: "5%"}}>

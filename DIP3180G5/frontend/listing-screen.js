@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 const backgroundImage = require('../assets/background3.png');
 
 const TopTab = createMaterialTopTabNavigator();
+
 const myListings = [
   {
     "_id": "6557b8e553639d4c7d494f83",
@@ -224,7 +225,7 @@ const CurrentTabContent = (mode) => {
   useEffect(() => {
     fetchListingsData();
   }, [mode]);
-   
+  
   if (fontsloaded) {
     return (
       <View style={{ backgroundColor: '#f7f7f7', flex: 1 }}>

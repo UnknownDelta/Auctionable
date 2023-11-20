@@ -22,6 +22,7 @@ import DetailsPage from "./frontend/DetailsScreen";
 import WishlistPage from "./frontend/WishlistPage";
 import createListPage from "./frontend/create-listing-screen";
 import SettingsPage from "./frontend/AllListing";
+import CreateAuctionScreen from "./frontend/create-auction-screen";
 import ProfilePage from "./frontend/ProfileScreen";
 import AuctionListPage from "./frontend/AuctionList";
 import AuctionDetailsPage from "./frontend/AuctionDetails";
@@ -326,6 +327,8 @@ function ListingStack() {
         name="ListingCategoryScreen"
         component={ListingCategoryScreen}
       />
+      <Stack.Screen name="CreateAuctionScreen" component={CreateAuctionScreen} />
+      <Stack.Screen name="ReviewListingScreen" component={ReviewListingScreen} />
     </Stack.Navigator>
   );
 }
@@ -338,10 +341,6 @@ function AuctionStack() {
     >
       <Stack.Screen name="AuctionListPage" component={AuctionListPage} />
       <Stack.Screen name="AuctionDetailsPage" component={AuctionDetailsPage} />
-      <Stack.Screen
-        name="ListingCategoryScreen"
-        component={ListingCategoryScreen}
-      />
     </Stack.Navigator>
   );
 }
@@ -369,6 +368,10 @@ function ProfileStack() {
       <Stack.Screen
         name="NotificationOutbid"
         component={NotificationOutbid}
+      />
+      <Stack.Screen
+        name="EditPasswordScreen"
+        component={ChangePassword}
       />
     </Stack.Navigator>
   );
