@@ -20,9 +20,9 @@ const auctionCarController = {
         res.status(200).json(auctionList)
     },
     createAuction: async (req, res) =>{
-        const {brand, model, buyout_price, starting_bid, reserve_price, ending_time, description, registration_date, images, seller_id, seller_name, seller_image, sold, highestBidder} = req.body
+        const {brand, model, buyout_price, starting_bid, reserve_price, ending_time, description, registration_date, images, seller_id, seller_name, seller_image, sold, highestBidder, highestPrice} = req.body
         try {
-            const auctionList = await Auction.create({brand, model, buyout_price, starting_bid, reserve_price, ending_time, description, registration_date, images, seller_id, seller_name, seller_image, sold, highestBidder})
+            const auctionList = await Auction.create({brand, model, buyout_price, starting_bid, reserve_price, ending_time, description, registration_date, images, seller_id, seller_name, seller_image, sold, highestBidder, highestPrice})
             res.status(200).json(auctionList)
             console.log(JSON.stringify(auctionList));
         } catch (error) {
@@ -55,7 +55,7 @@ const auctionCarController = {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({error: 'No such id'})
         }
-        const auctionList = await Items.findOneAndUpdate({_id: id},{
+        const auctionList = await Auction.findOneAndUpdate({_id: id},{
             ...req.body
         })
         if (!auctionList) {
