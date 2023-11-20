@@ -12,6 +12,7 @@ router.get('/', carController.getAllCars);
 router.get('/id=:id', carController.getCarDetails);
 router.get('/:seller/list', carController.getItems)
 router.get('/:seller/pastlist', carController.getSoldItems)
+router.get('/:buyer/cart', carController.getCartItems)
 router.post('/createlist', carController.createItem)
 router.patch('/updatelist/id=:id', carController.updateItem)
 

@@ -36,11 +36,22 @@ const carController = {
     
         res.status(200).json(soldItems)
     },
+    getCartItems: async(req, res) =>{
+        const {buyer} = req.params
+        console.log(buyer);
+        const cartItems = await Items.find({"cart": {$in: [buyer]}}).sort({createdAt:-1})
+    
+        if (!cartItems) {
+            return res.status(400).json({error: 'No previous items'})
+        }
+    
+        res.status(200).json(cartItems)
+    },
     createItem: async (req, res) =>{
-        const {brand, model, price, description, registration_date, images, seller_id, seller_name, seller_image, sold} = req.body
+        const {brand, model, price, description, registration_date, images, seller_id, seller_name, seller_image, sold, cart} = req.body
     
         try {
-            const item_list = await Items.create({brand, model, price, description, registration_date, images, seller_id, seller_name, seller_image, sold})
+            const item_list = await Items.create({brand, model, price, description, registration_date, images, seller_id, seller_name, seller_image, sold, cart})
             console.log("item_list", item_list)
             res.status(200).json(item_list)
             // console.log(json(item_list))
