@@ -9,8 +9,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
 import Modal from 'react-native-modal';
 import {RadioButton} from 'react-native-paper';
-
-const backgroundImage = require('../assets/background2.png');
+import { useSelector } from 'react-redux';
+const backgroundImage = require('../assets/background3.png');
 
 const data = [
   { label: 'Toyota', value: '1' },
@@ -29,13 +29,38 @@ const getFonts = () =>
   });
 
 const DropdownComponent = () => {
-  const [value, setValue] = useState(null);
+  const user = useSelector((state) => state.user);
   const [isFocus, setIsFocus] = useState(false);
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const [condition, setCondition] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [date, setDate] = useState(new Date())
+
+
+  const [brandLabel, setBrandLabel] = useState(null);
+  const [brand, setBrand] = useState(null);
+  const [model, setModel] = useState(null);
+  const [image, setImage] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [registration_date, setRegistration_date] = useState(new Date());
+  const [buyoutPrice, setBuyoutPrice] = useState(0);
+  const [startingBid, setStartingBid] = useState(0);
+  const [reservePrice, setReservePrice] = useState(null);
+  const [endingTime, setEndingTime] = useState(new Date());
+
+  const seller_id = user._id;
+  const seller_name = user.name;
+  const seller_image = user.profile_picture;
+  const sold = false;
+  const highestBidder = "NA";
+
+  const [isBrandValid, setIsBrandValid] = useState(true);
+  const [isModelValid, setIsModelValid] = useState(true);
+  const [isPriceValid, setIsPriceValid] = useState(true);
+  const [isDescriptionValid, setIsDescriptionValid] = useState(true);
+
+  const handleModelChange = (text) => {
+    setModel(text); // Update the 'title' state with the input text
+  };
 
   const [icons, setIcons] = useState([
     { name: 'plus', color: 'grey', id: '1' },
@@ -43,7 +68,6 @@ const DropdownComponent = () => {
 
   const navigation = useNavigation();
 
-  const conditions = ['Used', 'New'];
 
   useEffect(() => {
     // Load fonts asynchronously
@@ -51,8 +75,8 @@ const DropdownComponent = () => {
       await getFonts();
       setFontsLoaded(true);
     };
-
     loadFonts();
+    console.log(registration_date);
   }, []);
 
   const openGallery = async () => {
@@ -112,9 +136,79 @@ const DropdownComponent = () => {
   };
   
   const handleImagePress = (imageUri) => {
-    setSelectedImage(imageUri);
+    setImage(imageUri);
     setIsModalVisible(true);
   };  
+
+  const handleSubmission = async () => {
+    // Validate the fields before submission
+    if (!brand) {
+      console.log(brand);
+      setIsBrandValid(false);
+      return;
+    }
+
+    if (!model) {
+      setIsModelValid(false);
+      return;
+    }
+
+    if (!buyoutPrice) {
+      setIsPriceValid(false);
+      return;
+    }
+
+    if (!description) {
+      setIsDescriptionValid(false);
+      return;
+    }
+
+
+    // Clear validation messages
+    setIsBrandValid(true);
+    setIsModelValid(true);
+    setIsPriceValid(true);
+    setIsDescriptionValid(true);
+
+    // Proceed with submission logic
+    const dataToSubmit = {
+      brand,
+      model,
+      buyout_price: buyoutPrice,
+      starting_bid: startingBid,
+      reserve_price: reservePrice,
+      ending_time: endingTime,
+      description,
+      registration_date,
+      images: icons.map((icon) => icon.name),
+      seller_id,
+      seller_name,
+      seller_image,
+      sold,
+      highestBidder,
+      highestPrice: 0
+    };
+
+    try {
+      console.log(dataToSubmit);
+      const response = await fetch('http://localhost:4000/api/cars/createauction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSubmit),
+      });
+
+      if (response.ok) {
+        console.log('Form data submitted successfully:', dataToSubmit);
+        navigation.navigate('ListingPage', dataToSubmit);
+      } else {
+        console.error('Failed to submit form data:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting form data:', error.message);
+    }
+  };
    
   if (fontsLoaded) {
     return (
@@ -129,21 +223,6 @@ const DropdownComponent = () => {
   style={{ backgroundColor: '#f7f7f7' }}
 >
       <View style={styles.container}>
-        <View
-          style={{
-            borderRadius: 8,
-            borderColor: 'black',
-            borderWidth: 0.5,
-            padding: 16,
-            paddingHorizontal: 8,
-          }}>
-          <TextInput
-            placeholder="Listing Title"
-            placeholderTextColor="#000"
-            style={{ fontFamily: 'roboto', fontSize: 16, color: 'black' }}
-            keyboardType="default"
-          />
-        </View>
         <View>
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: 'blue' }, { borderColor: 'black', borderWidth: 0.5,}]}
@@ -157,13 +236,32 @@ const DropdownComponent = () => {
             valueField="value"
             placeholder={'Select brand'}
             searchPlaceholder="Search..."
-            value={value}
+            brand={brandLabel}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
             onChange={(item) => {
-              setValue(item.value);
+              setBrandLabel(item);
+              setBrand(item.label);
               setIsFocus(false);
             }}
+          />
+        </View>
+        <View
+          style={{
+            borderRadius: 8,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            padding: 16,
+            paddingHorizontal: 8,
+            marginTop: 20,
+          }}>
+          <TextInput
+            placeholder="Car Model"
+            placeholderTextColor="#000"
+            style={{ fontFamily: 'roboto', fontSize: 16, color: 'black' }}
+            keyboardType="default"
+            value={model} // Bind 'title' state to the value of the input
+            onChangeText={handleModelChange} // Call 'handleTitleChange' function on text change
           />
         </View>
         <FlatList
@@ -176,24 +274,10 @@ const DropdownComponent = () => {
         <TouchableWithoutFeedback onPress={() => setIsModalVisible(false)}>
           <Modal isVisible={isModalVisible}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Image source={{ uri: selectedImage }} style={{ width: '90%', height: '90%', resizeMode: 'contain' }} />
+              <Image source={{ uri: image }} style={{ width: '90%', height: '90%', resizeMode: 'contain' }} />
             </View>
           </Modal>
-
         </TouchableWithoutFeedback>
-        <View style={{ flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-          <Text style={{ fontSize: 16, marginBottom: 10, alignItems: 'center'}}>Condition:      </Text>
-          {conditions.map((state) => (
-            <View key={state} style={{ flexDirection: 'row', flex: 1, alignItems: 'center', marginBottom: 10 }}>
-              <RadioButton.Android
-                value={state}
-                status={condition === state ? 'checked' : 'unchecked'}
-                onPress={() => setCondition(state)}
-              />
-              <Text style={{marginLeft: 8}}>{state}</Text>
-            </View>
-          ))}
-        </View>
         <View
           style={{
             borderRadius: 8,
@@ -204,37 +288,17 @@ const DropdownComponent = () => {
             marginTop: 4,
             flexDirection: 'row',
             alignItems: 'center',
+            marginTop: 20,
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
-            <FontAwesome name="dollar" size={16} color="black" style={{ marginRight: 8 }} />
             <TextInput
-              placeholder="Buy Out Price"
+              placeholder="Registration Date (DD-MM-YYYY)"
               placeholderTextColor="#000"
               style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
               keyboardType="numeric"
               returnKeyType="done"
-            />
-          </View>
-        </View>
-        <View
-          style={{
-            borderRadius: 8,
-            borderColor: 'black',
-            borderWidth: 0.5,
-            padding: 16,
-            paddingHorizontal: 8,
-            marginTop: 18,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
-            <FontAwesome name="dollar" size={16} color="black" style={{ marginRight: 8 }} />
-            <TextInput
-              placeholder="Starting Bid"
-              placeholderTextColor="#000"
-              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
-              keyboardType="numeric"
-              returnKeyType="done"
+              value={registration_date}
+              onChangeText={(text) => setRegistration_date(text)} // Update the 'price' state with the input text
             />
           </View>
         </View>
@@ -260,23 +324,117 @@ const DropdownComponent = () => {
             keyboardType="default"
             multiline={true} // Enable multiline input
             numberOfLines={4} // Set the number of lines (adjust as needed)
+            value={description}
+            onChangeText={(text) => setDescription(text)}
           />
         </View>
-        <View style={{ flexDirection: 'row', marginTop: 10, alignItems: 'center'}}>
-          <Text style={{ fontSize: 16, marginBottom: 10, alignItems: 'center'}}>Ending Date & Time:    </Text>
-            <DateTimePicker
-            value={date}
-            mode='datetime'
-            is24Hour={true}
-            onDateChange={setDate}
+        <View
+          style={{
+            borderRadius: 8,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            padding: 16,
+            paddingHorizontal: 8,
+            marginTop: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
+            <FontAwesome name="dollar" size={16} color="black" style={{ marginRight: 8 }} />
+            <TextInput
+              placeholder="Starting Bid"
+              placeholderTextColor="#000"
+              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
+              keyboardType="numeric"
+              returnKeyType="done"
+              value={startingBid}
+              onChangeText={(text) => setStartingBid(text)} // Update the 'price' state with the input text
             />
+          </View>
+        </View>
+        <View
+          style={{
+            borderRadius: 8,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            padding: 16,
+            paddingHorizontal: 8,
+            marginTop: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
+            <FontAwesome name="dollar" size={16} color="black" style={{ marginRight: 8 }} />
+            <TextInput
+              placeholder="Reserve Price"
+              placeholderTextColor="#000"
+              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
+              keyboardType="numeric"
+              returnKeyType="done"
+              value={reservePrice}
+              onChangeText={(text) => setReservePrice(text)} // Update the 'price' state with the input text
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            borderRadius: 8,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            padding: 16,
+            paddingHorizontal: 8,
+            marginTop: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
+            <FontAwesome name="dollar" size={16} color="black" style={{ marginRight: 8 }} />
+            <TextInput
+              placeholder="Buyout Price"
+              placeholderTextColor="#000"
+              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
+              keyboardType="numeric"
+              returnKeyType="done"
+              value={buyoutPrice}
+              onChangeText={(text) => setBuyoutPrice(text)} // Update the 'price' state with the input text
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            borderRadius: 8,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            padding: 16,
+            paddingHorizontal: 8,
+            marginTop: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
+            <TextInput
+              placeholder="End Time (HH:MM:SS)"
+              placeholderTextColor="#000"
+              style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
+              keyboardType="numeric"
+              returnKeyType="done"
+              value={endingTime}
+              onChangeText={(text) => setEndingTime(text)} // Update the 'price' state with the input text
+            />
+          </View>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('ListingScreen')}
-          style={{ backgroundColor: '#0077b3', padding: 13, borderRadius: 8, marginTop: 20 }}>
+          onPress={handleSubmission}
+          style={{ backgroundColor: '#0077b3', padding: 13, borderRadius: 8, marginTop: 20 }}
+        >
           <Text
-            style={{ fontFamily: 'roboto', textAlign: 'center', fontWeight: '700', fontSize: 16, color: '#fff' }}>
-            List it!
+            style={{ fontFamily: 'roboto', textAlign: 'center', fontWeight: '700', fontSize: 16, color: '#fff' }}
+          >
+            Review It!
           </Text>
         </TouchableOpacity>
       </View>
@@ -333,9 +491,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginRight: 10,
     marginLeft: 10,
-  },
-  conditionWrapper: {
-    flexDirection: 'row',
   },
   labelText: {
     fontSize: 16,
@@ -436,7 +591,7 @@ function CreateAuctionScreen() {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: 'ListingScreen' }],
+          routes: [{ name: 'ListingPage' }],
         })
       );
     };
@@ -480,7 +635,7 @@ function CreateAuctionScreen() {
                     onButton2Press={handleLeaveAnyway}
                     button2Text="Leave Anyway"
                   />
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginBottom:15 }}>My Listings</Text>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginBottom:15 }}>New Listing</Text>
                   </View>
                     <DropdownComponent />
                 </SafeAreaView>

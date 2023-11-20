@@ -47,6 +47,7 @@ const DropdownComponent = () => {
   const seller_name = user.name;
   const seller_image = user.profile_picture;
   const sold = false;
+  const cart = [];
 
   const [isBrandValid, setIsBrandValid] = useState(true);
   const [isModelValid, setIsModelValid] = useState(true);
@@ -176,6 +177,7 @@ const DropdownComponent = () => {
       seller_id,
       seller_name,
       seller_image,
+      cart,
     };
 
     try {
@@ -306,7 +308,7 @@ const DropdownComponent = () => {
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
             <TextInput
-              placeholder="Registration Data (DD-MM-YYYY)"
+              placeholder="Registration Date (DD-MM-YYYY)"
               placeholderTextColor="#000"
               style={{ flex: 1, fontFamily: 'roboto', fontSize: 16, color: 'black' }}
               keyboardType="numeric"
@@ -517,7 +519,7 @@ function CreateListingScreen() {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: 'ListingScreen' }],
+          routes: [{ name: 'ListingPage' }],
         })
       );
     };

@@ -36,7 +36,7 @@ const TransactionScreen = ({ navigation }) => {
             <TouchableOpacity
               style={[styles.button, styles.buttonMargin]}
               onPress={() => {
-                navigation.navigate("Home");
+                navigation.navigate("HomePage");
               }}
             >
               <Text style={styles.buttonText}>Back to Home</Text>

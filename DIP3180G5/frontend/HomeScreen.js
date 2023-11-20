@@ -54,6 +54,11 @@ const HomeScreen = ({ navigation }) => {
   }
   const [fontsloaded, setFontsLoaded] = useState(false);
   const [AllListingsData, setAllListingsData] = useState(AllListingsDataConstants);
+  const [AllAuctionData, setAllAuctionData] = useState(AllListingsDataConstants);
+  const commaNumber = (x) => {
+    if (x === undefined) return x;
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   const fetchListingsData = async () => {
     let response, data;
     try {
@@ -72,9 +77,27 @@ const HomeScreen = ({ navigation }) => {
       setAllListingsData(AllListingsDataConstants);
     }
   };
+  const fetchAuctionData = async () => {
+    let response, data;
+    try {
+      response = await fetch(
+        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
+        "http://localhost:4000/api/cars/auctions"
+      );
+      data = await response.json();
+      if (data === undefined){
+        setAllAuctionData(AllListingsDataConstants);
+      }
+      setAllAuctionData(data); // Update the state with fetched data
+    } catch (error) {
+      console.log("response: "+JSON.stringify(data));
+      setAllAuctionData(AllListingsDataConstants);
+    }
+  };
 
   useEffect(() => {
     fetchListingsData();
+    fetchAuctionData();
   }, []);
   if (fontsloaded) {
     return (
@@ -262,7 +285,7 @@ const HomeScreen = ({ navigation }) => {
               title="See More"
               color="#0077B5"
               style={styles.button}
-              onPress={() => navigation.navigate("SettingsPage")}
+              onPress={() => navigation.navigate("AllListing")}
             >
               <Text style={styles.text}>See More</Text>
             </Pressable>
@@ -271,69 +294,25 @@ const HomeScreen = ({ navigation }) => {
           <View>
             <TouchableOpacity
               style={styles.productList}
-              onPress={() => navigation.navigate("DetailsPage", { itemId: AllListingsData[0]._id })}
+              onPress={() => navigation.navigate("DetailsPage", { itemId: AllListingsData[AllListingsData.length-1]._id })}
             >
               <Image
                 style={styles.image}
-                source={AllListingsData[0].images}
+                source={AllListingsData[AllListingsData.length-1].images}
               />
               <View style={{ position: "absolute" }}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "88.1%"}}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between"}}>
                   <Text
                     style={{
-                      marginTop: 120,
+                      marginTop: 140,
                       paddingLeft: 10,
                       fontSize: 20,
                       fontWeight: "bold",
-                      color: "white",
+                      color: "white"
                     }}
                   >
-                    {AllListingsData[0].brand + " " + AllListingsData[0].model}
+                    {AllListingsData[AllListingsData.length-1].brand + " " + AllListingsData[AllListingsData.length-1].model}
                   </Text>
-                  <View
-                    style={{
-                      fontSize: 20,
-                      marginTop: 21,
-
-                      color: "white",
-                      justifyContent: "flex-end",
-                      backgroundColor: "rgba(52, 52, 52, 0.8)",
-                      padding: 20,
-                      borderBottomRightRadius: 16,
-                      borderTopLeftRadius: 60,
-                    }}
-                  >
-                    <View style={{ paddingBottom: 10 }}>
-                      <Text style={{ color: "white", fontSize: 10 }}>
-                        Current Bid
-                      </Text>
-                      <Text
-                        style={{
-                          color: "white",
-                          fontFamily: "robotobold",
-                          fontSize: 20,
-                        }}
-                      >
-                        $5000
-                      </Text>
-                    </View>
-                    <View style={{ paddingBottom: 10, fontSize: 10 }}>
-                      <Text style={{ color: "white" }}>25 Bids</Text>
-                    </View>
-                    <Text style={{ color: "white", fontSize: 10 }}>
-                      Ending in
-                    </Text>
-                    <Text
-                      style={{
-                        color: "white",
-                        fontFamily: "robotobold",
-                        fontSize: 20,
-                        color: "red",
-                      }}
-                    >
-                      20:12
-                    </Text>
-                  </View>
                 </View>
               </View>
             </TouchableOpacity>
@@ -382,7 +361,7 @@ const HomeScreen = ({ navigation }) => {
               title="See More"
               color="#0077B5"
               style={styles.button}
-              onPress={() => navigation.navigate("SettingsPage")}
+              onPress={() => navigation.navigate("AuctionListPage")}
             >
               <Text style={styles.text}>See More</Text>
             </Pressable>
@@ -390,30 +369,29 @@ const HomeScreen = ({ navigation }) => {
 
           <TouchableOpacity
               style={styles.productList}
-              onPress={() => navigation.navigate("DetailsPage", { itemId: AllListingsData[1]._id })}
+              onPress={() => navigation.navigate("AuctionDetailsPage", { itemId: AllAuctionData[AllAuctionData.length - 1]._id })}
             >
               <Image
                 style={styles.image}
-                source={AllListingsData[1].images}
+                source={AllAuctionData[AllAuctionData.length - 1].images}
               />
               <View style={{ position: "absolute" }}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "87.7%"}}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "86.3%"}}>
                   <Text
                     style={{
-                      marginTop: 120,
+                      marginTop: 140,
                       paddingLeft: 10,
                       fontSize: 20,
                       fontWeight: "bold",
-                      color: "white",
+                      color: "black",
                     }}
                   >
-                    {AllListingsData[1].brand + " " + AllListingsData[1].model}
+                    {AllAuctionData[AllAuctionData.length - 1].brand + " " + AllAuctionData[AllAuctionData.length - 1].model}
                   </Text>
                   <View
                     style={{
                       fontSize: 20,
                       marginTop: 21,
-
                       color: "white",
                       justifyContent: "flex-end",
                       backgroundColor: "rgba(52, 52, 52, 0.8)",
@@ -424,7 +402,7 @@ const HomeScreen = ({ navigation }) => {
                   >
                     <View style={{ paddingBottom: 10 }}>
                       <Text style={{ color: "white", fontSize: 10 }}>
-                        Current Bid
+                        Starting Bid
                       </Text>
                       <Text
                         style={{
@@ -433,7 +411,7 @@ const HomeScreen = ({ navigation }) => {
                           fontSize: 20,
                         }}
                       >
-                        $5000
+                        {"$"+commaNumber(AllAuctionData[AllAuctionData.length - 1].starting_bid)}
                       </Text>
                     </View>
                     <View style={{ paddingBottom: 10, fontSize: 10 }}>

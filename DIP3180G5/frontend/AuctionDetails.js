@@ -13,28 +13,27 @@ import {
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import CountDown from "react-native-countdown-component";
 import { useNavigation } from "@react-navigation/native";
-import ConfettiCannon from 'react-native-confetti-cannon';
-import * as Animatable from 'react-native-animatable';
 import { Table, Row, Rows } from 'react-native-table-component';
+import { useRoute } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
-const ImageSection = () => {
+const ImageSection = ({itemId, data}) => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Image
-        source={require("../assets/teslacar.jpeg")}
-        style={{ width: "100%", height: "100%" }}
+        source={data.images}
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
         resizeMode="cover"
       />
     </View>
   );
 };
 const tableDataSample = {
-  tableHead: ['Pos.', 'Name', 'Amount', 'Date', 'Time' ],
+  tableHead: ['Position', 'Name', 'Amount'],
   widthArr: [50,80, 80, 100, 100,],
   tableData: [['#1','Alice', '100', '2023-10-25', '10:00 AM'],
   ['#2','Bob', '90','2023-10-25', '10:00 AM'],
@@ -45,7 +44,7 @@ const tableDataSample = {
 };
 
 const itemConstant = {
-  "_id": "6538bdfb304e0545985b39ed",
+  "_id": "655a12abf52baefc4c9f5f42",
   "brand": "BMW",
   "model": "M5",
   "colour": "Black",
@@ -53,8 +52,9 @@ const itemConstant = {
   "mileage": 20000,
   "buyout_price": 550000,
   "starting_bid": 400000,
+  "reserve_price": 500000,
   "ending_time": "11-11-2011|10:24:30",
-  "description": "A old car",
+  "description": "The BMW M5 2011 is an epitome of automotive excellence, combining luxury and high-performance seamlessly. This iconic sports sedan boasts a powerful 4.4-liter V8 engine, delivering an exhilarating driving experience with 560 horsepower and lightning-quick acceleration. Its sophisticated design showcases a perfect blend of elegance and aggression, featuring aerodynamic enhancements, distinctive M styling, and luxurious interiors.",
   "years_used": 3,
   "registration_date": "10-9-2008",
   "category": "Car",
@@ -63,29 +63,19 @@ const itemConstant = {
   "https://imgd.aeplcdn.com/370x208/n/jz5684a_1522493.jpg?q=80",
   "https://imgd.aeplcdn.com/370x208/n/jz5684a_1522493.jpg?q=80"
   ],
-  "seller": "65389826e5bccac6ac77cac7",
+  "seller_id": "65389826e5bccac6ac77cac7",
+  "seller_name": "Bryan",
+  "seller_image": "https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg",
   "sold": false,
-  "createdAt": "2023-10-25T07:04:27.564Z",
-  "updatedAt": "2023-10-25T07:04:27.564Z",
+  "highestBidder": "654b39525043e64ab92e85bd",
+  "createdAt": "2023-11-19T13:50:35.073Z",
+  "updatedAt": "2023-11-19T13:50:35.073Z",
   "__v": 0
   }
 
-const DetailTabContent = () => {
-  const [data, setData] = useState(itemConstant);
-  const fetchItemDetails = async () => {
-    try {
-      const response = await fetch(
-        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
-        "http://localhost:4000/api/cars/auctions/6538bdfb304e0545985b39ed"
-      );
-      const dataJSON = await response.json();
-      const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
-      setData(parsedData); // Update the state with fetched data
-    } catch (error) {
-      console.log(error)
-      setData(itemConstant);
-    }
-  };
+const DetailTabContent = ({itemId, data}) => {
+  console.log("itemId in DetailTabContent: ", itemId);
+  console.log("data in DetailTabContent: ", data);
   function calculateDuration(dateString) {
     const parts = dateString.split('-');
     const inputDate = new Date(parts[2], parts[1] - 1, parts[0]);
@@ -118,10 +108,6 @@ const DetailTabContent = () => {
     }
     return difference;
   }
-  useEffect(() => {
-    // Fetch data when the component mounts
-    fetchItemDetails();
-  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -153,65 +139,89 @@ const DetailTabContent = () => {
   );
 };
 
-const TableTwo = () => {
-  const [data, setData] = React.useState(tableDataSample);
-  return (
-      <View style={styles.tablecontainer}>
-          <ScrollView horizontal={false}>
-              <View>
-                  <Table borderStyle={{ borderWidth: 0, }}>
-                      <Row
-                          data={data.tableHead}
-                          widthArr={data.widthArr}
-                          style={styles.head}
-                          textStyle={styles.headText}
-                      />
-                  </Table>
-                  <ScrollView>
-                      <Table borderStyle={{ borderWidth: 0,}}>
-                          {data.tableData.map((rowData, index) => (
-                              <Row
-                                  key={index}
-                                  data={rowData}
-                                  widthArr={data.widthArr}
-                                  style={styles.rowSection}
-                                  textStyle={styles.text}
-                              />
-                          ))}
-                      </Table>
-                  </ScrollView>
-              </View>
-          </ScrollView>
-      </View>
-  );
-}
-const BidTabContent = () => {
-  const navigation = useNavigation();
-  const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
-  const [highestBid, setHighestBid] = useState(53000); // Initialize the highest bid state
-  const [modalVisible, setModalVisible] = useState(false); // State for the modal
-  const [data, setData] = useState(itemConstant);
-
-  const fetchItemDetails = async () => {
-    try {
-      const response = await fetch(
-        // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
-        "http://localhost:4000/api/cars/auctions/6538bdfb304e0545985b39ed"
-      );
-      const dataJSON = await response.json();
-      const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
-      setData(parsedData); // Update the state with fetched data
-      setHighestBid(parsedData.starting_bid);
-      console.log(parsedData);
-    } catch (error) {
-      console.log(error)
-      setData(itemConstant);
-    }
+const TableTwo = ({itemId, handleHighestBid, highestBid}) => {
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [data, setData] = useState(tableDataSample);
+  console.log("itemId in TableTwo: ", itemId);
+  const commaNumber = (x) => {
+    if (x === undefined) return x;
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   useEffect(() => {
-    // Fetch data when the component mounts
+    const fetchItemDetails = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/cars/"+itemId+"/transaction"
+        );
+        const dataJSON = await response.json();
+        const parsedData = JSON.parse(JSON.stringify(dataJSON));
+        console.log("parsed Data in Table Two: ",parsedData);
+        let temp = [], sortedtemp = [];
+        for (let i = 0; i < parsedData.length; i++) {
+          let row = [];
+          row.push(i+1);
+          row.push(parsedData[i].user_name);
+          row.push(parsedData[i].bid_price);
+          temp.push(row);
+        }
+        temp.sort((a, b) => b[2] - a[2]);
+        if (temp.length > 0)
+          handleHighestBid(temp[0][2]);
+        for (let i = 0; i < parsedData.length; i++) {
+          temp[i][0] = i+1;
+          temp[i][2] = "$"+commaNumber(temp[i][2]);
+        } 
+        setData(temp);
+        console.log(temp);
+        console.log("parsed Data in Table Two: ",parsedData);
+        setIsLoading(false); // Set loading state to false when data is fetched
+      } catch (error) {
+        console.log("Error fetching item details:", error);
+        setData(itemConstant);
+        setIsLoading(false); // Set loading state to false on error
+      }
+    };
     fetchItemDetails();
-  }, []);
+  }, [highestBid]); // Include itemId as a dependency
+  if (!isLoading){
+  return (
+    <View style={styles.containers}>
+        <View style={styles.tablecontainer}>
+            <ScrollView horizontal={false}>
+                <View>
+                    <Table borderStyle={{ borderWidth: 0, }}>
+                        <Row
+                            data={tableDataSample.tableHead}
+                            widthArr={data.widthArr}
+                            style={styles.head}
+                            textStyle={styles.headText}
+                        />
+                    </Table>
+                    <ScrollView>
+                        <Table borderStyle={{ borderWidth: 0,}}>
+                            {data.map((rowData, index) => (
+                                <Row
+                                    key={index}
+                                    data={rowData}
+                                    widthArr={data.widthArr}
+                                    style={styles.rowSection}
+                                    textStyle={styles.text}
+                                />
+                            ))}
+                        </Table>
+                    </ScrollView>
+                </View>
+            </ScrollView>
+        </View>
+      </View>
+  );}
+}
+const BidTabContent = ({itemId, data, handleHighestBid, highestBid}) => {
+  const navigation = useNavigation();
+  const [bidAmount, setBidAmount] = useState(0); // Initialize the bid amount state
+  const [modalVisible, setModalVisible] = useState(false); // State for the modal
+  const [isBidUnder, setIsBidUnder] = useState(false); // State to check if bid is under the minimum bid
+  const user = useSelector((state) => state.user);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -219,25 +229,76 @@ const BidTabContent = () => {
 
   const resetBid = () => {
     setBidAmount(0); // Reset the bid amount to 0
+    setIsBidUnder(false); // Reset the bid under state to false
   };
 
   const handleBidButtonClick = (amount) => {
     setBidAmount(bidAmount + amount);
   };
 
-  const handleConfirmBid = () => {
+  const handleConfirmBid = async () => {
     // Add the current bid amount on top of the highest bid
     let newHighestBid = highestBid;
     if (bidAmount>newHighestBid) {
       newHighestBid = bidAmount;
     }
-    setHighestBid(newHighestBid);
-    closeModal();
-    navigation.navigate("AuctionSuccessPage");
+    handleHighestBid(newHighestBid);
+    const dataToSubmit = {
+      item_id: itemId,
+      user_id: user._id,
+      user_name: user.name,
+      bid_price: bidAmount,
+    };
+    try {
+      console.log(dataToSubmit);
+      const response = await fetch('http://localhost:4000/api/cars/createtransaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSubmit),
+      });
+
+      if (response.ok) {
+        console.log('Form data submitted successfully:', dataToSubmit);
+        closeModal();
+        navigation.navigate("AuctionSuccessPage", { itemId: itemId });
+      } else {
+        console.error('Failed to submit form data:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting form data:', error.message);
+    }
+
+    const updatedItemData = {
+      ...data, // Copy existing item data
+      highestBidder: user._id, // Update the cart array
+      highestPrice: newHighestBid,
+    };
+
+  try {
+    // Make a PATCH request to update the item
+    const response = await fetch(`http://localhost:4000/api/cars/updateauction/id=${itemId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedItemData),
+    });
+
+    if (response.ok) {
+      console.log('Item added to cart successfully:', updatedItemData);
+      // You may want to update the local state or perform other actions
+    } else {
+      console.error('Failed to add item to cart:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error adding item to cart:', error.message);
+  }
   };
   const commaNumber = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
+  }
   return (
     <View style={{ flex: 1, padding: 18, backgroundColor: "white" }}>
       <View style={{ flexDirection: "row" }}>
@@ -268,14 +329,17 @@ const BidTabContent = () => {
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>Your Bid:</Text>
         <Text style={{ fontSize: 10 }}>Select an amount to bid</Text>
         <Text style={{ fontSize: 30, color: "grey" }}>
-          $<Text style={{ color: "black" }}>{bidAmount}</Text>
+          $<Text style={{ color: "black" }}>{commaNumber(bidAmount)}</Text>
         </Text>
+        {isBidUnder && (<Text style={{ fontSize: 10, color: "red" }}>Invalid! Bid must be higher than the highest bid.</Text>)}
       </View>
       <ButtonSection handleBidButtonClick={handleBidButtonClick} />
       <LastSection
         resetBid={resetBid}
         handleConfirmBid={handleConfirmBid}
         bidAmount={bidAmount}
+        highestBid={highestBid}
+        setIsBidUnder={setIsBidUnder}
       />
     </View>
   );
@@ -387,7 +451,7 @@ const ButtonSection = ({ handleBidButtonClick }) => {
   );
 };
 
-const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
+const LastSection = ({ resetBid, handleConfirmBid, bidAmount, highestBid, setIsBidUnder }) => {
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
   const [modalVisible2, setModalVisible2] = useState(false);
 
@@ -415,18 +479,18 @@ const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
     setModalVisible(true);
   };
 
+  const handleSubmitBid = () => {
+    if (bidAmount > highestBid) {
+      setIsBidUnder(false);
+      setModalVisible(true);
+    }
+    else{
+      setIsBidUnder(true);
+    }
+  };
+
   return (
     <View style={{ flex: 1, padding: 16, alignItems: "center" }}>
-      <CountDown
-        until={60 * 10 + 30}
-        size={20}
-        onFinish={() => alert("Finished")}
-        digitStyle={{ backgroundColor: "#FFF" }}
-        digitTxtStyle={{ color: "red" }}
-        timeToShow={["H", "M", "S"]}
-        timeLabels={{ h: "HH", m: "MM", s: "SS" }}
-        style={{ marginTop: -20 }}
-      />
       <View
         style={{
           flexDirection: "row",
@@ -435,7 +499,7 @@ const LastSection = ({ resetBid, handleConfirmBid, bidAmount }) => {
       >
         <TouchableOpacity
           style={styles.button}
-          onPress={() => setModalVisible(true)}
+          onPress={handleSubmitBid}
         >
           <Text style={styles.buttonText}>Submit Bid</Text>
         </TouchableOpacity>
@@ -551,174 +615,82 @@ const bids = [
 ];
 
 const sortedBids = bids.slice().sort((a, b) => b.amount - a.amount);
-const first = sortedBids[0];
-const second = sortedBids[1];
-const third = sortedBids[2];
 
-const Podium = ({ animation, showFirst, showSecond, showThird }) => {
-  const rectangleHeight1 = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 160], 
-  });
-  const rectangleHeight2 = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 130], 
-  });
-  const rectangleHeight3 = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 100],
-  });
-
-  return (
-    <View style={styles.containers}>
-        <View style={styles.rectanglesContainer}>
-          <Animated.View
-            style={[styles.rectangle2, { height: rectangleHeight2 }]}
-          />
-          <Animated.View
-            style={[styles.rectangle1, styles.shadow, { height: rectangleHeight1 }]}
-          />
-          <Animated.View
-            style={[styles.rectangle3, { height: rectangleHeight3 }]}
-          />
-        </View>
-        <View style={styles.horizontalLine} />
-        {showThird && (
-        <View style={styles.thirdBidInfo}>
-          <Text style={styles.textWithCustomFont}>{third.name}</Text>
-          <Text style={styles.textWithCustomFont}>{third.amount}</Text>
-        </View>
-        )}
-        {showSecond && (
-          <View style={styles.secondBidInfo}>
-            <Text style={styles.textWithCustomFont}>{second.name}</Text>
-            <Text style={styles.textWithCustomFont}>{second.amount}</Text>
-          </View>
-        )}
-        {showFirst && (
-          <View style={styles.firstBidInfo}>
-            <Text style={styles.textWithCustomFont}>{first.name}</Text>
-            <Text style={styles.textWithCustomFont}>{first.amount}</Text>
-          </View>
-        )}
-
-    </View>
-  );
-};
-
-const RankList = ({ data }) => {
-
-};
-
-const LeaderBoard = () => {
-
-  };
-
-const OtherSection = () => {
-  const [animation] = useState(new Animated.Value(0));
-  const [isConfettiActive, setIsConfettiActive] = useState(false);
-  const [showFirst, setShowFirst] = useState(false);
-  const [showSecond, setShowSecond] = useState(false);
-  const [showThird, setShowThird] = useState(false);
-
-  useEffect(() => {
-    Animated.timing(animation, {
-      toValue: 1, 
-      duration: 1000, 
-      easing: Easing.linear, 
-      useNativeDriver: false, 
-    }).start(() => {
-      setTimeout(() => {
-        setShowThird(true);
-      }, 500);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (showThird) {
-      // Trigger the second action after a 1 second delay
-      setTimeout(() => {
-        setShowSecond(true);
-      }, 1000);
-    }
-  }, [showThird]);
-
-  useEffect(() => {
-    if (showSecond) {
-      // Trigger the third action after a 1 second delay
-      setTimeout(() => {
-        setShowFirst(true);
-      }, 1000);
-    }
-  }, [showSecond]);
-
-  useEffect(() => {
-    if (showFirst) {
-      setTimeout(() => {
-        setIsConfettiActive(true);
-      }, 0); // Setting a minimal delay to show the crown instantly when showFirst is true
-  
-      // Set the confetti to turn off after a delay
-      setTimeout(() => {
-        setIsConfettiActive(false);
-      }, 5000); // Keep it active for 5 seconds
-    }
-  }, [showFirst]);  
-  
-  return (
-      <View style={styles.containers}>
-        
-        {/* <Podium animation={animation} showFirst={showFirst} showSecond={showSecond} showThird={showThird} isConfettiActive={isConfettiActive}/>
-        {showFirst && (
-                <Image
-                source={require('../assets/crown.png')}
-                style={styles.crownImage}
-              />
-      )} */}
-        
-        {/* <Animatable.View animation="fadeOut" duration={2000} delay={6000} style={styles.confettiContainer}>
-          {isConfettiActive && (
-            <ConfettiCannon count={200} origin={{ x: 200, y: 1000 }} fadeOut={true} fadeOutDelay={3000} />
-          )}
-        </Animatable.View> */}
-        <TableTwo/>
-
-      </View>
-    );
-};
-
-const ContentSection = () => {
+const ContentSection = ({itemId, data, handleHighestBid, highestBid}) => {
+  console.log("data in content section", data)
   return (
     <View style={{ flex: 2 }}>
       <TopTab.Navigator>
-        <TopTab.Screen name="Detail" component={DetailTabContent} />
-        <TopTab.Screen name="Bids" component={BidTabContent} />
-        <TopTab.Screen name="Leaderboard" component={OtherSection} />
+        <TopTab.Screen name="Detail">
+          {() => <DetailTabContent itemId={itemId} data={data} />}
+        </TopTab.Screen>
+        <TopTab.Screen name="Bids">
+          {() => <BidTabContent itemId={itemId} data={data} handleHighestBid = {handleHighestBid} highestBid = {highestBid} />}
+        </TopTab.Screen>
+        <TopTab.Screen name="Leaderboard">
+          {() => <TableTwo itemId={itemId} data={data} handleHighestBid = {handleHighestBid} highestBid = {highestBid} />}
+        </TopTab.Screen>
       </TopTab.Navigator>
     </View>
   );
 };
 
 const ThreeTabScreen = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { itemId } = route.params;
+  const [data, setData] = useState(itemConstant);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [highestBid, setHighestBid] = useState(0);
+
+  const handleHighestBid = (bid) => {
+    setHighestBid(bid);
+  }
+  useEffect(() => {
+    const fetchItemDetails = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/cars/auctions/id=" + itemId
+        );
+        const dataJSON = await response.json();
+        const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
+        setData(parsedData);
+        setIsLoading(false); // Set loading state to false when data is fetched
+      } catch (error) {
+        console.log("Error fetching item details:", error);
+        setData(itemConstant);
+        setIsLoading(false); // Set loading state to false on error
+      }
+    };
+
+    fetchItemDetails();
+  }, [itemId]); // Include itemId as a dependency
+
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      <ImageSection />
-      <ContentSection />
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          <ImageSection itemId = {itemId} data = {data}/>
+          <ContentSection itemId = {itemId} data = {data} handleHighestBid = {handleHighestBid} highestBid = {highestBid} />
+        </>
+      )}
     </View>
   );
 };
 
+
 const styles = StyleSheet.create({
   tablecontainer:{
-    width:400, justifyContent:'center', marginTop:-300, height:200,
+    width:400, justifyContent:'center', marginTop:-200,
   },
   containers: {    
-    justifyContent: 'center',
+    justifyContent: "flex-start",
     alignItems: 'center',
-   
     flexDirection: 'column',
     zIndex:-1,
-  paddingTop:280,
+    marginTop: 240
 },
   rowSection: { height: 60, backgroundColor: '#E7E6E1' },
   head: { height: 44, backgroundColor: 'darkblue' },

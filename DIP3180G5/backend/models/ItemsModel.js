@@ -42,7 +42,11 @@ const itemSchema = new Schema({
     sold:{
         type: Boolean,
         required: true
-    }
+    },
+    cart:{
+        type: [String],
+        required: true
+    },
 }, { timestamps: true })
 
 module.exports = mongoose.model('Items', itemSchema)

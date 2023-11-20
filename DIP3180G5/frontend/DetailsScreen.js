@@ -20,6 +20,7 @@ import MaterialCommunityIconsss from "react-native-vector-icons/MaterialCommunit
 import { useWishlist } from "../frontend/WishlistContext"; // Import the useWishlist hook
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const getFonts = () =>
   Font.loadAsync({
@@ -55,6 +56,8 @@ const getFonts = () =>
   };
 
 const DetailsScreen = () => {
+  const user = useSelector((state) => state.user);
+  const [isWishlisted, setIsWishlisted] = useState(false);
   const [data, setData] = useState(itemConstant);
   const navigation = useNavigation();
   const route = useRoute();
@@ -81,24 +84,64 @@ const DetailsScreen = () => {
     return wishlistItems.some((wishlistItem) => wishlistItem.id === itemConstant.id);
   };
 
-  const handleAddToWishlist = () => {
-    if (isWishlistSelected) {
-      removeFromWishlist(itemConstant); // You may need to replace 'item' with your actual item
-    } else {
-      addToWishlist(itemConstant); // You may need to replace 'item' with your actual item
+  const handleAddToWishlist = async () => {
+      // Check if user ID is already in the cart
+      if (data.cart.includes(user._id)) {
+        // User is already in the cart, remove it
+        const updatedCart = data.cart.filter((userId) => userId !== user._id);
+        //setIsWishlisted(false);
+        updateCartOnServer(updatedCart);
+      } else {
+        // User is not in the cart, add it
+        const updatedCart = [...data.cart, user._id];
+        //setIsWishlisted(true);
+        updateCartOnServer(updatedCart);
+      }
+      fetchItemDetails();
+  };
+
+  const updateCartOnServer = async (updatedCart) => {
+      // Construct the updated item data
+      const updatedItemData = {
+        ...data, // Copy existing item data
+        cart: updatedCart, // Update the cart array
+      };
+
+    try {
+      // Make a PATCH request to update the item
+      const response = await fetch(`http://localhost:4000/api/cars/updatelist/id=${itemId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedItemData),
+      });
+
+      if (response.ok) {
+        console.log('Item added to cart successfully:', updatedItemData);
+        // You may want to update the local state or perform other actions
+      } else {
+        console.error('Failed to add item to cart:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error adding item to cart:', error.message);
     }
-    toggleWishlist();
   };
 
   const fetchItemDetails = async () => {
     try {
       const response = await fetch(
         // "https://xvu285j6da.execute-api.us-east-1.amazonaws.com/dev/api/cars"
-        "http://localhost:4000/api/cars/"+itemId
+        "http://localhost:4000/api/cars/id="+itemId
       );
       const dataJSON = await response.json();
       const parsedData = JSON.parse(JSON.stringify(dataJSON[0]));
       setData(parsedData); // Update the state with fetched data
+      //setIsWishlisted(data.cart.includes(user._id));
+      console.log("data cart: ", parsedData.cart);
+      if (parsedData.cart && parsedData.cart.includes(user._id))
+        setIsWishlisted(true);
+      console.log("data: ", parsedData);
     } catch (error) {
       console.log(error)
       setData(itemConstant);
@@ -138,9 +181,11 @@ const DetailsScreen = () => {
     return difference;
   }
 
+
   useEffect(() => {
     // Fetch data when the component mounts
     fetchItemDetails();
+    setFontsLoaded(true);
   }, []);
 
   if (fontsloaded) {
@@ -199,12 +244,12 @@ const DetailsScreen = () => {
               }}
             >
               <MaterialCommunityIcons
-                name={isItemInWishlist() ? "heart" : "hearto"}
+                name={isWishlisted ? "heart" : "hearto"}
                 size={20}
                 color={"#0077B5"}
                 style={{ marginLeft: -10 }}
               />{" "}
-              {isItemInWishlist()
+              {isWishlisted
                 ? "Remove from Cart"
                 : "Add to Cart"}
             </Text>
