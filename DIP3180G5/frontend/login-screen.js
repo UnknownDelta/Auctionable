@@ -121,7 +121,7 @@ const LoginScreen = ({ navigation }) => {
           profile_picture: "https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg"
         };
     
-        dispatch(loginSuccess(user));
+        //dispatch(loginSuccess(user));
         navigation.navigate('BottomTabScreens', { screen: 'Home' });
       };
 
@@ -211,7 +211,7 @@ const logout = async () => {
                         </View>
 
                         <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-                            <TouchableOpacity onPress={handleLogin} style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: '100%', flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
+                            <TouchableOpacity  onPress={() => promptAsync()} style={{ borderColor: '#ffffff', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: '100%', flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center' }}>
                                 <Image source={require('../assets/Google.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
                                 <Text style={{ fontFamily: 'roboto', color: '#000000', fontWeight: '500', alignSelf: 'center' }}>Continue with Google</Text>
                             </TouchableOpacity>
@@ -226,7 +226,7 @@ const logout = async () => {
 
                          <View style={{ flexDirection: 'row', marginBottom: 30 }}>
                             <TouchableOpacity 
-                            onPress={() => promptAsync()} style={{ borderColor: '#000000', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: '100%', flexDirection: 'row', backgroundColor: '#000000', justifyContent: 'center' }}>
+                             onPress={handleLogin} style={{ borderColor: '#000000', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10, width: '100%', flexDirection: 'row', backgroundColor: '#000000', justifyContent: 'center' }}>
                                 <Image source={require('../assets/Apple.png')} style={{ width: 20, height: 20, marginRight: 10, alignSelf: 'center' }} />
                                 <Text style={{ fontFamily: 'roboto', color: '#ffffff', fontWeight: '500', alignSelf: 'center' }}>Continue with Apple</Text>
                             </TouchableOpacity>
