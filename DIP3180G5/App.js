@@ -370,10 +370,10 @@ function ProfileStack() {
         name="NotificationOutbid"
         component={NotificationOutbid}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="EditPasswordScreen"
         component={ChangePassword}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
