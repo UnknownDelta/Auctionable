@@ -90,4 +90,5 @@ To this project run
    node server.js
 ```
 
+## Video Demo (can be clicked)
 [![CLUTCH](https://drive.google.com/uc?export=view&id=1UUz7qsftyK6ARikCP7dUhLMlzLKzq1qE)](https://drive.google.com/file/d/1OnXw0mZH0fGM7ZdGT1Pi5Sb-LpHHDKND/view?usp=sharing)
