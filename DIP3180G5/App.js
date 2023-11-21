@@ -328,7 +328,6 @@ function ListingStack() {
         name="ListingCategoryScreen"
         component={ListingCategoryScreen}
       />
-      <Stack.Screen name="CreateAuctionScreen" component={CreateAuctionScreen} />
       <Stack.Screen name="ReviewListingScreen" component={ReviewListingScreen} />
     </Stack.Navigator>
   );

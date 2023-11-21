@@ -25,11 +25,11 @@ const [isWarrantySelected, setWarrantySelected] = useState(false);
               style={styles.itemImage}
               source={require("../assets/teslacar.jpeg")}
             />
-            <Text style={styles.itemName}>2021 Toyota Camry</Text>
+            <Text style={styles.itemName}>BMW M5</Text>
           </View>
           <View style={styles.priceContainer}>
             <Text style={styles.totalPrice}>
-              Total Price <Text style={styles.price}>             $80,000</Text>
+              Total Price <Text style={styles.price}>             215,000</Text>
             </Text>
             <View
               style={{
@@ -39,7 +39,7 @@ const [isWarrantySelected, setWarrantySelected] = useState(false);
             />
           </View>
           <View  style={styles.additionalInfo}>
-              <Text style={styles.additionalInfoHeader}>Service Fee 1%  <Text style={styles.price}>             $800</Text></Text>
+              <Text style={styles.additionalInfoHeader}>Service Fee 1%  <Text style={styles.price}>             $2,150</Text></Text>
               <View
               style={{
                 borderBottomColor: "black",
@@ -50,7 +50,7 @@ const [isWarrantySelected, setWarrantySelected] = useState(false);
               <Text style={styles.additionalInfoContent}>Transferring of ownership paperwork</Text>
               <Text style={styles.additionalInfoContent2}>Condition check by Clutch</Text>
               <Text style={styles.totalPrice}>
-              Total Price <Text style={styles.price}>             $80,800</Text>
+              Total Price <Text style={styles.price}>             $217,500</Text>
             </Text>
             <View
               style={{
