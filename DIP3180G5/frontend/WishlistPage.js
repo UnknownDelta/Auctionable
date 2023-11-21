@@ -23,11 +23,23 @@ import { useSelector } from 'react-redux';
 const Tab = createMaterialTopTabNavigator();
 
 const AuctionScreen = () => {
-  const user = useSelector((state) => state.user);
+  let user = useSelector((state) => state.user);
+  if (!user || user === null)
+  {
+    user = {
+    _id: "65389826e5bccac6ac77cac7",
+    name: "Bryan",
+    contact_number: 12345678,
+    email: "bryan@email.com",
+    profile_picture: "https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg"
+  };
+}
+  console.log("MASUK")
   const [quantities, setQuantities] = useState({}); // Store quantities for each item
   const [selectedItems, setSelectedItems] = useState([]); // Track selected items
   const [showTransactionSuccess, setShowTransactionSuccess] = useState(false); // State for showing transaction success screen
   const [modalVisible, setModalVisible] = useState(false); // State for the modal
+  const [isLoading, setIsLoading] = useState(true);
   const {
     wishlistItems,
     toggleWishlist,
@@ -39,22 +51,27 @@ const AuctionScreen = () => {
   const[data, setData] = useState(wishlistItems);
   const fetchCartData = async () => {
     let response, data;
+    console.log(user);
+    console.log(user._id);
+    console.log('user: ',user);
     try {
       response = await fetch(
-        "http://localhost:4000/api/cars/"+user._id+"/auctionCart"
+        "http://localhost:4000/api/cars/65389826e5bccac6ac77cac7/auctionCart"
       );
       data = await response.json();
       console.log("api: "+JSON.stringify(data));
       if (data === undefined){
-        setData(AllListingsDataConstants);
+        setData(wishlistItems);
       }
       data.map((item) => {
         item["checked"] = false;
       });
       setData(data); // Update the state with fetched data
+      setIsLoading(false);
     } catch (error) {
-      console.log("response: "+JSON.stringify(data));
-      setData(AllListingsDataConstants);
+      console.log("response error: "+JSON.stringify(data));
+      console.log(error);
+      setData(wishlistItems);
     }
   };
 
@@ -86,7 +103,7 @@ const AuctionScreen = () => {
     setSelectedItems([]);
     setQuantities({});
 
-    navigation.navigate("TransactionAuctionPage");
+    navigation.navigate("CostBreakdownPage");
   };
 
   const EmptyWishlistMessage = () => (
@@ -182,6 +199,7 @@ const AuctionScreen = () => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  if (!isLoading){
   return (
     <View style={styles.container}>
       <FlatList
@@ -330,6 +348,7 @@ const AuctionScreen = () => {
       </Modal>
     </View>
   );
+  }
 };
 
 const CheckoutScreen = () => {
@@ -351,12 +370,12 @@ const CheckoutScreen = () => {
     let response, data;
     try {
       response = await fetch(
-        "http://localhost:4000/api/cars/"+user._id+"/cart"
+        "http://localhost:4000/api/cars/65389826e5bccac6ac77cac7/cart"
       );
       data = await response.json();
       console.log("api: "+JSON.stringify(data));
       if (data === undefined){
-        setData(AllListingsDataConstants);
+        setData(wishlistItems);
       }
       data.map((item) => {
         item["checked"] = false;
@@ -364,7 +383,7 @@ const CheckoutScreen = () => {
       setData(data); // Update the state with fetched data
     } catch (error) {
       console.log("response: "+JSON.stringify(data));
-      setData(AllListingsDataConstants);
+      setData(wishlistItems);
     }
   };
 

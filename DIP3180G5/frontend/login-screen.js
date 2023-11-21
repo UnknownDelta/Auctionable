@@ -121,7 +121,7 @@ const LoginScreen = ({ navigation }) => {
           profile_picture: "https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg"
         };
     
-        dispatch(loginSuccess(user));
+        //dispatch(loginSuccess(user));
         navigation.navigate('BottomTabScreens', { screen: 'Home' });
       };
 

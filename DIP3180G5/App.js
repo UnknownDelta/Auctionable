@@ -328,7 +328,6 @@ function ListingStack() {
         name="ListingCategoryScreen"
         component={ListingCategoryScreen}
       />
-      <Stack.Screen name="CreateAuctionScreen" component={CreateAuctionScreen} />
       <Stack.Screen name="ReviewListingScreen" component={ReviewListingScreen} />
     </Stack.Navigator>
   );
@@ -370,10 +369,10 @@ function ProfileStack() {
         name="NotificationOutbid"
         component={NotificationOutbid}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="EditPasswordScreen"
         component={ChangePassword}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
