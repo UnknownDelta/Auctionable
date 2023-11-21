@@ -51,7 +51,7 @@ We took inspiration from Carousell's accessibility and Carro's professional desi
 ## Conceptual Stages
 - Initial Stage: Problem analysis, target audience identification, and tool selection.
 - Designing Phase: Drafting wireframes and selecting software tools like Figma, MERN stack, MongoDB, React Native, Node.js, and AWS.
-- Development Phase: [Details to be filled]
+- Development Phase: Frontend (React Native) and Backend (Express and Node.Js)
 
 ## Features
 - Shop/Listing: Easy access to car brands, popular listings, and detailed product pages.
