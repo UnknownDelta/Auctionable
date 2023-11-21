@@ -80,7 +80,12 @@ To this project run
 ```bash
   npm install
 ```
-**2. To run application.**
+**2. To run application (frontend).**
 ```bash
   expo start
+```
+**3. To run the server (backend).**
+```bash
+   cd backend
+   node server.js
 ```
